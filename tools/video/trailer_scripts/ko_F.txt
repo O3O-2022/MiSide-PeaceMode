@@ -1,6 +1,6 @@
 name
 screen 960 540
-avframe 0.1
+avframe 0.15
 peaceset crazy affection=80
 peaceset crazy lastTier=9
 wait 34

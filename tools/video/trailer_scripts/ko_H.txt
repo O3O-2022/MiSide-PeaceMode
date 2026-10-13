@@ -1,0 +1,40 @@
+name
+screen 960 540
+avframe 0.15
+peaceset cap affection=40
+peaceset cap lastTier=7
+wait 34
+peace cap
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 13:00
+freeplayer
+wait 2
+peacetime 14:00
+walkto 8.3 1.2 ~90
+wait 2
+hammer auto on
+hammer start
+wait 47
+devcam 7.9 1.4 3.3 0 0 50
+devcam look 8.9 1.0 3.9
+recordav ko_hammer 16 60 3840 2160
+devcam 8.5 1.35 2.2 0 0 50
+devcam look 9.05 1.15 4.6
+recordav ko_hammer2 14 60 3840 2160
+devcam 8.3 1.5 6.2 180 15 60
+recordav ko_hammer3 14 60 3840 2160
+devcam off
+waitidle 300
+wait 3
+wait 2
+screen native
+wait 2
+quit

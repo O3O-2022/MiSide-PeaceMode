@@ -1,6 +1,6 @@
 name
 screen 960 540
-avframe 0.1
+avframe 0.15
 peaceset cap affection=40
 peaceset cap lastTier=7
 wait 34

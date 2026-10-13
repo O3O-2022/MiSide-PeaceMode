@@ -12,7 +12,7 @@ usage: python tools/video/trailer.py audio        the sound track
        python tools/video/trailer.py all
 
 The clips come from make_trailer.py / run_trailer.sh (dev_output/trailer/ko/ko_<clip>.mp4 + .wav). The music bed is the
-main menu's theme, recorded in the same run (ko_bed); the clips were recorded with the house music off, so their own
+main menu's theme, recorded in the same run (ko_theme); the clips were recorded with the house music off, so their own
 sound (her voice, the games) sits on top of it.
 """
 import json, os, subprocess, sys, wave
@@ -76,10 +76,10 @@ chapter("games")
 seg("rps", "rps", 3.6, 2.9)
 seg("cham", "cham", 3.2, 2.6)
 seg("photo", "photo", 3.0, 2.6)
-seg("cards", "cards", 2.0, 2.6)
+seg("cards", "cards", 1.5, 2.6)
 seg("dance1", "dance", 9.5, 2.6, snd=0.0)
 seg("dance3", "dance", 3.0, 2.8, snd=0.0)
-seg("hammer", "hammer", 4.0, 3.4)
+seg("hammer2", "hammer", 2.4, 3.4)   # (the first round's end from across the table: "no way!", then your bop)
 # the special times
 chapter("special")
 seg("window", "window", 2.2, 3.4)
@@ -196,7 +196,7 @@ def build_audio():
         p0 = f0 * RATE // FPS
         mix[p0:p0 + n] += x * (CLIP_GAIN * s["snd"])
     # the music bed under everything: in at once, out over the end card
-    bed = read_wav(clip_file("bed", ".wav"))
+    bed = read_wav(clip_file("theme", ".wav"))
     lead = int(RATE * 1.0)   # (past the recording's first moment)
     bed = bed[lead:lead + n_all]
     if len(bed) < n_all: bed = np.concatenate([bed, np.zeros((n_all - len(bed), 2), np.float32)])
@@ -289,6 +289,8 @@ def make_ass():
             add(t0 + 0.8, t1, "Sub", f"{{\\pos({cx},{cy + int(200 * K)})}}{text_of('ko', 'notofficial')}", fade=(300, 300))
             add(t0 + 0.8, t1, "Sub", f"{{\\pos({cx},{cy + int(262 * K)})}}{fn('lat', text_of('en', 'notofficial'))}", fade=(300, 300))
             if p["key"] == "end":
+                # (a release, not only a trailer: where to get it)
+                add(t0 + 1.2, t1, "Sub", f"{{\\pos({cx},{cy + int(372 * K)})\\fs{int(54 * K)}\\1c&H46D6FF&}}내려받기 · {fn('lat', 'Download')}   {fn('lat', REPO_URL.replace('https://', ''))}", fade=(400, 400))
                 add(t0 + 1.0, t1, "Small", fn("lat", "MiSide © AIHASTO · fan-made, not affiliated with AIHASTO"), fade=(400, 400))
     # the notice at the very start: the subtitles tell what each cut is, in the viewer's language
     hook_end = (tl[1]["f0"] + tl[1]["frames"]) / FPS

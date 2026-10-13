@@ -1,0 +1,9 @@
+name
+screen 960 540
+avframe 0.034
+wait 34
+recordav ko_theme 125 30 640 360
+wait 2
+screen native
+wait 2
+quit

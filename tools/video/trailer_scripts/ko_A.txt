@@ -1,10 +1,10 @@
 name
 screen 960 540
-avframe 0.1
+avframe 0.15
 peaceset crazy affection=80
 peaceset crazy lastTier=9
 wait 34
-recordav ko_bed 125 60 3840 2160
+recordav ko_theme 125 60 3840 2160
 menupeace
 after 1.2 menuhover 0
 after 2.4 menuhover 2

@@ -1,0 +1,51 @@
+name
+screen 960 540
+avframe 0.15
+peaceset kind affection=40
+peaceset kind lastTier=7
+wait 34
+peace kind
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 12:10
+peacemenu
+wait 1.3
+pick 같이 요리하기
+wait 16
+lookat 12.84 1.3 1.37
+devcam 13.5 1.1 1.9 0 0 52
+devcam look 12.92 1.36 1.28
+wait 1
+recordav ko_cook 6 60 3840 2160
+devcam off
+peacemenu
+pickwhen 요리 그만하기
+waitidle 60
+wait 2
+walkto @Interactive Cards >> ~90
+wait 1
+click Interactive Cards >>
+wait 3.5
+devcam 7.54 1.05 -4.75 0 0 52
+devcam look 7.54 0.7 -5.99
+wait 0.5
+recordav ko_cards 8 60 3840 2160
+devcam off
+cardstop
+wait 20
+wait 2
+screen native
+wait 2
+quit

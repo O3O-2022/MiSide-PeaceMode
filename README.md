@@ -12,6 +12,10 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 > **비공식 팬 모드입니다.** AIHASTO가 준비 중인 공식 '평화 모드'가 아니며, AIHASTO와 아무 관련이 없습니다. MiSide © AIHASTO.<br>
 > **Unofficial fan mod.** Not AIHASTO's official Peaceful Mode and not affiliated with AIHASTO.
 
+<!-- languages -->
+**한국어** · [English](docs/i18n/README.en.md) · [日本語](docs/i18n/README.ja.md) · [简体中文](docs/i18n/README.zh-Hans.md) · [繁體中文](docs/i18n/README.zh-Hant.md) · [Русский](docs/i18n/README.ru.md) · [Русскій (дореформенный)](docs/i18n/README.ru-old.md) · [Українська](docs/i18n/README.uk.md) · [Беларуская](docs/i18n/README.be.md) · [Български](docs/i18n/README.bg.md) · [Қазақша](docs/i18n/README.kk.md) · [Srpski](docs/i18n/README.sr-Latn.md) · [Hrvatski](docs/i18n/README.hr.md) · [Čeština](docs/i18n/README.cs.md) · [Slovenčina](docs/i18n/README.sk.md) · [Polski](docs/i18n/README.pl.md) · [Magyar](docs/i18n/README.hu.md) · [Română](docs/i18n/README.ro.md) · [Deutsch](docs/i18n/README.de.md) · [Français](docs/i18n/README.fr.md) · [Italiano](docs/i18n/README.it.md) · [Español](docs/i18n/README.es.md) · [Español (Latinoamérica)](docs/i18n/README.es-419.md) · [Português (Portugal)](docs/i18n/README.pt.md) · [Português (Brasil)](docs/i18n/README.pt-BR.md) · [Svenska](docs/i18n/README.sv.md) · [Türkçe](docs/i18n/README.tr.md) · [Bahasa Indonesia](docs/i18n/README.id.md) · [Filipino](docs/i18n/README.fil.md) · [Tiếng Việt](docs/i18n/README.vi.md) · [ไทย](docs/i18n/README.th.md) · [العربية](docs/i18n/README.ar.md) · [العربية (مصر)](docs/i18n/README.ar-EG.md) · [فارسی](docs/i18n/README.fa.md)
+<!-- /languages -->
+
 **⬇ [설치 프로그램 내려받기 · Download the installer](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)** · [설치 방법](#설치) · [Install (English)](#english--日本語--中文)
 
 ## 개요

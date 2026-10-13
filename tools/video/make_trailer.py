@@ -7,7 +7,7 @@ writes tools/video/trailer_scripts/<lang>_<session>.txt; clips land in BepInEx/c
 The same staging as make_scripts.py (the long showcase video), cut down to what the trailer shows, with the newer
 things added (gifts, music at the recorder, the battery warning, Kind Mita's memory of the story). Differences:
 4K, 0.05 real seconds a frame (this PC renders a 4K frame in ~0.03 s), the house music off (the trailer has its own
-music bed: the main menu's theme, recorded once in the Korean run as `bed`), a pause after the imports before the first
+music bed: the main menu's theme, recorded once in the Korean run as `theme`), a pause after the imports before the first
 staging (staged right away, something of the free mode's start took her back to the stove).
 """
 import os, sys
@@ -17,7 +17,8 @@ LANG = sys.argv[1] if len(sys.argv) > 1 else "ko"
 AWAY = {"ko": "18분", "en": "18 minutes", "ja": "18分", "zh": "18分钟"}[LANG]
 GAMELANG = {"ko": [], "en": ["gamelang English"], "ja": ["gamelang Japanese"], "zh": ["gamelang ChineseSimplified"]}[LANG]
 W, H, FPS = 3840, 2160, 60
-FRAME = 0.1    # (0.05 is enough for this PC left alone - a 4K frame takes ~0.03 s - but with anything else running frames ran late and their sound was cut)
+FRAME = 0.15   # (0.05 is enough for this PC left alone - a 4K frame takes ~0.03 s - but with anything else using the GPU frames ran late and their sound
+               #  was cut: a browser, and with another game running even 0.1 was far too little - frames took 0.2-0.3 s)
 SHOW = ["peacetime 15:00", "showcase 10.6 2.2 9.25 1.65 Kitchen", "reidle", "wait 2"]
 BED_SECONDS = 125
 
@@ -43,7 +44,7 @@ def start(pid, aff, tier, time, menus=False, greet=True):
     L = ["name", "screen 960 540", f"avframe {FRAME}", f"peaceset {pid} affection={aff}", f"peaceset {pid} lastTier={tier}", "wait 34"] + GAMELANG
     if menus:
         if LANG == "ko":
-            L += rec("bed", BED_SECONDS)   # the menu's music, the whole trailer long
+            L += rec("theme", BED_SECONDS)   # the menu's music, the whole trailer long (not "bed": that is Sleepy Mita's bedtime clip, which overwrote it once)
         L += ["menupeace", "after 1.2 menuhover 0", "after 2.4 menuhover 2", "after 3.6 menuhover 3", "after 4.8 menuhover 6"] + rec("select", 7)
     L += [f"peace {pid}", "waitready 240", "wait 3", "calm", "musicoff", "freeplayer"]
     if greet: L += ["greet", "waitidle 90"]
@@ -75,20 +76,26 @@ A += SHOW + ["wall BatteryLow"] + rec("battery", 7) + ["waitidle 40"]
 A += SHOW + ["unshowcase", "wait 1", "lookat mita", "wait 2", "peacemenu", "pickwhen 오늘은 여기까지", "pickwhen 메인 메뉴로"] + rec("bye", 7) + ["wait 30"] + END
 S["A"] = A
 
+# the cooking, from low over the counter in front of her (from where you stand she is a small figure with her back to
+# you, and from the side her hair hides her face: found with test shots, dev_output/camtest*.jpg)
+COOK = SHOW + ["peacetime 12:10", "peacemenu", "wait 1.3", "pick 같이 요리하기", "wait 16", "lookat 12.84 1.3 1.37",
+               "devcam 13.5 1.1 1.9 0 0 52", "devcam look 12.92 1.36 1.28", "wait 1"] + rec("cook", 6) + ["devcam off"]
+COOK += ["peacemenu", "pickwhen 요리 그만하기", "waitidle 60", "wait 2"]
+# the card game, from across the table (seated, your own view looks over her head and the seat does not let it turn;
+# her head is at 7.54 0.83 -5.99). Last in a session: its seat keeps holding you after it
+CARDS = ["walkto @Interactive Cards >> ~90", "wait 1", "click Interactive Cards >>", "wait 3.5",
+         "devcam 7.54 1.05 -4.75 0 0 52", "devcam look 7.54 0.7 -5.99", "wait 0.5"] + rec("cards", 8) + ["devcam off", "cardstop", "wait 20"]
+
 # B: Kind Mita - her memory of the story, cooking, cold and at the top, the card game
 B = start("kind", 40, 7, "15:00")
 B += SHOW + ["act morning"] + rec("greet_kind", 5) + ["waitidle 30"]
 B += SHOW + ["story play 3"] + rec("story", 10) + ["waitidle 40"]
-B += SHOW + ["peacetime 12:10", "peacemenu", "wait 1.3", "pick 같이 요리하기", "wait 16", "lookat 12.84 1.3 1.37",
-            "devcam 11.2 1.45 1.9 0 0 50", "devcam look 12.84 1.2 1.3", "wait 1"] + rec("cook", 6) + ["devcam off"]   # (from beside her at the stove: from where you stand she is a small figure with her back to you)
-B += ["peacemenu", "pickwhen 요리 그만하기", "waitidle 60", "wait 2"]
+B += COOK
 B += ["aff -45", "wait 1"] + SHOW + ["act pat"] + rec("cold", 6) + ["waitidle 30"]
 B += SHOW + ["contempt"] + rec("contempt", 3) + ["contempt off", "wait 2"]
 # (her affection first, then her own talk back on: the other way round she remarks on the bottom she was just at)
 B += SHOW + ["aff 125", "wait 0.5", "calm off"] + rec("top", 9) + ["calm", "waitidle 40"]
-# (the card game last: its seat keeps holding you after it)
-# (seated, the view kept whatever pitch it had and looked over her head: aimed at her once you sit)
-B += ["walkto @Interactive Cards >> ~90", "wait 1", "pitch 0", "click Interactive Cards >>", "wait 3.5", "lookat mita", "wait 0.5"] + rec("cards", 8) + ["cardstop", "wait 20"] + END
+B += CARDS + END
 S["B"] = B
 
 # C: Sleepy Mita - her suggestion and the sofa, the weather and seasons, bed
@@ -132,13 +139,28 @@ F = start("crazy", 80, 9, "15:00")
 F += SHOW + ["act photo"] + rec("photo", 7) + ["waitidle 40", "wait 1"] + END
 S["F"] = F
 
+# M: the menu's music on its own (sound is all that matters: a small picture in real time)
+S["M"] = ["name", "screen 960 540", "avframe 0.034", "wait 34", f"recordav {LANG}_theme {BED_SECONDS} 30 640 360"] + END
+
+# G: a re-take of the cooking and the card game (new cameras)
+S["G"] = start("kind", 40, 7, "15:00") + COOK + CARDS + END
+# H: Cappie's hammer game on its own, its rounds (not the rules she explains first: ~50 s) from three cameras - seated,
+# your own view looks past her at the ceiling. Button at 8.74 0.83 3.09, her seat 8.87 0 4.35, yours 9.30 0 2.03
+CAP2 = start("cap", 40, 7, "13:00")
+CAP2 += ["freeplayer", "wait 2", "peacetime 14:00", "walkto 8.3 1.2 ~90", "wait 2", "hammer auto on", "hammer start", "wait 47"]
+CAP2 += ["devcam 7.9 1.4 3.3 0 0 50", "devcam look 8.9 1.0 3.9"] + rec("hammer", 16)
+CAP2 += ["devcam 8.5 1.35 2.2 0 0 50", "devcam look 9.05 1.15 4.6"] + rec("hammer2", 14)
+CAP2 += ["devcam 8.3 1.5 6.2 180 15 60"] + rec("hammer3", 14)
+CAP2 += ["devcam off", "waitidle 300", "wait 3"] + END
+S["H"] = CAP2
+
 out = os.path.join(HERE, "trailer_scripts")
 os.makedirs(out, exist_ok=True)
 total = 0
 for k, L in S.items():
     p = os.path.join(out, f"{LANG}_{k}.txt")
     open(p, "w", encoding="utf-8", newline="\n").write("\n".join(L) + "\n")
-    secs = sum(float(l.split()[2]) for l in L if l.startswith("recordav"))
+    secs = sum(float(l.split()[2]) for l in L if l.startswith("recordav") and "_theme " not in l)
     total += secs
     print(f"{os.path.basename(p)}: {len(L)} lines, {secs:.0f} s of clips (~{secs * FRAME * FPS / 60:.0f} min to render)")
 print(f"{LANG}: {total:.0f} s of clips in all (~{total * FRAME * FPS / 60:.0f} min to render, plus the runs' own time)")
