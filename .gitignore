@@ -1,0 +1,12 @@
+PeaceMode/bin/
+PeaceMode/obj/
+tools/bin/
+tools/obj/
+*.user
+.vs/
+__pycache__/
+video_out/
+dev_output/
+lang/source.tsv
+lang/*/
+!lang/wip/

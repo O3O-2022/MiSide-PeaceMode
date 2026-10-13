@@ -1,0 +1,244 @@
+name
+ffmpeg E:\SteamLibrary\steamapps\common\MiSide\MiSide-KR-PeaceMode\dev_output\ffmpeg\ffmpeg-9.0.2-essentials_build\bin\ffmpeg.exe
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+wait 34
+recordav vk_menu 4
+menupeace
+after 1.5 menuhover 0
+after 3 menuhover 2
+after 4.5 menuhover 3
+after 6 menuhover 6
+recordav vk_select 8
+peace crazy
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+waitimports 400
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+wait 2
+act morning
+recordav vk_greet 7
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+gestureall
+act talk
+recordav vk_talk 9
+gestureall off
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 대화하기
+pickwhen 질문하기
+choosewhen 0
+recordav vk_ask 13
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 쓰다듬기
+recordav vk_pat 9
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act hug
+recordav vk_hug 11
+waitidle 40
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+recordav vk_hold 12
+waitidle 40
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 칭찬하기
+recordav vk_compliment 9
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 안경 써 줘
+recordav vk_glasses 8
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 안경 벗기
+wait 8
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 옷 갈아입기
+choosewhen 1
+recordav vk_clothes 11
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 같이 놀자
+pickwhen 가위바위보
+pickwhen 가위
+recordav vk_rps 15
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 같이 놀자
+pickwhen 끝말잇기
+choosewhen 0
+choosewhen 0
+choosewhen 0
+recordav vk_words 15
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 같이 놀자
+pickwhen 넌센스 퀴즈
+choosewhen 0
+recordav vk_riddle 15
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+game chamauto
+peacemenu
+pickwhen 같이 놀자
+pickwhen 참참참
+recordav vk_cham 20
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 같이 놀자
+pickwhen 같이 사진 찍기
+recordav vk_photo 8
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 같이 창밖 보기
+recordav vk_window 16
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 무릎베개
+recordav vk_lap 26
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 노래 불러 줘
+recordav vk_song 14
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 속마음 듣기
+recordav vk_heart 12
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+wait 2
+wall AltF4 18분
+recordav vk_altf4 13
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 2
+peacemenu
+pickwhen 오늘은 여기까지
+pickwhen 메인 메뉴로
+recordav vk_bye 8
+wait 30
+quit

@@ -1,0 +1,86 @@
+name
+screen 960 540
+avframe 0.1
+peaceset sleepy affection=40
+peaceset sleepy lastTier=7
+wait 34
+peace sleepy
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 14:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav ko_greet_sleepy 5 60 3840 2160
+waitidle 30
+unshowcase
+wait 3
+walkto 0.9 -1.4 ~90
+wait 2
+mitago 2.2 -1.1
+wait 8
+look face
+wait 1
+after 0.5 propose tv
+pickwhen 좋아
+after 7 look off
+recordav ko_propose 17 60 3840 2160
+look off
+waitidle 90
+wait 2
+peacetime 14:00
+showcase 10.6 2.2 12.3 3.6 Kitchen
+wait 2
+lookat 14.27 1.3 4.02
+devcam 13.0 1.5 3.9 0 0 45
+devcam look 14.27 1.3 4.02
+weather rain
+wait 25
+recordav ko_rain 4 60 3840 2160
+weather snow
+wait 25
+recordav ko_snow 4 60 3840 2160
+devcam off
+weather clear
+wait 5
+unshowcase
+wait 1
+showcase 1.6 1.4 0.6 -0.2 Main
+wait 2
+lookat 0.5 1.3 -3.8
+peacetime 12:00
+weather season 0
+wait 3
+after 2 weather season 1
+after 4 weather season 2
+after 6 weather season 3
+recordav ko_seasons 8 60 3840 2160
+weather season -1
+unshowcase
+wait 2
+walkto 9.25 1.65 ~120
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 22:30
+wait 2
+peacemenu
+pickwhen 이제 자자
+wait 4
+recordav ko_bed 14 60 3840 2160
+wait 40
+wait 2
+screen native
+wait 2
+quit

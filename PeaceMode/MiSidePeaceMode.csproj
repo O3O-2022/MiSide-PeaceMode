@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <AssemblyName>MiSidePeaceMode</AssemblyName>
+    <RootNamespace>MiSidePeaceMode</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <NoWarn>$(NoWarn);CS1701;CS1702;MSB3277;CS0436</NoWarn>
+    <GameDir Condition="'$(GameDir)' == ''">D:\Steam\steamapps\common\MiSide</GameDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(GameDir)\dotnet\System.Private.CoreLib.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Runtime.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Collections.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Linq.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Console.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Runtime.InteropServices.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Text.Encoding.Extensions.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Memory.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\netstandard.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\mscorlib.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Net.Http.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Net.Primitives.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Private.Uri.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Text.Json.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Text.Encodings.Web.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Collections.Concurrent.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Threading.Tasks.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Threading.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Text.RegularExpressions.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.Diagnostics.Process.dll" Private="false" />
+    <Reference Include="$(GameDir)\dotnet\System.ComponentModel.Primitives.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\BepInEx.Core.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\BepInEx.Unity.IL2CPP.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\BepInEx.Unity.Common.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\Il2CppInterop.Common.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\0Harmony.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\interop\*.dll" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- translations: lang/<code>.json (Korean text -> translation), read by Loc -->
+    <EmbeddedResource Include="..\lang\*.json" Exclude="..\lang\glossary.json" LogicalName="MiSidePeaceMode.lang.%(Filename).json" />
+  </ItemGroup>
+</Project>

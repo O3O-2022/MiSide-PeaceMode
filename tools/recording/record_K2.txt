@@ -1,0 +1,100 @@
+name
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+peaceset crazy firstDate=2026-10-01
+peaceset crazy lastRealDate=2026-10-05
+peaceset crazy lastBirthday=0
+peaceset crazy photosSaid=0
+peaceset crazy giftsToday=
+peaceset crazy giftDay=0
+wait 20
+wallsim clock 2026-10-10T15:00
+wallsim birthday
+peace crazy
+waitready 240
+wait 3
+freeplayer
+walkto 9.25 1.65 ~60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+greet
+record vk_dates 40 10
+waitidle 120
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 선물하기
+pickwhen 꽃
+record vk_gift 18 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 선물하기
+pickwhen 꽃
+record vk_gift_again 12 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+propose present
+choosewhen 0
+record vk_present 16 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 같이 음악 듣기
+record vk_music 20 10
+waitidle 60
+wait 1
+weather rain
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 같이 창밖 보기
+record vk_window_rain 18 10
+waitidle 60
+wait 1
+weather clear
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+wallsim battery 15
+record vk_battery 14 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+wallsim photos 100
+peacemenu
+pickwhen 같이 놀자
+pickwhen 같이 사진 찍기
+record vk_photos 20 10
+waitidle 60
+wait 1
+quit

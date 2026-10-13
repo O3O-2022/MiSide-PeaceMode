@@ -1,0 +1,65 @@
+name
+peaceset crazy affection=60
+peaceset crazy lastTier=8
+wait 20
+peace crazy
+waitready 240
+wait 3
+freeplayer
+greet
+waitidle 90
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 4
+act morning
+record va_greet 14
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+gestureall
+act talk
+record va_talk 12
+gestureall off
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act pat
+record va_pat 9
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act hug
+record va_hug 13
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+record va_hold 15
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+waitidle 60
+wait 3
+wall AltF4 18분
+record va_altf4 22
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 4
+peacemenu
+wait 1
+pick 오늘은 여기까지
+wait 1
+pick 메인 메뉴로
+record va_bye 7
+wait 30
+quit

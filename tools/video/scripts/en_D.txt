@@ -1,0 +1,80 @@
+name
+screen 960 540
+peaceset cap affection=40
+peaceset cap lastTier=7
+wait 34
+gamelang English
+peace cap
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+waitimports 400
+peacetime 13:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav en_greet_cap 5
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+wait 1
+gesture nod
+recordav en_nod 4
+wait 2
+waitidle 20
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+recordav en_guitar 10
+waitidle 40
+wait 2
+unshowcase
+walkto 0.9 -0.4 ~90
+wait 2
+dance auto on 0.87 0
+dance start
+wait 12
+after 3 dance menu 1
+after 5 dance menu 0
+after 7.5 dance pick
+recordav en_dance1 14
+wait 10
+devcam 2.6 1.4 -1.9 -90 10 60
+recordav en_dance2 8
+devcam off
+wait 60
+dance state
+wait 28
+dance state
+recordav en_dance3 10
+wait 38
+dance state
+recordav en_dance4 16
+waitidle 120
+wait 3
+freeplayer
+wait 2
+peacetime 14:00
+walkto 8.3 1.2 ~90
+wait 2
+hammer auto on
+hammer start
+wait 9
+recordav en_hammer1 12
+wait 6
+recordav en_hammer2 16
+waitidle 300
+wait 3
+wait 2
+screen 1920 1080 full
+wait 2
+quit

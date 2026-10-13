@@ -1,0 +1,27 @@
+name
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+peaceset crazy firstDate=2026-10-01
+peaceset crazy lastRealDate=2026-10-05
+peaceset crazy lastBirthday=0
+peaceset crazy seen=
+wait 20
+wallsim clock 2026-10-10T15:00
+wallsim birthday
+peace crazy
+waitready 240
+wait 3
+freeplayer
+walkto 9.25 1.65 ~60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 15:00
+wait 1
+record vk_dates 40 10
+wait 1
+greet
+waitidle 120
+wait 1
+quit

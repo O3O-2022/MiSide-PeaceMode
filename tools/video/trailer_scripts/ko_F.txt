@@ -1,0 +1,29 @@
+name
+screen 960 540
+avframe 0.1
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+wait 34
+peace crazy
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act photo
+recordav ko_photo 7 60 3840 2160
+waitidle 40
+wait 1
+wait 2
+screen native
+wait 2
+quit

@@ -1,0 +1,211 @@
+name
+screen 960 540
+avframe 0.1
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+wait 34
+recordav ko_bed 125 60 3840 2160
+menupeace
+after 1.2 menuhover 0
+after 2.4 menuhover 2
+after 3.6 menuhover 3
+after 4.8 menuhover 6
+recordav ko_select 7 60 3840 2160
+peace crazy
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav ko_greet_crazy 5 60 3840 2160
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 0.6
+recordav ko_choices 3 60 3840 2160
+choiceescape
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+gestureall
+act talk
+recordav ko_talk 6 60 3840 2160
+gestureall off
+waitidle 40
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act pat
+recordav ko_pat 6 60 3840 2160
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act hug
+recordav ko_hug 8 60 3840 2160
+waitidle 40
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+recordav ko_hold 8 60 3840 2160
+waitidle 40
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1.3
+pick 교감하기
+wait 1.3
+pick 선물하기
+wait 1.3
+pick 꽃
+recordav ko_gift 10 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act photo
+recordav ko_photo 7 60 3840 2160
+waitidle 40
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+wait 1.3
+pick 같이 놀자
+wait 1.3
+pick 가위바위보
+pickwhen 가위
+recordav ko_rps 11 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+game chamauto
+peacemenu
+wait 1.3
+pick 같이 놀자
+wait 1.3
+pick 참참참
+recordav ko_cham 8 60 3840 2160
+waitidle 60
+wait 1
+wait 30
+waitidle 60
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+wait 1.3
+pick 특별한 시간
+wait 1.3
+pick 같이 창밖 보기
+recordav ko_window 10 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+wait 1.3
+pick 특별한 시간
+wait 1.3
+pick 같이 음악 듣기
+recordav ko_music 10 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+wait 1.3
+pick 특별한 시간
+wait 1.3
+pick 무릎베개
+recordav ko_lap 17 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+wait 2
+wall AltF4 18분
+recordav ko_altf4 9 60 3840 2160
+waitidle 40
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+wall BatteryLow
+recordav ko_battery 7 60 3840 2160
+waitidle 40
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 2
+peacemenu
+pickwhen 오늘은 여기까지
+pickwhen 메인 메뉴로
+recordav ko_bye 7 60 3840 2160
+wait 30
+wait 2
+screen native
+wait 2
+quit

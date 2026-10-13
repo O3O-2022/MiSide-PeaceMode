@@ -1,0 +1,100 @@
+name
+peaceset kind affection=40
+peaceset kind lastTier=7
+wait 20
+peace kind
+waitready 240
+wait 3
+freeplayer
+greet
+waitidle 90
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+look face
+record vb_kind_shy 12 10
+look off
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 같이 놀자
+pickwhen 가위바위보
+pickwhen 가위
+record ve_rps 17 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+look face
+after 1 spot oldtv
+record vf_spot 20 10
+look off
+waitidle 60
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+look face
+after 0.5 game request:fridge
+after 7 spot fridge
+after 11 peacemenu
+record vf_request 20 10
+look off
+waitidle 60
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+after 16 walkto mita 1.2
+after 24 game found
+peacemenu
+pickwhen 같이 놀자
+pickwhen 숨바꼭질
+record vf_hide 26 10
+waitidle 60
+wait 1
+waitidle 60
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+look face
+after 0.5 game diary
+record vf_diary 16 10
+look off
+waitidle 60
+walkto @Interactive Cards >> ~90
+wait 1
+after 0.5 click Interactive Cards >>
+record vf_cards 18 10
+cardstop
+waitidle 90
+peacetime 11:50
+walkto 9.25 1.65 ~90
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 같이 요리하기
+record vf_cook1 16 10
+waitidle 60
+wait 1
+wait 3
+after 1 cutauto
+record vf_cook2 14 10
+wait 20
+quit

@@ -1,0 +1,76 @@
+name
+screen 960 540
+avframe 0.1
+peaceset mila affection=40
+peaceset mila lastTier=7
+wait 34
+peace mila
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav ko_greet_mila 5 60 3840 2160
+waitidle 30
+lang en
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act talk
+recordav ko_lang_en 5 60 3840 2160
+waitidle 40
+lang ja
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act talk
+recordav ko_lang_ja 5 60 3840 2160
+waitidle 40
+lang zh
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act talk
+recordav ko_lang_zh 5 60 3840 2160
+waitidle 40
+lang auto
+persona short
+peacetime 15:00
+wait 3
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav ko_greet_short 5 60 3840 2160
+waitidle 30
+persona chibi
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 8.7 1.6 Kitchen
+reidle
+wait 2
+pitch 24
+wait 2
+act morning
+recordav ko_greet_chibi 5 60 3840 2160
+waitidle 30
+pitch 0
+wait 2
+wait 2
+screen native
+wait 2
+quit

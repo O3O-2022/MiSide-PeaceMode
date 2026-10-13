@@ -1,0 +1,134 @@
+name
+screen 960 540
+peaceset sleepy affection=40
+peaceset sleepy lastTier=7
+wait 34
+gamelang English
+peace sleepy
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+waitimports 400
+peacetime 14:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav en_greet_sleepy 5
+waitidle 30
+unshowcase
+wait 3
+walkto 0.9 -1.4 ~90
+wait 2
+mitago 2.2 -1.1
+wait 8
+look face
+wait 1
+after 0.5 propose tv
+pickwhen 좋아
+after 7 look off
+recordav en_propose 18
+look off
+waitidle 90
+wait 2
+after 0.5 lounge read
+recordav en_read 10
+waitidle 90
+wait 2
+after 0.5 lounge rest
+recordav en_rest 10
+waitidle 90
+wait 2
+walkto 3.0 -2.0 ~60
+lounge alone
+wait 3
+look face
+recordav en_alone 10
+look off
+wait 20
+walkto 0.95 -0.3 ~40
+look face
+wait 2
+peacemenu
+pickwhen 옆에 앉기
+after 4 look off
+recordav en_join 12
+look off
+waitidle 90
+wait 2
+freeplayer
+wait 1
+showcase 1.6 -0.9 0.9 -0.2 Main
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+after 4 walkto 8.4 0.6
+after 12 look face
+peacemenu
+pickwhen 같이 다니자
+recordav en_follow 16
+look off
+game stay
+waitidle 60
+wait 2
+peacetime 14:00
+showcase 10.6 2.2 12.3 3.6 Kitchen
+wait 2
+lookat 14.27 1.3 4.02
+devcam 13.0 1.5 3.9 0 0 45
+devcam look 14.27 1.3 4.02
+weather rain
+wait 25
+recordav en_rain 5
+weather snow
+wait 25
+recordav en_snow 5
+devcam off
+weather clear
+wait 5
+unshowcase
+wait 1
+showcase 1.6 1.4 0.6 -0.2 Main
+wait 2
+lookat 0.5 1.3 -3.8
+peacetime 12:00
+weather season 0
+wait 3
+after 2 weather season 1
+after 4 weather season 2
+after 6 weather season 3
+recordav en_seasons 8
+weather season -1
+unshowcase
+wait 2
+walkto 9.25 1.65 ~120
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+recordav en_coffee 10
+waitidle 60
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 22:30
+wait 2
+peacemenu
+pickwhen 이제 자자
+wait 4
+recordav en_bed 14
+wait 40
+wait 2
+screen 1920 1080 full
+wait 2
+quit

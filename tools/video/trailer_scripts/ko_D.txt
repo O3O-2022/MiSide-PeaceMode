@@ -1,0 +1,65 @@
+name
+screen 960 540
+avframe 0.1
+peaceset cap affection=40
+peaceset cap lastTier=7
+wait 34
+peace cap
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 13:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav ko_greet_cap 5 60 3840 2160
+waitidle 30
+unshowcase
+walkto 0.9 -0.4 ~90
+wait 2
+dance auto on 0.87 0
+dance start
+wait 12
+after 3 dance menu 1
+after 5 dance menu 0
+after 7.5 dance pick
+recordav ko_dance1 14 60 3840 2160
+wait 10
+devcam 2.6 1.4 -1.9 -90 10 60
+recordav ko_dance2 8 60 3840 2160
+devcam off
+wait 60
+dance state
+wait 28
+dance state
+recordav ko_dance3 10 60 3840 2160
+wait 38
+dance state
+wait 16
+waitidle 120
+wait 3
+freeplayer
+wait 2
+peacetime 14:00
+walkto 8.3 1.2 ~90
+wait 2
+hammer auto on
+hammer start
+wait 9
+wait 12
+wait 6
+recordav ko_hammer 14 60 3840 2160
+waitidle 300
+wait 3
+wait 2
+screen native
+wait 2
+quit

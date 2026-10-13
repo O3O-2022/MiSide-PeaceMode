@@ -1,0 +1,246 @@
+name
+screen 960 540
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+wait 34
+recordav ko_menu 4
+menupeace
+after 1.5 menuhover 0
+after 3 menuhover 2
+after 4.5 menuhover 3
+after 6 menuhover 6
+recordav ko_select 8
+peace crazy
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+waitimports 400
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav ko_greet_crazy 6
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+gestureall
+act talk
+recordav ko_talk 8
+gestureall off
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 대화하기
+pickwhen 질문하기
+choosewhen 0
+recordav ko_ask 11
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 쓰다듬기
+recordav ko_pat 7
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act hug
+recordav ko_hug 9
+waitidle 40
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+recordav ko_hold 10
+waitidle 40
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 칭찬하기
+recordav ko_compliment 7
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 안경 써 줘
+recordav ko_glasses 7
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 안경 벗기
+wait 8
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 교감하기
+pickwhen 옷 갈아입기
+choosewhen 1
+recordav ko_clothes 9
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 같이 놀자
+pickwhen 가위바위보
+pickwhen 가위
+recordav ko_rps 12
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 같이 놀자
+pickwhen 끝말잇기
+choosewhen 0
+choosewhen 0
+choosewhen 0
+recordav ko_words 12
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 같이 놀자
+pickwhen 넌센스 퀴즈
+choosewhen 0
+recordav ko_riddle 12
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+game chamauto
+peacemenu
+pickwhen 같이 놀자
+pickwhen 참참참
+recordav ko_cham 16
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 같이 놀자
+pickwhen 같이 사진 찍기
+recordav ko_photo 7
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 같이 창밖 보기
+recordav ko_window 12
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 무릎베개
+recordav ko_lap 20
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 노래 불러 줘
+recordav ko_song 12
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 속마음 듣기
+recordav ko_heart 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+wait 2
+wall AltF4 18분
+recordav ko_altf4 10
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 2
+peacemenu
+pickwhen 오늘은 여기까지
+pickwhen 메인 메뉴로
+recordav ko_bye 7
+wait 30
+wait 2
+screen 1920 1080 full
+wait 2
+quit

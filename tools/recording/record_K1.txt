@@ -1,0 +1,30 @@
+name
+peaceset kind affection=40
+peaceset kind lastTier=7
+peaceset kind seen=
+wait 20
+peace kind
+waitready 240
+wait 3
+freeplayer
+walkto 9.25 1.65 ~60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+greet
+record vk_story 36 10
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 15:00
+peacemenu
+pickwhen 교감하기
+pickwhen 선물하기
+pickwhen 커피
+record vk_gift_kind 16 10
+waitidle 60
+wait 1
+quit

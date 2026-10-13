@@ -1,0 +1,122 @@
+name
+peaceset sleepy affection=40
+peaceset sleepy lastTier=7
+wait 20
+peace sleepy
+waitready 240
+wait 3
+freeplayer
+greet
+waitidle 90
+peacetime 14:00
+walkto 0.9 -1.4 ~90
+wait 2
+look face
+wait 1
+after 0.5 propose tv
+pickwhen 좋아
+after 7 look off
+record vg_propose 28 10
+look off
+waitidle 90
+wait 2
+after 0.5 lounge read
+record vg_read 22 10
+waitidle 90
+wait 2
+after 0.5 lounge rest
+record vg_rest 22 10
+waitidle 90
+wait 2
+walkto 3.0 -2.0 ~60
+lounge alone
+wait 3
+look face
+record vg_alone 16 10
+look off
+wait 20
+walkto 0.95 -0.3 ~40
+look face
+wait 2
+peacemenu
+pickwhen 옆에 앉기
+after 4 look off
+record vg_join 22 10
+look off
+waitidle 90
+wait 2
+walkto 0.9 -0.4 ~60
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 무릎베개
+record vg_lap 30 10
+waitidle 60
+wait 2
+walkto 0.9 -0.4 ~60
+wait 1
+lookat mita
+wait 1
+after 4 walkto 8.4 0.6
+after 13 look face
+peacemenu
+pickwhen 같이 다니자
+record vg_follow 20 10
+look off
+game stay
+waitidle 60
+wait 2
+walkto 12.3 3.6 ~60
+wait 2
+lookat 14.27 1.3 4.02
+weather rain
+wait 25
+record vg_rain 8 10
+weather snow
+wait 25
+record vg_snow 8 10
+weather clear
+wait 5
+walkto 0.6 -0.2 ~90
+wait 2
+lookat 0.5 1.3 -3.8
+peacetime 12:00
+wait 3
+weather season 0
+wait 4
+camshot season_0.png
+weather season 1
+wait 4
+camshot season_1.png
+weather season 2
+wait 4
+camshot season_2.png
+weather season 3
+wait 4
+camshot season_3.png
+weather season -1
+look off
+wait 2
+walkto 0.9 0.6 ~60
+wait 1
+after 0.5 click Interactive Aihastion
+record vg_tvgame 18 10
+wait 5
+key Escape
+wait 8
+walkto 9.25 1.65 ~120
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 11:31
+peacemenu
+pickwhen 같이 요리하기
+record vf_cook1 16 10
+wait 3
+after 1 cutauto
+record vf_cook2 14 10
+wait 20
+quit

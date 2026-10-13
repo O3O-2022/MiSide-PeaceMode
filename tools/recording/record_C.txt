@@ -1,0 +1,84 @@
+name
+wait 22
+peace short
+waitready 240
+wait 3
+freeplayer
+greet
+waitidle 90
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 4
+act morning
+record vc_short_greet 10
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+record vc_short_lecture 15
+waitidle 20
+persona chibi
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 8.7 1.6 Kitchen
+reidle
+wait 2
+pitch 24
+wait 2
+act morning
+record vc_chibi_greet 9
+waitidle 20
+reidle
+wait 2
+act special
+record vc_chibi_quiz 7
+waitidle 20
+peacechoose 0
+record vc_chibi_answer 7
+waitidle 20
+persona cap
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+pitch 0
+wait 4
+act morning
+record vb_cap_greet 10
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+record vb_cap_guitar 13
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 3
+gesture nod
+record vb_cap_nod 3.5
+wait 2
+gesture shake
+record vb_cap_shake 4.5
+waitidle 20
+persona crazy
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+pitch 0
+wait 4
+peacetime 12:10
+mealnow
+record vc_meal1 5.5
+pitch 10
+record vc_meal2 22
+waitidle 60
+peacetime 22:30
+sleepnow
+record vc_bed 34
+waitidle 90
+wait 1
+quit

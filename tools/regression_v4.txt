@@ -1,0 +1,85 @@
+# Regression script (copy to BepInEx/config/peacemode_dev.txt, then PeaceMode/run_dev.ps1 -Timeout 900).
+# v4 (2026-10-06): v3 + gifts, her present, music at the recorder, battery / photo-count events, the story memory
+# check. `pick` chooses menu items by their first letters (the menus grow with affection).
+wait 25
+peace kind
+waitready 240
+wait 10
+walkto @Quest 1>Trigger Entry Kitchen ~120
+waitidle 120
+story
+peacetime 09:00
+peacemenu
+pick 대화하기
+wait 1
+pick 아무 이야기나
+waitidle 90
+peacemenu
+pick 교감하기
+wait 1
+pick 쓰다듬기
+waitidle 60
+peacemenu
+pick 교감하기
+wait 1
+pick 선물하기
+wait 1
+pick 커피
+waitidle 60
+camshot r4_gift_loved.png
+peacemenu
+pick 교감하기
+wait 1
+pick 선물하기
+wait 1
+pick 꽃
+waitidle 60
+peacemenu
+pick 교감하기
+wait 1
+pick 선물하기
+wait 1
+pick 꽃
+waitidle 60
+camshot r4_gift_again.png
+aff 60
+wait 1
+peacemenu
+pick 특별한 시간
+wait 1
+pick 같이 음악 듣기
+waitidle 90
+camshot r4_music.png
+propose present
+waitidle 30
+peacechoose 0
+waitidle 60
+wallsim battery 15
+waitidle 90
+wallsim battery 5
+waitidle 90
+wallsim photos 30
+peacemenu
+pick 같이 놀자
+wait 1
+pick 같이 사진 찍기
+waitidle 90
+camshot r4_photos.png
+peacetime 22:00
+wait 2
+peacemenu
+wait 1
+pick 이제 자자
+wait 20
+camshot r4_diary.png
+waitidle 120
+camshot r4_morning.png
+peacetime 15:00
+wait 1
+peacemenu
+wait 1
+pick 오늘은 여기까지
+wait 1
+pick 메인 메뉴로
+wait 45
+quit

@@ -1,0 +1,94 @@
+name
+screen 960 540
+peaceset mila affection=40
+peaceset mila lastTier=7
+wait 34
+gamelang English
+peace mila
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+waitimports 400
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav en_greet_mila 5
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+recordav en_tea 10
+waitidle 60
+wait 2
+persona short
+peacetime 15:00
+wait 3
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav en_greet_short 5
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+recordav en_lecture 10
+waitidle 60
+wait 2
+persona chibi
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 8.7 1.6 Kitchen
+reidle
+wait 2
+pitch 24
+wait 2
+act morning
+recordav en_greet_chibi 5
+waitidle 30
+reidle
+wait 2
+act special
+after 5 peacechoose 0
+recordav en_quiz 10
+waitidle 60
+pitch 0
+wait 2
+peaceset kind affection=-45
+peaceset kind lastTier=1
+persona kind
+peacetime 15:00
+wait 3
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act pat
+recordav en_cold 7
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+contempt
+recordav en_contempt 4
+contempt off
+wait 2
+aff 125
+recordav en_top 10
+waitidle 40
+wait 2
+screen 1920 1080 full
+wait 2
+quit

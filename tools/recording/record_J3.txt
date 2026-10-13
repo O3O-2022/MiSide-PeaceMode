@@ -1,0 +1,132 @@
+peaceset cap affection=40
+peaceset cap lastTier=7
+name
+peaceset kind affection=-45
+peaceset kind lastTier=1
+wait 22
+record va_mainmenu 3
+menupeace
+record va_menuopen 3
+menuhover 0
+record va_menu0 2.5
+menuhover 2
+record va_menu2 2
+menuhover 3
+record va_menu3 2
+menuhover 6
+record va_menu6 2
+peace cap
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+waitimports 400
+peacetime 13:00
+walkto 8.3 1.2 ~90
+wait 2
+hammer auto on
+hammer start
+wait 9
+lookat mita
+wait 1
+record vh_hammer1 20 10
+wait 6
+lookat mita
+record vh_hammer2 22 10
+devcam 8.3 1.5 6.2 180 15 60
+record vh_hammer3 16 10
+devcam off
+waitidle 300
+wait 3
+freeplayer
+wait 2
+walkto 0.9 -0.4 ~90
+wait 2
+dance auto on 0.82 0
+dance start
+wait 12
+after 3 dance menu 1
+after 5 dance menu 0
+after 7.5 dance pick
+record vh_dance1 22 10
+wait 10
+devcam 2.6 1.4 -1.9 -90 10 60
+record vh_dance2 14 10
+devcam off
+wait 60
+dance state
+wait 20
+record vh_dance3 14 10
+wait 30
+dance state
+record vh_dance4 26 10
+waitidle 120
+wait 3
+persona kind
+peacetime 15:00
+wait 3
+waitidle 90
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act pat
+record vd_cold_pat 8
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+contempt
+record vd_contempt 4
+contempt off
+wait 2
+aff 125
+record vd_top 12
+waitidle 30
+lang en
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1
+record vd_en_menu 2
+pick 대화하기
+wait 1
+pick 아무 이야기나
+record vd_en_talk 8
+waitidle 30
+lang ja
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1
+record vd_ja_menu 2
+pick 대화하기
+wait 1
+pick 아무 이야기나
+record vd_ja_talk 8
+waitidle 30
+lang zh
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1
+record vd_zh_menu 2
+pick 대화하기
+wait 1
+pick 아무 이야기나
+record vd_zh_talk 8
+waitidle 30
+lang auto
+wait 1
+unshowcase
+walkto 0.9 0.6 ~90
+wait 1
+after 0.5 click Interactive Aihastion
+record vg_tvgame 18 10
+wait 5
+quit

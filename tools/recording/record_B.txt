@@ -1,0 +1,115 @@
+name
+wait 22
+peace kind
+waitready 240
+wait 3
+freeplayer
+greet
+waitidle 90
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 4
+act morning
+record vb_kind_greet 10
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+gestureall
+act talk
+record vb_kind_talk 12
+gestureall off
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+record vb_kind_advice 13
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 3
+unshowcase
+wait 1
+lookat mita
+record vb_kind_shy 12
+waitidle 30
+persona cap
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 4
+act morning
+record vb_cap_greet 10
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+record vb_cap_guitar 13
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 3
+gesture nod
+record vb_cap_nod 3.5
+wait 2
+gesture shake
+record vb_cap_shake 4.5
+waitidle 20
+persona mila
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 4
+act morning
+record vb_mila_greet 10
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act pat
+record vb_mila_pat 8
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+record vb_mila_tea 13
+waitidle 20
+persona sleepy
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 4
+act morning
+record vb_sleepy_greet 10
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+record vb_sleepy_coffee 13
+waitidle 20
+persona crazy
+peacetime 15:00
+wait 3
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 4
+peacemenu
+wait 1
+pick 오늘은 여기까지
+wait 1
+pick 메인 메뉴로
+record va_bye 7
+wait 30
+quit

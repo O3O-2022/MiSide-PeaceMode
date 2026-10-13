@@ -1,0 +1,84 @@
+name
+peaceset kind affection=-45
+peaceset kind lastTier=1
+wait 22
+record va_mainmenu 3
+menupeace
+record va_menuopen 3
+menuhover 0
+record va_menu0 2.5
+menuhover 2
+record va_menu2 2
+menuhover 3
+record va_menu3 2
+menuhover 6
+record va_menu6 2
+peace kind
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act pat
+record vd_cold_pat 8
+waitidle 20
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+contempt
+record vd_contempt 4
+contempt off
+wait 2
+aff 125
+record vd_top 12
+waitidle 30
+lang en
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1
+record vd_en_menu 2
+pick 대화하기
+wait 1
+pick 아무 이야기나
+record vd_en_talk 8
+waitidle 30
+lang ja
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1
+record vd_ja_menu 2
+pick 대화하기
+wait 1
+pick 아무 이야기나
+record vd_ja_talk 8
+waitidle 30
+lang zh
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1
+record vd_zh_menu 2
+pick 대화하기
+wait 1
+pick 아무 이야기나
+record vd_zh_talk 8
+waitidle 30
+lang auto
+wait 1
+unshowcase
+walkto 0.9 0.6 ~90
+wait 1
+after 0.5 click Interactive Aihastion
+record vg_tvgame 18 10
+wait 5
+quit

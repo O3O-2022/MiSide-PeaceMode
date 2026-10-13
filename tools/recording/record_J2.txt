@@ -1,0 +1,57 @@
+name
+peaceset cap affection=40
+peaceset cap lastTier=7
+wait 20
+peace cap
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+waitimports 400
+peacetime 13:00
+walkto 8.3 1.2 ~90
+wait 2
+hammer auto on
+hammer start
+wait 9
+pmstate
+camshot hj_seated.png
+record vh_hammer1 20 10
+wait 8
+hammer state
+record vh_hammer2 22 10
+devcam 8.3 1.5 6.2 180 15 60
+record vh_hammer3 16 10
+devcam off
+wait 70
+hammer state
+freeplayer
+wait 2
+walkto 0.9 -0.4 ~90
+wait 2
+dance auto on 0.82 0
+dance start
+wait 12
+pmstate
+camshot dj_pad.png
+after 3 dance menu 1
+after 5 dance menu 0
+after 7.5 dance pick
+record vh_dance1 22 10
+pmstate
+wait 8
+devcam 2.6 1.4 -1.9 -90 10 60
+record vh_dance2 14 10
+devcam off
+wait 60
+dance state
+wait 20
+pmstate
+record vh_dance3 14 10
+wait 30
+dance state
+record vh_dance4 26 10
+wait 40
+quit

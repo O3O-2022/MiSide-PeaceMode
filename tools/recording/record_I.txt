@@ -1,0 +1,101 @@
+name
+peaceset kind affection=40
+peaceset kind lastTier=7
+wait 20
+peace kind
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+look face
+after 1 spot oldtv
+record vf_spot 20 10
+look off
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+after 0.5 game request:fridge
+after 7 spot fridge
+after 11 peacemenu
+record vf_request 20 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+after 0.5 game diary
+record vf_diary 16 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 같이 놀자
+pickwhen 숨바꼭질
+after 15 walkto mita 1.0
+after 27 game found
+record vf_hide 32 10
+gamestate
+waitidle 60
+wait 3
+peacetime 14:00
+walkto 12.3 3.6 ~60
+wait 2
+lookat 14.27 1.3 4.02
+weather rain
+wait 25
+record vg_rain 8 10
+weather snow
+wait 25
+record vg_snow 8 10
+weather clear
+wait 5
+peacetime 14:30
+walkto 0.9 -1.4 ~90
+wait 2
+after 0.5 lounge rest
+record vg_rest 22 10
+waitidle 90
+wait 2
+walkto 0.9 -0.4 ~60
+wait 1
+lookat mita
+wait 1
+after 4 walkto 8.4 0.6
+after 13 look face
+peacemenu
+pickwhen 같이 다니자
+record vg_follow 20 10
+look off
+game stay
+waitidle 60
+wait 2
+walkto 9.25 1.65 ~120
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 12:10
+peacemenu
+pickwhen 같이 요리하기
+record vf_cook1 16 10
+wait 3
+after 1 cutauto
+record vf_cook2 14 10
+wait 20
+quit

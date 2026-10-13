@@ -1,0 +1,117 @@
+name
+screen 960 540
+peaceset kind affection=40
+peaceset kind lastTier=7
+wait 34
+gamelang English
+peace kind
+waitready 240
+wait 3
+calm
+freeplayer
+greet
+waitidle 90
+waitimports 400
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav en_greet_kind 5
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+lookat 12.5 1.5 4.5
+wait 2
+after 0.7 look face
+recordav en_shy 8
+look off
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+look face
+after 1 spot oldtv
+recordav en_spot 12
+look off
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+after 0.5 game request:fridge
+after 7 spot fridge
+after 11 peacemenu
+recordav en_request 15
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+after 0.5 game diary
+recordav en_diary 9
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act special
+recordav en_advice 10
+waitidle 40
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+game hidespot 0
+peacemenu
+pickwhen 같이 놀자
+pickwhen 숨바꼭질
+after 12 walkto 12.4 3.6
+after 19 game found
+recordav en_hide 22
+waitidle 60
+wait 3
+walkto @Interactive Cards >> ~90
+wait 1
+click Interactive Cards >>
+wait 1
+recordav en_cards 10
+cardstop
+waitidle 120
+wait 2
+freeplayer
+wait 2
+walkto 9.25 1.65 ~120
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 12:10
+peacemenu
+pickwhen 같이 요리하기
+recordav en_cook1 10
+wait 6
+lookat 12.84 1.3 1.37
+wait 1
+recordav en_cook2 8
+wait 30
+wait 2
+screen 1920 1080 full
+wait 2
+quit

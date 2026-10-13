@@ -1,0 +1,91 @@
+name
+screen 960 540
+avframe 0.1
+peaceset kind affection=40
+peaceset kind lastTier=7
+wait 34
+peace kind
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act morning
+recordav ko_greet_kind 5 60 3840 2160
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+story play 3
+recordav ko_story 10 60 3840 2160
+waitidle 40
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 12:10
+peacemenu
+wait 1.3
+pick 같이 요리하기
+wait 16
+lookat 12.84 1.3 1.37
+devcam 11.2 1.45 1.9 0 0 50
+devcam look 12.84 1.2 1.3
+wait 1
+recordav ko_cook 6 60 3840 2160
+devcam off
+peacemenu
+pickwhen 요리 그만하기
+waitidle 60
+wait 2
+aff -45
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act pat
+recordav ko_cold 6 60 3840 2160
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+contempt
+recordav ko_contempt 3 60 3840 2160
+contempt off
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+aff 125
+wait 0.5
+calm off
+recordav ko_top 9 60 3840 2160
+calm
+waitidle 40
+walkto @Interactive Cards >> ~90
+wait 1
+pitch 0
+click Interactive Cards >>
+wait 3.5
+lookat mita
+wait 0.5
+recordav ko_cards 8 60 3840 2160
+cardstop
+wait 20
+wait 2
+screen native
+wait 2
+quit

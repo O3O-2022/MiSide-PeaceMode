@@ -1,0 +1,117 @@
+name
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+wait 20
+peace crazy
+waitready 240
+wait 3
+freeplayer
+greet
+waitidle 90
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 같이 놀자
+pickwhen 넌센스 퀴즈
+choosewhen 0
+record ve_riddle 20 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+game chamauto
+peacemenu
+pickwhen 같이 놀자
+pickwhen 참참참
+record ve_cham 26 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+pickwhen 같이 놀자
+pickwhen 같이 사진 찍기
+record ve_photo 11 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+after 5 walkto 3.2 -0.6
+peacemenu
+pickwhen 같이 다니자
+record ve_follow 18 10
+waitidle 60
+wait 1
+walkto 9.25 1.65 ~60
+game stay
+waitidle 30
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 같이 창밖 보기
+record ve_window 22 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 무릎베개
+record ve_lap 22 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 노래 불러 줘
+record ve_song 24 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+pickwhen 특별한 시간
+pickwhen 속마음 듣기
+record ve_heart 22 10
+waitidle 60
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 3
+peacemenu
+pickwhen 오늘은 여기까지
+pickwhen 메인 메뉴로
+record va_bye 9 10
+wait 30
+quit
