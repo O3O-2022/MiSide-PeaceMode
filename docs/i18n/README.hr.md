@@ -14,6 +14,8 @@
 
 **⬇ Preuzimanje i instalacija (besplatno, s instalacijskim programom)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Hrvatski)
+
 Predstavljamo „Miran način igranja“, fanovski mod za MiSide (AIHASTO): dan s jednom od sedam Mita, bez horora.
 
 - Razgovor, pitanja, maženje, zagrljaji, držanje za ruke, pohvale, naočale, odjeća

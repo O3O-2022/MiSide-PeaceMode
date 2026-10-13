@@ -14,6 +14,8 @@
 
 **⬇ Descarcă și instalează (gratuit, cu program de instalare)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Română)
+
 Prezentarea „Modul pacifist”, un mod făcut de fani pentru MiSide (AIHASTO): o zi cu una dintre cele șapte Mite, fără groază.
 
 - Discuții, întrebări, mângâieri, îmbrățișări, mână în mână, complimente, ochelari, haine

@@ -97,7 +97,7 @@ namespace PeaceModeSetup
             if (two == "ko") return 0;
             if (two == "ja") return 2;
             if (two == "zh") return name.IndexOf("Hant", StringComparison.OrdinalIgnoreCase) >= 0 || name.EndsWith("TW") || name.EndsWith("HK") || name.EndsWith("MO") ? 4 : 3;
-            if (two == "ru" || two == "uk" || two == "be" || two == "kk") return 5;
+            if (two == "ru") return 5;
             if (two == "es") return 6;
             if (two == "pt") return 7;
             if (two == "de") return 8;

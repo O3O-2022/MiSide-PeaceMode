@@ -14,6 +14,8 @@
 
 **⬇ Pobierz i zainstaluj (za darmo, z instalatorem)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Polski)
+
 Prezentacja „Tryb pokojowy”, fanowskiego moda do MiSide (AIHASTO): dzień z jedną z siedmiu Mit, bez horroru.
 
 - Rozmowy, pytania, głaskanie, przytulanie, trzymanie za ręce, pochwały, okulary, stroje

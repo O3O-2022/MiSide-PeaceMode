@@ -14,6 +14,8 @@
 
 **⬇ Télécharger et installer (gratuit, avec un installateur)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Français)
+
 Présentation de « Mode Pacifique », un mod de fan pour MiSide (AIHASTO) : une journée avec l'une des sept Mita, sans horreur.
 
 - Discussions, questions, caresses, câlins, main dans la main, compliments, lunettes, tenues

@@ -14,6 +14,8 @@
 
 **⬇ Ladda ner och installera (gratis, med installationsprogram)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Svenska)
+
 Här är ”Lugnt läge”, en fanmod till MiSide (AIHASTO): en dag med en av sju Mita, utan skräck.
 
 - Samtal, frågor, klappar, kramar, hålla hand, komplimanger, glasögon, kläder

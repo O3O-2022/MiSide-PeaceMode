@@ -14,6 +14,8 @@
 
 **⬇ Tải về và cài đặt (miễn phí, có trình cài đặt)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Tiếng Việt)
+
 Giới thiệu "Chế Độ Bình Yên", bản mod do người hâm mộ làm cho MiSide (AIHASTO): một ngày bên một trong bảy Mita, không kinh dị.
 
 - Trò chuyện, hỏi đáp, xoa đầu, ôm, nắm tay, khen ngợi, đeo kính, thay đồ

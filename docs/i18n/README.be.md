@@ -14,6 +14,8 @@
 
 **⬇ Спампаваць і ўсталяваць (бясплатна, ёсць усталёўшчык)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Беларуская)
+
 Знаёмства з «Мірны рэжым» — фанацкім модам для MiSide (AIHASTO): дзень з адной з сямі Міт, без жахаў.
 
 - Размовы, пытанні, пагладжванні, абдымкі, за руку, пахвала, акуляры, строі

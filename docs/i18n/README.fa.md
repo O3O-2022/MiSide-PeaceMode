@@ -16,6 +16,8 @@
 
 **⬇ دانلود و نصب (رایگان، همراه با نصب‌کننده)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: فارسی)
+
 معرفی «حالت صلح آمیز»، مادی ساخت طرفداران برای MiSide (از AIHASTO): یک روز با یکی از هفت میتا، بدون ترس.
 
 - گفت‌وگو، سؤال، نوازش، آغوش، دست در دست، تعریف، عینک، لباس

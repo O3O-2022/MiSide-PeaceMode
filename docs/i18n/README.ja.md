@@ -14,6 +14,8 @@
 
 **⬇ ダウンロードとインストール（無料・インストーラー付き）** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: 日本語)
+
 MiSide(AIHASTO)のファンメイドMOD「ピースフル・モード」の紹介です。ホラー展開なしで、7人のミタのうち1人と一日を過ごします。
 
 - 会話、質問、なでる、ハグ、手をつなぐ、ほめる、メガネ、着替え

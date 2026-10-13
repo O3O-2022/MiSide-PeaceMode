@@ -14,6 +14,8 @@
 
 **⬇ Unduh dan pasang (gratis, dengan penginstal)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Bahasa Indonesia)
+
 Memperkenalkan "Mode Damai", mod buatan penggemar untuk MiSide (AIHASTO): sehari bersama salah satu dari tujuh Mita, tanpa horor.
 
 - Mengobrol, bertanya, mengelus, memeluk, berpegangan tangan, memuji, kacamata, pakaian

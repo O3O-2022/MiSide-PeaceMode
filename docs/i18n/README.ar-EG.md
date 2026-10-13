@@ -16,6 +16,8 @@
 
 **⬇ التحميل والتثبيت (ببلاش، ومعاه برنامج تثبيت)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: العربية (مصر))
+
 بنقدملكم «الوضع السلمي»، مود من عمل المعجبين للعبة MiSide (من AIHASTO): يوم مع واحدة من السبع ميتا، من غير رعب.
 
 - كلام، أسئلة، طبطبة، حضن، مسك إيد، مدح، نضارة، هدوم

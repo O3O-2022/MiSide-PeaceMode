@@ -16,6 +16,8 @@
 
 **⬇ التنزيل والتثبيت (مجانًا، مع برنامج تثبيت)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: العربية)
+
 نقدّم «الوضع المسالم»، تعديلًا من صنع المعجبين للعبة MiSide (من AIHASTO): يوم كامل مع واحدة من سبع ميتا، بلا رعب.
 
 - الحديث، الأسئلة، التربيت، العناق، إمساك اليد، المديح، النظارة، الملابس

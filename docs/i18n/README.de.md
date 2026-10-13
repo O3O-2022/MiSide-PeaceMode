@@ -14,6 +14,8 @@
 
 **⬇ Herunterladen und installieren (kostenlos, mit Installationsprogramm)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Deutsch)
+
 Vorstellung von „Friedlicher Modus“, einem Fan-Mod für MiSide (AIHASTO): ein Tag mit einer von sieben Mitas, ohne Horror.
 
 - Gespräche, Fragen, Streicheln, Umarmungen, Händchenhalten, Komplimente, Brille, Outfits

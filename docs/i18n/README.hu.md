@@ -14,6 +14,8 @@
 
 **⬇ Letöltés és telepítés (ingyenes, telepítővel)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Magyar)
+
 Bemutatjuk a „Örökkön örökké együtt” rajongói modot a MiSide-hoz (AIHASTO): egy nap a hét Mita egyikével, horror nélkül.
 
 - Beszélgetés, kérdések, simogatás, ölelés, kézen fogás, dicséret, szemüveg, ruhák

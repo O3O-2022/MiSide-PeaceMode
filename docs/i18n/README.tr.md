@@ -14,6 +14,8 @@
 
 **⬇ İndir ve kur (ücretsiz, kurulum programıyla)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Türkçe)
+
 MiSide (AIHASTO) için hayran yapımı "Barışçıl mod" modunu tanıtıyoruz: yedi Mita'dan biriyle korkusuz bir gün.
 
 - Sohbet, sorular, okşama, sarılma, el ele tutuşma, iltifat, gözlük, kıyafetler

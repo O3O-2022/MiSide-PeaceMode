@@ -14,6 +14,8 @@
 
 **⬇ 下载与安装（免费，附安装程序）** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: 简体中文)
+
 介绍 MiSide（AIHASTO）的粉丝自制模组「和平模式」：没有恐怖剧情，与七位米塔之一共度一天。
 
 - 聊天、提问、摸头、拥抱、牵手、夸奖、眼镜、换装

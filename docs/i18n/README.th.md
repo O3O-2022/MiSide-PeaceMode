@@ -14,6 +14,8 @@
 
 **⬇ ดาวน์โหลดและติดตั้ง (ฟรี มีตัวติดตั้งให้)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: ไทย)
+
 ขอแนะนำ "โหมดสงบสุข" ม็อดที่แฟน ๆ ทำขึ้นสำหรับ MiSide (AIHASTO): ใช้เวลาหนึ่งวันกับมิตะหนึ่งในเจ็ดคน โดยไม่มีความสยองขวัญ
 
 - คุยกัน ถามคำถาม ลูบหัว กอด จับมือ ชม ใส่แว่น เปลี่ยนชุด

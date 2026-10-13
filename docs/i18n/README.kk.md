@@ -14,6 +14,8 @@
 
 **⬇ Жүктеп алу және орнату (тегін, орнатқышы бар)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Қазақша)
+
 MiSide (AIHASTO) ойынына арналған «Бейбітшіл тәртібі» жанкүйерлер модымен танысыңыз: жеті Митаның бірімен қорқынышсыз бір күн.
 
 - Әңгіме, сұрақтар, сипау, құшақтау, қол ұстасу, мақтау, көзілдірік, киім

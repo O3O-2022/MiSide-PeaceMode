@@ -14,6 +14,8 @@
 
 **⬇ I-download at i-install (libre, may kasamang installer)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Filipino)
+
 Ipinakikilala ang "Bebe Taym", isang fan-made na mod para sa MiSide (AIHASTO): isang araw kasama ang isa sa pitong Mita, walang katatakutan.
 
 - Kuwentuhan, tanong, haplos, yakap, hawak-kamay, papuri, salamin, damit

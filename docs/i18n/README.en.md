@@ -14,6 +14,8 @@
 
 **⬇ Download and install (free, with an installer)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: English)
+
 An introduction to 'Peaceful Mode', a fan-made mod for MiSide (AIHASTO): spend a day with one of seven Mitas, with no horror.
 
 - Talk, questions, head pats, hugs, holding hands, compliments, glasses, outfits

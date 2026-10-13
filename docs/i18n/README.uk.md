@@ -14,6 +14,8 @@
 
 **⬇ Завантажити та встановити (безкоштовно, є інсталятор)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Українська)
+
 Знайомство з «Мирний режим» — фанатським модом для MiSide (AIHASTO): день з однією із семи Міт, без жахів.
 
 - Розмови, запитання, погладжування, обійми, за руку, похвала, окуляри, вбрання

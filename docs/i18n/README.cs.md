@@ -14,6 +14,8 @@
 
 **⬇ Stažení a instalace (zdarma, s instalátorem)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Čeština)
+
 Představení „Mírumilovný režim“, fanouškovského modu pro MiSide (AIHASTO): den s jednou ze sedmi Mit, bez hororu.
 
 - Rozhovory, otázky, hlazení, objetí, držení za ruce, pochvaly, brýle, oblečení

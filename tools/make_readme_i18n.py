@@ -12,6 +12,7 @@ import assemble as A                       # (the texts in 34 languages, the glo
 from i18n_trailer import TR, DOWNLOAD, REPO_URL
 
 REL = REPO_URL + "/releases/latest"
+VIDEO = "https://youtu.be/mswlea_Ozpg"   # (the release video: subtitles in every one of these languages)
 # the pages' order, their file codes and the languages' own names
 ORDER = ["en", "ja", "zh", "zht", "ru", "ruold", "uk", "be", "bg", "kk", "sr", "hr", "cs", "sk", "pl", "hu", "ro", "de", "fr",
          "it", "es", "esla", "pt", "ptbr", "sv", "tr", "id", "fil", "vi", "th", "ar", "arz", "fa"]
@@ -228,6 +229,7 @@ def page(lang):
     body = [
         f"> **{tr['notofficial']}.** MiSide © AIHASTO.", "",
         f"**{DOWNLOAD[lang]}** — [{REPO_URL.replace('https://', '')}/releases]({REL})", "",
+        f"**▶ YouTube** — [{VIDEO.replace('https://', '')}]({VIDEO}) (CC: {name})", "",
         intro, "",
         feats, "",
         f"## {h_install}", "",
@@ -259,5 +261,9 @@ else:
     anchor = "**⬇ ["
     assert s.count(anchor) == 1
     s = s.replace(anchor, block + "\n\n" + anchor)
+if VIDEO not in s:   # (the video's link, next to the download link)
+    a = " · [설치 방법](#설치)"
+    assert s.count(a) == 1
+    s = s.replace(a, f" · **▶ [영상 · Video]({VIDEO})**" + a)
 open(p, "w", encoding="utf-8", newline="\n").write(s)
 print(len(ORDER), "pages in", out)

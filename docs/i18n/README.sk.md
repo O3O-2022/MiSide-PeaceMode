@@ -14,6 +14,8 @@
 
 **⬇ Stiahnutie a inštalácia (zadarmo, s inštalátorom)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Slovenčina)
+
 Predstavenie „Pokojný mód“, fanúšikovského módu pre MiSide (AIHASTO): deň s jednou zo siedmich Mít, bez hororu.
 
 - Rozhovory, otázky, hladkanie, objatia, držanie za ruky, pochvaly, okuliare, oblečenie

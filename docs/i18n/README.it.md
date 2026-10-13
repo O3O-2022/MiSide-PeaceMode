@@ -14,6 +14,8 @@
 
 **⬇ Scarica e installa (gratis, con programma di installazione)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
+**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Italiano)
+
 Presentazione di «Modalità pacifica», una mod creata dai fan per MiSide (AIHASTO): un giorno con una delle sette Mita, senza horror.
 
 - Chiacchiere, domande, carezze, abbracci, mano nella mano, complimenti, occhiali, abiti
