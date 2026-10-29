@@ -6,6 +6,7 @@
 
 MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 한국어 · English · 日本語 · 中文
+https://ko-fi.com/zip_yogurt
 
 </div>
 
