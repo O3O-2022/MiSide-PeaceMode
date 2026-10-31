@@ -6,8 +6,8 @@
 
 MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 한국어 · English · 日本語 · 中文
-https://ko-fi.com/zip_yogurt<br>
-Discord: https://discord.gg/PTPV93Zd59
+<br>
+<a href=https://discord.gg/PTPV93Zd59><img src=https://img.shields.io/badge/Discord-Join-5865F2?style=for-the-badge&logo=discord&logoColor=white alt=Discord></a> <a href=https://ko-fi.com/zip_yogurt><img src=https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white alt=Ko-fi></a>
 
 </div>
 
