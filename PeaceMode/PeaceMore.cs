@@ -44,7 +44,7 @@ namespace MiSidePeaceMode
                 var right = Vector3.Cross(Vector3.up, look);
                 var lookAt = new Vector3(at.x, 1.45f, at.z) + right * 0.3f;
                 MovePlayer(pp, lookAt);
-                var mp = OnFloor(pp + right * 0.7f + look * 1.0f);
+                var mp = ClearSpot(pp + right * 0.7f + look * 1.0f, 1.2f);
                 var toRec = new Vector3(at.x, 0f, at.z) - mp; toRec.y = 0; toRec.Normalize();
                 PoseMitaUpright(mp, toRec);
                 uprightFront = Vector3.zero;

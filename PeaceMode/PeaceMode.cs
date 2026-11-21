@@ -42,6 +42,13 @@ namespace MiSidePeaceMode
         public string LastGift;
         public bool LastGiftLoved;
         public int PresentDay;           // the game day she last gave you something
+        public string PlantWatered = "";  // her plant (PeaceCare): the real date it was last watered, how many days it was
+        public int PlantDays;
+        public float Mood;                 // how she feels (0..100), kept between sessions
+        public string AlbumSeen = "";    // the newest photo already looked at in the album (newer ones get a badge)
+        public HashSet<string> UiSeen = new HashSet<string>();
+        public HashSet<string> Ever = new HashSet<string>();    // every kind of thing done together (Did keys), for the goals
+        public HashSet<string> Goals = new HashSet<string>();   // goals reached (PeaceGoals), "#letter" once her letter was read   // menus already opened once ("moments", "settings"): no "NEW" badge
         public const int Version = 2;    // written as "version="; readers ignore keys they don't know
         // set by the dev runner once it has put the player's saves back: nothing may write after that
         public static bool Frozen;
@@ -78,6 +85,13 @@ namespace MiSidePeaceMode
                         case "running": s.Running = v == "1"; break;
                         case "exit": s.ExitKind = v; break;
                         case "altF4": s.AltF4Count = int.Parse(v); break;
+                        case "albumSeen": s.AlbumSeen = v; break;
+                        case "plantWatered": s.PlantWatered = v; break;
+                        case "plantDays": s.PlantDays = int.Parse(v); break;
+                        case "mood": s.Mood = float.Parse(v, CultureInfo.InvariantCulture); break;
+                        case "uiSeen": foreach (var x in v.Split(',', StringSplitOptions.RemoveEmptyEntries)) s.UiSeen.Add(x); break;
+                        case "ever": foreach (var x in v.Split(',', StringSplitOptions.RemoveEmptyEntries)) s.Ever.Add(x); break;
+                        case "goals": foreach (var x in v.Split(',', StringSplitOptions.RemoveEmptyEntries)) s.Goals.Add(x); break;
                         case "lastDate": s.LastDateEvent = v; break;
                         case "lastRealDate": s.LastRealDate = v; break;
                         case "streak": s.Streak = int.Parse(v); break;
@@ -148,6 +162,9 @@ namespace MiSidePeaceMode
                     "lastBirthday=" + LastBirthday, "photosSaid=" + PhotosSaid,
                     "firstDate=" + (FirstDate ?? ""), "lastGiftDay=" + LastGiftDay, "lastGift=" + (LastGift ?? ""),
                     "lastGiftLoved=" + (LastGiftLoved ? "1" : "0"), "presentDay=" + PresentDay,
+                    "albumSeen=" + (AlbumSeen ?? ""), "uiSeen=" + string.Join(",", UiSeen),
+                    "ever=" + string.Join(",", Ever), "goals=" + string.Join(",", Goals),
+                    "plantWatered=" + (PlantWatered ?? ""), "plantDays=" + PlantDays, "mood=" + Mood.ToString(CultureInfo.InvariantCulture),
                 });
             }
             catch (Exception e) { Plugin.Log.LogWarning("[peace] save write failed: " + e.Message); }
@@ -168,6 +185,10 @@ namespace MiSidePeaceMode
         public static ConfigEntry<float> TimeScale;      // game minutes per real second
         public static ConfigEntry<UnityEngine.KeyCode> InteractKey;
         public static ConfigEntry<bool> ShowHud;
+        public static ConfigEntry<float> Chattiness;
+        public static ConfigEntry<float> UiScale;
+        public static ConfigEntry<bool> MitaMarker;
+        public static ConfigEntry<bool> UiSounds;
         public static ConfigEntry<string> PlayerName;
         public static ConfigEntry<string> Language;
         // "자유롭게 말하기": a local language model server (OpenAI chat API)
@@ -183,13 +204,17 @@ namespace MiSidePeaceMode
             InteractKey = cfg.Bind("PeaceMode", "InteractKey", UnityEngine.KeyCode.E, "미타와 교감하기 키 (가까이 가서 미타에게 테두리가 보일 때)");
             if (InteractKey.Value == UnityEngine.KeyCode.F) InteractKey.Value = UnityEngine.KeyCode.E;   // old default
             ShowHud = cfg.Bind("PeaceMode", "ShowHud", true, "화면 위쪽에 일차/시간/호감도 표시");
+            Chattiness = cfg.Bind("PeaceMode", "IdleTalkInterval", 1.0f, "미타가 먼저 말을 거는 간격의 배수 (0.6 = 자주, 1 = 보통, 1.8 = 가끔)");
+            UiScale = cfg.Bind("PeaceMode", "UiScale", 1.0f, "평화 모드 화면(메뉴, 상태 카드, 앨범) 크기 배율 (0.85 ~ 1.3)");
+            UiSounds = cfg.Bind("PeaceMode", "UiSounds", true, "메뉴를 고르고 넘길 때 작은 효과음 (게임의 효과음 볼륨을 따름)");
+            MitaMarker = cfg.Bind("PeaceMode", "MitaMarker", true, "미타가 안 보일 때 화면 가장자리에 미타가 있는 방향과 거리 표시");
             PlayerName = cfg.Bind("PeaceMode", "PlayerName", "", "미타가 부르는 내 이름. 비워 두면 1장에서 입력한 이름, 그것도 없으면 '플레이어'");
             Language = cfg.Bind("PeaceMode", "Language", "auto", "평화 모드의 언어 / Language / 言語 / 语言: auto (게임 언어를 따름 / follows the game), ko, en, ja, zh");
             Birthday = cfg.Bind("PeaceMode", "Birthday", "", "내 생일 (MM-dd, 예: 03-14). 그날 처음 들어가면 미타가 축하해 줍니다. 비워 두면 없음 / your birthday as MM-dd");
             AiEnabled = cfg.Bind("AiChat", "Enabled", false, "대화하기 메뉴에 '자유롭게 말하기'(로컬 AI 모델과 자유 대화)를 켭니다. 아래 주소에서 AI 서버가 돌아가고 있어야 합니다.");
-            AiEndpoint = cfg.Bind("AiChat", "Endpoint", "http://127.0.0.1:11434/v1/chat/completions", "OpenAI 방식 채팅 API 주소 (Ollama 기본값. llama.cpp 서버: http://127.0.0.1:8080/v1/chat/completions, LM Studio: http://127.0.0.1:1234/v1/chat/completions)");
+            AiEndpoint = cfg.Bind("AiChat", "Endpoint", "http://127.0.0.1:11434/v1/chat/completions", "OpenAI 방식 채팅 API 주소 (Ollama 기본값. Gemini: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions, ChatGPT: https://api.openai.com/v1/chat/completions, llama.cpp 서버: http://127.0.0.1:8080/v1/chat/completions, LM Studio: http://127.0.0.1:1234/v1/chat/completions)");
             AiModel = cfg.Bind("AiChat", "Model", "", "서버에서 쓸 모델 이름 (예: Ollama의 모델 태그). llama.cpp처럼 하나만 띄우는 서버면 비워도 됩니다.");
-            AiApiKey = cfg.Bind("AiChat", "ApiKey", "", "서버가 키를 요구할 때만. 로컬 서버는 보통 비워 둡니다.");
+            AiApiKey = cfg.Bind("AiChat", "ApiKey", "", "Gemini · ChatGPT · OpenRouter는 필수, 로컬 서버는 보통 비워 둡니다. 이 파일에 그대로 저장되니 남에게 보내지 마세요.");
             AiMaxTokens = cfg.Bind("AiChat", "MaxTokens", 200, "한 번 대답의 최대 토큰 수");
             AiTemperature = cfg.Bind("AiChat", "Temperature", 0.8f, "대답의 다양성 (0 = 늘 같은 대답, 1 이상 = 엉뚱해짐)");
             AiTimeout = cfg.Bind("AiChat", "TimeoutSeconds", 90, "대답을 기다리는 최대 시간(초). 느린 PC면 늘리세요.");

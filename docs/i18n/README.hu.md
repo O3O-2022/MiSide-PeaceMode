@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Örökkön örökké együtt
 
@@ -14,9 +14,38 @@
 
 **⬇ Letöltés és telepítés (ingyenes, telepítővel)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Magyar)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Magyar)
 
 Bemutatjuk a „Örökkön örökké együtt” rajongói modot a MiSide-hoz (AIHASTO): egy nap a hét Mita egyikével, horror nélkül.
+
+## Újdonságok a v1.1-ben
+
+- Fotómód: póz, arckifejezés és keret (polaroid, film, szívecskék, dátum), majd 3-2-1 — és fotóalbum
+- Mita naplója: minden napról egy oldal, az ő szavaival
+- Közösen nevelt növény: napi egyszer öntözd, és kivirágzik
+- Mita hangulata és a közös feljegyzéseitek
+- A modhoz készült mozdulatok: bólintás, fejrázás, fejbillentés, szégyenlősség, integetés, „hurrá”
+- Új menü almenükkel, játékon belüli beállítások és kontrollertámogatás
+- Jelölő, amely megmutatja, hol van Mita, ha szem elől veszted
+- MI-csevegés, amely emlékszik arra, amit mondtál neki (opcionális)
+- Vámpír és karácsonyi ruhák Mitának, ruhaszínek a többi Mitának
+- 17 közös cél, és Mita levele, ha mindet teljesíted
+- Gemini és ChatGPT az AI chathez (saját API-kulccsal)
+- Gesztusokkal reagál a simogatásra, dicséretre és ajándékokra; az ölelés, kézfogás és lefekvés zökkenőmentes
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Beszélgetés, kérdések, simogatás, ölelés, kézen fogás, dicséret, szemüveg, ruhák
 - Kő-papír-olló, szólánc, találós kérdések, csam-csam-csam, bújócska, fotók, kártyajáték

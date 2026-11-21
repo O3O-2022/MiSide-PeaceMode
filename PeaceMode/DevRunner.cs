@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 
 namespace MiSidePeaceMode
 {
+#if DEVTOOLS
     // Development helper: runs a command script from BepInEx/config/peacemode_dev.txt.
     // Does nothing if the file is absent. The game's Save folder is snapshotted at start
     // and restored on "quit", so dev runs never change the player's progress.
@@ -89,6 +90,8 @@ namespace MiSidePeaceMode
         // recordav <name> <seconds> [fps] [width] [height]: the same, with sound, straight into a video (AvRecorder)
         string recPrefix; int recLeft, recIndex, recW = 1280, recH = 720;
         bool recAv;
+        // recidle: stop once she is idle again (or a menu waits for a pick) for half a second of game time
+        bool recUntilIdle; int recSettled, recFrames;
         RenderTexture recRT; Texture2D recTex;
 
         void RecordStart(string prefix, float seconds, int fps, int w = 1280, int h = 720, bool av = false)
@@ -125,6 +128,20 @@ namespace MiSidePeaceMode
             AvRecorder.Stage("game");
             PeaceDirector.Instance?.DevPrepareCapture();
             var cams = ScreenCameras();
+            // (the overlays follow the camera drawn last this frame: a staged scene's own camera came after the
+            // recording started, and the fade and the cards were missing from its frames)
+            var topNow = cams.Count > 0 ? cams[cams.Count - 1] : null;
+            // (and back: when the staged camera goes off they must leave it, or the fade-in and the HUD vanish)
+            if (topNow != null)
+                foreach (var (cv, _, _, _) in camshotCanvases)
+                {
+                    if (cv == null) continue;
+                    Camera host = null;
+                    for (int i = cams.Count - 1; i >= 0 && host == null; i--)
+                        if ((cams[i].cullingMask & (1 << cv.gameObject.layer)) != 0) host = cams[i];
+                    if (host == null) host = topNow;
+                    if (cv.worldCamera != host) { cv.worldCamera = host; cv.planeDistance = host.nearClipPlane + 0.05f; }
+                }
             if (!recRT.IsCreated()) recRT.Create();
             var prevActive = RenderTexture.active;
             // (between scenes no camera draws: a black frame keeps the picture in step with the sound)
@@ -145,6 +162,14 @@ namespace MiSidePeaceMode
             if (recAv) AvRecorder.Frame(recTex);
             else File.WriteAllBytes(Path.Combine(ConfigDir, "frames", $"{recPrefix}_{recIndex:0000}.jpg"), ImageConversion.EncodeToJPG(recTex, 90));
             recIndex++;
+            recFrames++;
+            if (recUntilIdle && recFrames > 15)
+            {
+                var d = PeaceDirector.Instance;
+                bool settled = d != null && (d.DevIdle || d.DevMenuUp);
+                recSettled = settled ? recSettled + 1 : 0;
+                if (recSettled >= 15) { Plugin.Log.LogInfo($"[dev] recidle {recPrefix}: settled after {recFrames} frames"); recLeft = 1; }
+            }
             if (--recLeft > 0) return;
             EndRecording();
         }
@@ -153,6 +178,7 @@ namespace MiSidePeaceMode
         {
             recLeft = 0;
             Time.captureFramerate = 0;
+            recUntilIdle = false;
             if (recAv) { AvRecorder.Stop(); recAv = false; }
             foreach (var (c, mode, cam, dist) in camshotCanvases)
                 if (c != null) { c.renderMode = mode; c.worldCamera = cam; c.planeDistance = dist; }
@@ -513,6 +539,7 @@ namespace MiSidePeaceMode
                     waitUntil = tapUntil + 0.2f;
                     break;
                 }
+                case "watch": PeaceDirector.DevWatchEvery = arg == "off" ? 0f : (arg.Length > 0 ? float.Parse(arg, System.Globalization.CultureInfo.InvariantCulture) : 3f); break;   // watch <s>|off: her position log
                 case "calm": PeaceDirector.DevCalm = arg != "off"; break;   // calm [off]: she does nothing of her own (recordings)
                 case "pickwhen": pendingPicks.Add((arg, Time.time + 120f, -1f)); break;          // pickwhen <option text>: pick it once her menu shows it
                 case "choosewhen": pendingPicks.Add(("#" + arg, Time.time + 120f, -1f)); break;  // choosewhen <n>: the n-th option (from 0) of the next menu
@@ -752,6 +779,12 @@ namespace MiSidePeaceMode
                     Plugin.Log.LogInfo("[dev] nearcam written");
                     break;
                 }
+                case "goals": Plugin.Log.LogInfo("[goals]\n" + PeaceDirector.Instance?.DevGoals()); break;   // goals: progress of each
+                case "goalsall": PeaceDirector.Instance?.DevGoalsAll(); break;   // goalsall: mark every goal reached (her letter opens)
+                case "color": PeaceDirector.Instance?.DevColor(arg); break;   // color blue|pink|mint|yellow|mono|off: her clothes' colour
+                case "skinmats":   // skinmats <Resources path>: renderers/materials of a gallery model -> skinmats.txt
+                    File.AppendAllText(Path.Combine(ConfigDir, "skinmats.txt"), "=== " + arg + "\n" + PeaceDirector.DevSkinMats(arg) + "\n", Encoding.UTF8);
+                    break;
                 case "mitadiag":
                     File.WriteAllText(Path.Combine(ConfigDir, "mitadiag_" + arg + ".txt"), PeaceDirector.Instance?.DevMitaDiag() ?? "-", Encoding.UTF8);
                     break;
@@ -916,7 +949,7 @@ namespace MiSidePeaceMode
                     var camT = pmv.mainCamera;
                     Plugin.Log.LogInfo($"[dev] camstate {arg}: bodyYaw={pmv.transform.eulerAngles.y:0.0} camYaw={(camT != null ? camT.eulerAngles.y : -1):0.0} camPitch={(camT != null ? camT.eulerAngles.x : -1):0.0} " +
                                        $"rotX={pmv.rotX:0.0} rotY={pmv.rotY:0.0} other={(pmv.cameraOtherTarget != null ? pmv.cameraOtherTarget.name : "-")} otherLerp={pmv.timeCameraOtherTargetLerp:0.00} " +
-                                       $"dontMove={pmv.dontMove} stopMouse={pmv.stopMouseMove} camParent={(camT != null && camT.parent != null ? camT.parent.name : "-")} fwdDot={(camT != null ? Vector3.Dot(Vector3.ProjectOnPlane(camT.forward, Vector3.up).normalized, pmv.transform.forward) : 0):0.00}");
+                                       $"animRun={pmv.animationRun} dontMove={pmv.dontMove} stopMouse={pmv.stopMouseMove} camParent={(camT != null && camT.parent != null ? camT.parent.name : "-")} fwdDot={(camT != null ? Vector3.Dot(Vector3.ProjectOnPlane(camT.forward, Vector3.up).normalized, pmv.transform.forward) : 0):0.00} body={pmv.transform.position} cam={(camT != null ? camT.position.ToString() : "-")}");
                     break;
                 }
                 case "rooms":
@@ -979,6 +1012,24 @@ namespace MiSidePeaceMode
                         var main = Camera.main;
                         if (main != null) { devCam.cullingMask = main.cullingMask | (1 << 5) | (1 << 7) | (1 << 8); devCam.clearFlags = main.clearFlags; devCam.backgroundColor = main.backgroundColor; }
                     }
+                    if (sp[0] == "face")
+                    {
+                        // devcam face <distance> <angle from her front, deg> <up, m> [fov] [look-up, m]: a portrait camera
+                        // in front of her face (her root faces where she looks: +Z), looking at her head
+                        var pd = PeaceDirector.Instance;
+                        if (pd == null || pd.MitaBody == null) break;
+                        var head = pd.HeadPoint;
+                        var front = pd.MitaBody.forward; front.y = 0; front.Normalize();
+                        float dist = float.Parse(sp[1], System.Globalization.CultureInfo.InvariantCulture);
+                        float ang = sp.Length > 2 ? float.Parse(sp[2], System.Globalization.CultureInfo.InvariantCulture) : 0f;
+                        float up = sp.Length > 3 ? float.Parse(sp[3], System.Globalization.CultureInfo.InvariantCulture) : 0f;
+                        float lookUp = sp.Length > 5 ? float.Parse(sp[5], System.Globalization.CultureInfo.InvariantCulture) : 0f;
+                        var dir = Quaternion.Euler(0, ang, 0) * front;
+                        devCam.transform.position = head + dir * dist + Vector3.up * up;
+                        devCam.transform.LookAt(head + Vector3.up * lookUp);
+                        devCam.fieldOfView = sp.Length > 4 ? float.Parse(sp[4], System.Globalization.CultureInfo.InvariantCulture) : 40f;
+                        break;
+                    }
                     if (sp[0] == "look")
                     {
                         devCam.transform.LookAt(new Vector3(float.Parse(sp[1]), float.Parse(sp[2]), float.Parse(sp[3])));
@@ -1023,6 +1074,18 @@ namespace MiSidePeaceMode
                     go.transform.position = new Vector3(float.Parse(sp[0]), float.Parse(sp[1]), float.Parse(sp[2]));
                     go.transform.rotation = Quaternion.Euler(float.Parse(sp[4]), float.Parse(sp[3]), 0);
                     pm.fixHead = go.transform;
+                    break;
+                }
+                case "walkclips":   // walkclips <part>: every loaded clip whose name has <part> - length, empty, humanoid, frame rate
+                {
+                    var sb = new StringBuilder();
+                    foreach (var o in Resources.FindObjectsOfTypeAll(Il2CppType.Of<AnimationClip>()))
+                    {
+                        var c = o?.Cast<AnimationClip>();
+                        if (c == null || c.name.IndexOf(string.IsNullOrEmpty(arg) ? "Walk" : arg, StringComparison.OrdinalIgnoreCase) < 0) continue;
+                        sb.AppendLine($"{c.name} id={c.GetInstanceID()} len={c.length:0.00} empty={c.empty} human={c.humanMotion} legacy={c.legacy} loop={c.isLooping} events={c.events.Length}");
+                    }
+                    Plugin.Log.LogInfo("[dev] walkclips: " + sb.ToString().Replace(Environment.NewLine, " || "));
                     break;
                 }
                 case "cliplist":
@@ -1179,6 +1242,7 @@ namespace MiSidePeaceMode
                     if (mita != null && mita.nma != null) { mita.nma.isStopped = false; mita.nma.updateRotation = true; }
                     break;
                 }
+                case "cliptest": PeaceDirector.Instance?.DevClipTest(arg); break;   // cliptest <clip name>: each loaded clip of that name, how much it moves her
                 case "mitaclip":
                 {
                     var sp = arg.Split(' ', 2);
@@ -1302,6 +1366,7 @@ namespace MiSidePeaceMode
                 case "spot": PeaceDirector.Instance?.DevSpot(arg); break;       // spot <id>: as if you clicked that thing
                 case "spots": Plugin.Log.LogInfo("[dev] spots: " + PeaceDirector.Instance?.DevSpots()); break;
                 case "housedump": PeaceDirector.Instance?.DevHouseDump(); break;
+                case "costumedump": File.WriteAllText(Path.Combine(ConfigDir, "costume_" + arg + ".txt"), PeaceDirector.Instance?.DevCostumeDump(arg) ?? "-", Encoding.UTF8); break;
                 case "cloth": PeaceDirector.Instance?.DevCloth(arg); break;   // cloth <key> [variant]
                 case "clothdump":
                 {
@@ -1331,6 +1396,112 @@ namespace MiSidePeaceMode
                     break;
                 }
                 case "pick": PeaceDirector.Instance?.DevPick(arg); break;
+                case "album": PeaceDirector.Instance?.DevAlbum(string.IsNullOrEmpty(arg) ? 0 : int.Parse(arg)); break;   // album [turn]: open the photo album / turn its pages
+                case "records": PeaceDirector.Instance?.DevRecords(); break;
+                case "closecard": PeaceDirector.Instance?.DevCloseCard(); break;
+                case "menuback": PeaceDirector.Instance?.DevMenuBack(); break;   // Esc on the open menu
+                case "toast": PeaceDirector.Instance?.DevToast(arg); break;
+                case "bones":   // bones: her animator (humanoid or not) and her skeleton, with each bone's local rotation -> bones.txt
+                {
+                    var body = PeaceDirector.Instance != null ? PeaceDirector.Instance.MitaBody : null;
+                    if (body == null) break;
+                    var sb = new StringBuilder();
+                    var an = body.GetComponent<Animator>();
+                    if (an != null) sb.AppendLine($"animator human={an.isHuman} avatar={(an.avatar != null ? an.avatar.name + " valid=" + an.avatar.isValid + " human=" + an.avatar.isHuman : "-")} rootMotion={an.applyRootMotion}");
+                    void Walk(Transform t, int depth)
+                    {
+                        var e = t.localEulerAngles;
+                        sb.AppendLine($"{new string(' ', depth * 2)}{t.name}  pos={t.localPosition.x:F3},{t.localPosition.y:F3},{t.localPosition.z:F3}  rot={e.x:F1},{e.y:F1},{e.z:F1}  world={t.position.x:F2},{t.position.y:F2},{t.position.z:F2}");
+                        for (int i = 0; i < t.childCount; i++) Walk(t.GetChild(i), depth + 1);
+                    }
+                    Walk(body, 0);
+                    File.WriteAllText(Path.Combine(ConfigDir, "bones.txt"), sb.ToString(), Encoding.UTF8);
+                    break;
+                }
+                case "motion": PeaceDirector.Instance?.DevMotion(arg); break;   // motion @nod: one of our own animations (PeaceMotion)
+                case "sfxdump":   // sfxdump name,name: those sounds as wav files (sfx_<name>.wav), to compare them
+                {
+                    foreach (var want in arg.Split(','))
+                        foreach (var o in Resources.FindObjectsOfTypeAll(Il2CppInterop.Runtime.Il2CppType.Of<AudioClip>()))
+                        {
+                            var c = o.TryCast<AudioClip>();
+                            if (c == null || c.name != want.Trim()) continue;
+                            try
+                            {
+                                if (c.loadState != AudioDataLoadState.Loaded) { c.LoadAudioData(); Plugin.Log.LogInfo($"[dev] sfxdump {c.name}: loading ({c.loadType}), run again"); break; }
+                                var data = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStructArray<float>(c.samples * c.channels);
+                                c.GetData(data, 0);
+                                using var fs = File.Create(Path.Combine(ConfigDir, "sfx_" + c.name.Replace(' ', '_') + ".wav"));
+                                using var bw = new BinaryWriter(fs);
+                                int n = data.Length;
+                                bw.Write(Encoding.ASCII.GetBytes("RIFF")); bw.Write(36 + n * 2); bw.Write(Encoding.ASCII.GetBytes("WAVEfmt "));
+                                bw.Write(16); bw.Write((short)1); bw.Write((short)c.channels); bw.Write(c.frequency); bw.Write(c.frequency * c.channels * 2);
+                                bw.Write((short)(c.channels * 2)); bw.Write((short)16); bw.Write(Encoding.ASCII.GetBytes("data")); bw.Write(n * 2);
+                                for (int i = 0; i < n; i++) bw.Write((short)(Mathf.Clamp(data[i], -1f, 1f) * 32767));
+                            }
+                            catch (Exception e) { Plugin.Log.LogWarning("[dev] sfxdump " + want + ": " + e.Message); }
+                            break;
+                        }
+                    break;
+                }
+                case "sfx":   // sfx <clip name>[|volume]: play a UI sound (PeaceSfx)
+                {
+                    var sp = arg.Split('|');
+                    PeaceSfx.Play(sp[0], sp.Length > 1 ? float.Parse(sp[1], System.Globalization.CultureInfo.InvariantCulture) : 0.3f);
+                    break;
+                }
+                case "sfxat":   // sfxat <clip name>: the same sound played at the camera by Unity's PlayClipAtPoint (a check of the sound itself)
+                {
+                    foreach (var o in Resources.FindObjectsOfTypeAll(Il2CppInterop.Runtime.Il2CppType.Of<AudioClip>()))
+                    {
+                        var c = o.TryCast<AudioClip>();
+                        if (c == null || c.name != arg) continue;
+                        var cam = Camera.main;
+                        AudioSource.PlayClipAtPoint(c, cam != null ? cam.transform.position : Vector3.zero, 1f);
+                        break;
+                    }
+                    break;
+                }
+                case "audioclips":   // audioclips: every loaded sound (name, length) -> audioclips.txt
+                {
+                    var sb = new StringBuilder();
+                    foreach (var o in Resources.FindObjectsOfTypeAll(Il2CppInterop.Runtime.Il2CppType.Of<AudioClip>()))
+                    {
+                        var c = o.TryCast<AudioClip>();
+                        if (c != null) sb.AppendLine($"{c.name}	{c.length:F2}");
+                    }
+                    File.WriteAllText(Path.Combine(ConfigDir, "audioclips.txt"), sb.ToString(), Encoding.UTF8);
+                    break;
+                }
+                case "photo": PeaceDirector.Instance?.DevPhoto(arg); break;   // photo [pose face frame]: photo mode countdown with those choices
+                case "typedump":   // typedump <TypeName>: an interop type's properties and methods (Assembly-CSharp) -> typedump_<name>.txt
+                {
+                    Type[] all;
+                    try { all = typeof(PlayerMove).Assembly.GetTypes(); } catch (System.Reflection.ReflectionTypeLoadException ex) { all = ex.Types.Where(x => x != null).ToArray(); }
+                    var ty = all.FirstOrDefault(x => x.Name == arg);
+                    if (ty == null) { Plugin.Log.LogWarning("[dev] typedump: no " + arg); break; }
+                    var sb = new StringBuilder();
+                    foreach (var pr in ty.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly)) sb.AppendLine($"prop {pr.PropertyType.Name} {pr.Name}");
+                    foreach (var me in ty.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly)) if (!me.IsSpecialName) sb.AppendLine($"method {me.ReturnType.Name} {me.Name}({string.Join(", ", me.GetParameters().Select(q => q.ParameterType.Name + " " + q.Name))})");
+                    File.WriteAllText(Path.Combine(ConfigDir, "typedump_" + arg + ".txt"), sb.ToString(), Encoding.UTF8);
+                    break;
+                }
+                case "pad":   // pad <buttons hex> <lx> <ly> <rx> <ry> <frames>: as if a gamepad were held (PeacePad)
+                {
+                    var sp = arg.Split(' ');
+                    float F(int i) => sp.Length > i ? float.Parse(sp[i], System.Globalization.CultureInfo.InvariantCulture) : 0f;
+                    PeacePad.Fake(Convert.ToUInt16(sp[0], 16), new Vector2(F(1), F(2)), new Vector2(F(3), F(4)), sp.Length > 5 ? int.Parse(sp[5]) : 2);
+                    var pmx = UnityEngine.Object.FindObjectOfType<PlayerMove>();
+                    if (pmx != null) Plugin.Log.LogInfo($"[dev] pad {arg}: player at {pmx.transform.position} rotX {pmx.rotX:0} rotY {pmx.rotY:0}");
+                    break;
+                }
+                case "chatclose": PeaceDirector.Instance?.DevChatClose(); break;   // the chat ends (her memory is written)
+                case "diary": PeaceDirector.Instance?.DevDiary(arg); break;   // diary [fill|1|-1]: her diary pages (fill: a made-up week, in memory)
+                case "mood": PeaceDirector.Instance?.DevMood(float.Parse(arg, System.Globalization.CultureInfo.InvariantCulture)); break;   // mood <0..100>
+                case "plant": PeaceDirector.Instance?.DevPlant(int.Parse(arg)); break;   // plant <watered days> (-1: dry and drooping)
+                case "ui": PeaceDirector.Instance?.DevUi(arg != "off"); break;   // ui off|on: our whole UI hidden (stills for thumbnails)
+                case "emotion": PeaceDirector.Instance?.DevEmotion(arg); break;   // emotion <EmotionType name>: her face
+                case "setkey": PeaceDirector.Instance?.DevKey(arg); break;   // setkey <KeyCode>: as if pressed in Settings > 교감 키
                 case "keepawake": KeepAwake = arg != "off"; break;   // keepawake off: let the AFK console come out (for testing it)
                 case "blendshapes":   // her face's blend shapes (original Mita and her skin): index name weight
                 {
@@ -1548,6 +1719,15 @@ namespace MiSidePeaceMode
                     RecordStart(sp[0], float.Parse(sp[1], System.Globalization.CultureInfo.InvariantCulture), sp.Length > 2 ? int.Parse(sp[2]) : 30);
                     break;
                 }
+                case "recidle":   // recidle <prefix> [max s] [fps]: frames until she is idle again or a menu is up (inspection)
+                {
+                    var sp = arg.Split(' ');
+                    recUntilIdle = true; recSettled = 0; recFrames = 0;
+                    RecordStart(sp[0], sp.Length > 1 ? float.Parse(sp[1], System.Globalization.CultureInfo.InvariantCulture) : 60f, sp.Length > 2 ? int.Parse(sp[2]) : 30, 960, 540);
+                    break;
+                }
+                case "hugshift": { var f = arg.Split(' '); PeaceDirector.HugShift = new Vector3(float.Parse(f[0], System.Globalization.CultureInfo.InvariantCulture), 0f, float.Parse(f[1], System.Globalization.CultureInfo.InvariantCulture)); break; }   // hugshift <x> <z>
+                case "pickat": PeaceDirector.Instance?.DevPickAt(int.Parse(arg)); break;   // pickat <row>: the menu's row (0 = first)
                 case "recordav":
                 {
                     var sp = arg.Split(' ');
@@ -1598,6 +1778,15 @@ namespace MiSidePeaceMode
         public static void Press(string k) { Pressed = k; Frame = Time.frameCount; }
         public static bool Get(string k) => Pressed == k && Time.frameCount <= Frame + 1;
     }
+
+#else
+    // (release build: no dev tools, only what the game code asks of them)
+    public class DevRunner : MonoBehaviour
+    {
+        public DevRunner(IntPtr ptr) : base(ptr) { }
+        public static bool Active, ScriptAwake, KeepAwake = true;
+    }
+#endif
 
     public static class SceneDumper
     {

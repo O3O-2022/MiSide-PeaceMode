@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Peaceful Mode
 
@@ -14,9 +14,38 @@
 
 **⬇ Download and install (free, with an installer)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: English)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: English)
 
 An introduction to 'Peaceful Mode', a fan-made mod for MiSide (AIHASTO): spend a day with one of seven Mitas, with no horror.
+
+## New in v1.1
+
+- Photo mode: pick her pose, face and a frame (polaroid, film, hearts, date stamp), then 3-2-1 — and a photo album to look back
+- Mita's diary: every day's page, in her words
+- A plant to raise together: water it once a day and it grows into a flower
+- Her mood, and a page of your records together
+- Motions made for the mod: nod, shake, head tilt, shy, wave, cheer — matched to her lines
+- A new menu with sub-menus, in-game settings and gamepad support
+- A marker that shows where she is when you lose sight of her
+- AI chat that remembers what you told her (optional)
+- Vampire and Christmas outfits for Mita, and outfit colours for the other Mitas
+- 17 goals to reach together, and Mita's letter when you finish them all
+- Gemini and ChatGPT for the AI chat (your own API key)
+- She reacts to pats, compliments and gifts with gestures; hugs, holding hands and bedtime play smoothly
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Talk, questions, head pats, hugs, holding hands, compliments, glasses, outfits
 - Rock-paper-scissors, word chain, riddles, cham-cham-cham, hide and seek, photos, the card game

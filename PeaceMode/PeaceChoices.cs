@@ -70,9 +70,7 @@ namespace MiSidePeaceMode
         bool choiceOpen;
         int menuFrame = -1;   // a list was opened or answered in this frame: its key press is used up
 
-        bool MenuOpen => ui.MenuOpen || choiceOpen || chatOpen;
-
-        static bool IsExitOption(string o) => o == "닫기" || o == "그만두기" || o == "그냥 두기" || o == "그만할래" || o == "조금 더 있을래";
+        bool MenuOpen => ui.MenuOpen || choiceOpen || chatOpen || typing != Typing.None;
 
         // a fresh copy of the story's list next to Mita's head; false = not borrowed (yet): the caller uses our own menu
         [HideFromIl2Cpp] bool OpenChoices(IList<string> opts, Action<int> choose)
@@ -162,23 +160,6 @@ namespace MiSidePeaceMode
             if (Time.frameCount == menuFrame) return;
             if (choiceOpen) ChooseChoice(i); else ui.Choose(i);
         }
-        void CloseMenus() { if (choiceOpen) CloseChoices(true); ui.CloseMenu(); }
-
-        // pick <text>: the option of the open menu with that text (scripts don't break when options come and go)
-        public bool DevMenuHas(string what)
-        {
-            if ((!pendingMenu && !MenuOpen) || lastMenuOpts == null) return false;
-            if (what.StartsWith("#")) return int.TryParse(what.Substring(1), out var n) && lastMenuOpts.Count > n;
-            return lastMenuOpts.Exists(o => o == what || o.StartsWith(what));
-        }
-
-        public void DevPick(string text)
-        {
-            int i = lastMenuOpts != null ? lastMenuOpts.FindIndex(o => o == text || o.StartsWith(text)) : -1;
-            if (i < 0) { Plugin.Log.LogWarning($"[dev] pick: no '{text}' in [{(lastMenuOpts != null ? string.Join(", ", lastMenuOpts) : "-")}]"); return; }
-            Choose(i);
-        }
-
         public void DevChoiceEscape() { try { choice?.EscapeClick(); } catch (Exception e) { Plugin.Log.LogWarning("[choice] escape: " + e.Message); } }
         public string DevChoiceState()
         {

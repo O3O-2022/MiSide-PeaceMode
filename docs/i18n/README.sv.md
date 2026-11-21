@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Lugnt läge
 
@@ -14,9 +14,38 @@
 
 **⬇ Ladda ner och installera (gratis, med installationsprogram)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Svenska)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Svenska)
 
 Här är ”Lugnt läge”, en fanmod till MiSide (AIHASTO): en dag med en av sju Mita, utan skräck.
+
+## Nytt i v1.1
+
+- Fotoläge: välj pose, min och ram (polaroid, film, hjärtan, datum), sedan 3-2-1 — och ett fotoalbum
+- Mitas dagbok: en sida för varje dag, med hennes ord
+- En växt att odla tillsammans: vattna en gång om dagen så blommar den
+- Mitas humör och en sida med era gemensamma minnen
+- Rörelser gjorda för moddet: nicka, skaka på huvudet, luta huvudet, blyg, vinka, jubla
+- Ny meny med undermenyer, inställningar i spelet och stöd för handkontroll
+- En markör som visar var Mita är när du tappar bort henne
+- AI-chatt som minns vad du har berättat (valfritt)
+- Vampyr- och julkläder till Mita och klädfärger för de andra Mitorna
+- 17 mål att nå tillsammans och Mitas brev när du klarat alla
+- Gemini och ChatGPT för AI-chatten (din egen API-nyckel)
+- Hon reagerar med gester på klappar, komplimanger och presenter; kramar, handhållning och läggdags fungerar smidigt
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Samtal, frågor, klappar, kramar, hålla hand, komplimanger, glasögon, kläder
 - Sten-sax-påse, ordkedja, gåtor, cham-cham-cham, kurragömma, foton, kortspelet

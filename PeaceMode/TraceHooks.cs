@@ -1,3 +1,4 @@
+#if DEVTOOLS
 using HarmonyLib;
 using UnityEngine.SceneManagement;
 
@@ -47,3 +48,4 @@ namespace MiSidePeaceMode
         static void PostExists(string path, bool __result) => L($"GlobalAM.ExistsData({path}) -> {__result}");
     }
 }
+#endif

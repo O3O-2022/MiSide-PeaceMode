@@ -1,3 +1,4 @@
+#if DEVTOOLS
 using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
@@ -132,3 +133,4 @@ namespace MiSidePeaceMode
         }
     }
 }
+#endif

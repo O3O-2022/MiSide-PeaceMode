@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Modo Pacífico
 
@@ -14,9 +14,38 @@
 
 **⬇ Descargar e instalar (gratis, con instalador)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Español)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Español)
 
 Presentación de «Modo Pacífico», un mod hecho por fans para MiSide (AIHASTO): un día con una de las siete Mitas, sin terror.
+
+## Novedades de la v1.1
+
+- Modo foto: pose, expresión y marco (polaroid, carrete, corazones, fecha), luego 3-2-1 — y un álbum de fotos
+- El diario de Mita: una página por día, con sus palabras
+- Una planta para cuidar juntos: riégala una vez al día y florecerá
+- El humor de Mita y una página con vuestros registros
+- Gestos creados para el mod: asentir, negar, ladear la cabeza, timidez, saludar, celebrar
+- Nuevo menú con submenús, ajustes dentro del juego y soporte para mando
+- Un marcador que indica dónde está Mita cuando la pierdes de vista
+- Chat con IA que recuerda lo que le contaste (opcional)
+- Trajes de vampiro y Navidad para Mita, y colores de ropa para las demás Mitas
+- 17 metas para lograr juntos y la carta de Mita al completarlas
+- Gemini y ChatGPT para el chat con IA (tu propia clave API)
+- Reacciona con gestos a caricias, cumplidos y regalos; abrazos, manos y dormir fluyen bien
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Charlas, preguntas, caricias, abrazos, ir de la mano, halagos, gafas, ropa
 - Piedra-papel-tijera, palabras encadenadas, adivinanzas, cham-cham-cham, escondite, fotos, juego de cartas

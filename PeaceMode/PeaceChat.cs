@@ -40,6 +40,7 @@ namespace MiSidePeaceMode
             gamePrompt = null;
             EndInteraction();
             SaveChat();
+            WriteMemory();   // (what she learned, kept for the next talks)
             Plugin.Log.LogInfo("[chat] closed");
         }
 
@@ -81,6 +82,7 @@ namespace MiSidePeaceMode
                     chatHistory.Add(new ChatClient.Msg("user", said));
                     chatHistory.Add(new ChatClient.Msg("assistant", clean));
                     if (chatHistory.Count > 40) chatHistory.RemoveRange(0, chatHistory.Count - 40);
+                    chatSinceMemory++;
                     Did("talk");
                     if (chatAffDay != S.Day) { chatAffDay = S.Day; chatAffToday = 0; }
                     if (chatAffToday < 6) { chatAffToday++; AddAff(1); }
@@ -107,17 +109,17 @@ namespace MiSidePeaceMode
             t = Regex.Replace(t, @"\([^)]{0,40}\)", "");
             t = t.Replace("\r", " ").Replace("\n", " ").Trim();
             t = Regex.Replace(t, @"^[\p{L} ]{1,12}\s*[:：]\s*", "");
-            string emo = "smile";
-            var m = Regex.Match(t, @"\[([a-zA-Z]+)\]");
-            if (m.Success)
+            string emo = "smile", act = null;
+            // the tags: one face, and maybe one thing she does
+            foreach (Match m in Regex.Matches(t, @"\[([a-zA-Z]+)\]"))
             {
                 var e = m.Groups[1].Value.ToLowerInvariant();
-                if (ChatEmotions.Contains(e)) emo = e;
-                t = t.Remove(m.Index, m.Length);
+                if (ChatEmotions.Contains(e) && emo == "smile") emo = e;
+                else if (act == null && ChatMotions.TryGetValue(e, out var mo)) act = mo;
             }
             t = Regex.Replace(t, @"\[[a-zA-Z]+\]", "").Trim().Trim('"', '“', '”', '\'').Trim();
             if (t.Length == 0) t = "…";
-            clean = $"[{emo}] {t}";
+            clean = $"[{emo}]{(act != null ? " [" + act.Substring(1) + "]" : "")} {t}";
             // sentences, joined while they stay short
             var parts = Regex.Matches(t, @"[^.!?…~]+[.!?…~]*").Select(x => x.Value.Trim()).Where(x => x.Length > 0).ToList();
             var lines = new List<Line>();
@@ -129,6 +131,7 @@ namespace MiSidePeaceMode
             }
             if (cur.Length > 0) lines.Add(new Line(Who.Mita, cur, emo));
             if (lines.Count > 5) lines = lines.Take(5).ToList();
+            if (act != null && lines.Count > 0) lines[0].clip = act;
             return lines;
         }
 
@@ -153,10 +156,14 @@ namespace MiSidePeaceMode
             if (did.Count > 0) sb.AppendLine(Loc.T("- 오늘 같이 한 일:") + " " + string.Join(", ", did));
             sb.AppendLine(Loc.T("- 같이 할 수 있는 것: 대화, 쓰다듬기, 안아 주기, 가위바위보, 끝말잇기, 넌센스 퀴즈, 참참참, 숨바꼭질, 카드 게임, TV 게임, 사진, 요리, 식사, 잠자기."));
             sb.AppendLine();
+            var mem = MemoryPrompt();
+            if (mem.Length > 0) { sb.Append(mem); sb.AppendLine(); }
             sb.AppendLine(Loc.T("[대답 규칙]"));
             sb.AppendLine(Loc.T("- 반드시 한국어 존댓말(해요체)로, 위 캐릭터의 말투와 호칭 그대로 말한다."));
             sb.AppendLine(Loc.T("- 한 번에 1~3문장. 짧고 자연스러운 대사만 쓴다. 행동 묘사, 괄호, 별표, 이모지, 이름표(예: '미타:')를 쓰지 않는다."));
             sb.AppendLine(Loc.T("- 대답 맨 앞에 지금 표정 하나를 대괄호로 붙인다:") + " [smile] [shy] [sad] [surprise] [angry] [discontent] [halfsleep] [quest] [arrogance] [smilestrange]");
+            sb.AppendLine(Loc.T("- 몸짓이 어울리면 표정 뒤에 하나만 붙인다(없어도 된다):") + " [nod] [shake] [tilt] [shy] [lookaway] [wave] [cheer] [explain]");
+            sb.AppendLine(Loc.T("- 위의 실제 대사 예시는 말투를 익히는 참고용이다. 그대로 되풀이하지 말고, 지금 상황과 플레이어의 말에 맞게 새로 말한다."));
             sb.AppendLine(Loc.T("- 캐릭터를 벗어나지 않는다. 자신을 AI, 언어 모델, 챗봇이라고 하지 않는다."));
             sb.AppendLine(Loc.T("- 폭력적이거나 성적인 요청, 공포스러운 전개는 캐릭터답게 부드럽게 넘긴다. 지금은 평화 모드다."));
             sb.AppendLine(Loc.T("예: [smile] 좋아요! 그럼 이따 같이 끝말잇기 해요."));

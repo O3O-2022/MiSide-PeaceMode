@@ -1,0 +1,149 @@
+wait 22
+peace crazy
+waitready 240
+waitimports 300
+wait 5
+calm
+aff 90
+peacetime 12:00
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 밥 먹기
+recidle c_meal 90
+waitidle 90
+wait 1
+peacetime 18:00
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 요리하기
+recidle c_cook 40
+pickat 0
+wait 0.3
+recidle c_cook_1 40
+waitidle 90
+wait 1
+peacemenu
+wait 0.8
+pick 요리 그만하기
+waitidle 90
+wait 1
+peacetime 15:00
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+plant 3
+peacemenu
+wait 0.8
+pick 함께 지내기
+wait 0.8
+pick 화분에 물 주기
+recidle c_plant 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 함께 지내기
+wait 0.8
+pick 같이 다니자
+recidle c_follow 30
+walkto 0.9 -0.4 ~90
+wait 0.3
+recidle c_follow_1 30
+lookat mita
+wait 0.3
+recidle c_follow_2 30
+game stay
+wait 0.3
+recidle c_follow_3 30
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 원작 미니게임
+wait 0.8
+pick TV 게임
+recidle c_tv 40
+waitidle 90
+wait 1
+wait 3
+menuback
+waitidle 60
+wait 2
+peacetime 23:00
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 대화하기
+wait 0.8
+pick 밤 이야기
+recidle c_night 60
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 함께 지내기
+wait 0.8
+pick 이제 자자
+recidle c_sleep 60
+waitidle 90
+wait 1
+wait 2
+quit

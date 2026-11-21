@@ -1,3 +1,4 @@
+#if DEVTOOLS && DEVREC
 using System;
 using System.IO;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
@@ -84,3 +85,4 @@ namespace MiSidePeaceMode
         }
     }
 }
+#endif

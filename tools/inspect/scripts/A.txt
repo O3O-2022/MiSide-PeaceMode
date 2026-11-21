@@ -1,0 +1,375 @@
+wait 22
+peace crazy
+waitready 240
+waitimports 300
+wait 5
+calm
+aff 90
+peacetime 15:00
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 대화하기
+wait 0.8
+pick 아무 이야기나
+recidle c_talk 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 대화하기
+wait 0.8
+pick 질문하기
+wait 0.8
+pickat 0
+recidle c_question 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 쓰다듬기
+recidle c_pat 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 안아주기
+recidle c_hug 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 칭찬하기
+recidle c_compliment 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 안경 써 줘
+recidle c_glasses 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 안경 벗기
+recidle c_glasses_off 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 선물하기
+wait 0.8
+pickat 0
+recidle c_gift 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 가위바위보
+recidle c_rps 40
+pickat 0
+wait 0.3
+recidle c_rps_1 40
+pickat 0
+wait 0.3
+recidle c_rps_2 40
+pickat 0
+wait 0.3
+recidle c_rps_3 40
+pickat 1
+wait 0.3
+recidle c_rps_4 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+game chamauto
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 참참참
+recidle c_cham 60
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 끝말잇기
+recidle c_words 40
+pickat 0
+wait 0.3
+recidle c_words_1 40
+pickat 0
+wait 0.3
+recidle c_words_2 40
+pickat 0
+wait 0.3
+recidle c_words_3 40
+pickat 0
+wait 0.3
+recidle c_words_4 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 넌센스 퀴즈
+recidle c_riddle 40
+pickat 0
+wait 0.3
+recidle c_riddle_1 40
+pickat 0
+wait 0.3
+recidle c_riddle_2 40
+pickat 0
+wait 0.3
+recidle c_riddle_3 40
+pickat 0
+wait 0.3
+recidle c_riddle_4 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 같이 사진 찍기
+wait 0.8
+pickat 3
+recidle c_photo 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 특별한 시간
+wait 0.8
+pick 같이 창밖 보기
+recidle c_window 60
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 특별한 시간
+wait 0.8
+pick 같이 음악 듣기
+recidle c_music 60
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 특별한 시간
+wait 0.8
+pick 무릎베개
+recidle c_lap 60
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 특별한 시간
+wait 0.8
+pick 노래 불러 줘
+recidle c_song 60
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 특별한 시간
+wait 0.8
+pick 속마음 듣기
+recidle c_heart 60
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 손 잡기
+recidle c_hands 90
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 숨바꼭질
+recidle c_hide 30
+game found
+wait 0.3
+recidle c_hide_1 30
+waitidle 90
+wait 1
+wait 2
+quit

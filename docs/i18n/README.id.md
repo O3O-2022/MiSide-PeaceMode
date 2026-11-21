@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Mode Damai
 
@@ -14,9 +14,38 @@
 
 **⬇ Unduh dan pasang (gratis, dengan penginstal)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Bahasa Indonesia)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Bahasa Indonesia)
 
 Memperkenalkan "Mode Damai", mod buatan penggemar untuk MiSide (AIHASTO): sehari bersama salah satu dari tujuh Mita, tanpa horor.
+
+## Baru di v1.1
+
+- Mode foto: pilih pose, ekspresi, dan bingkai (polaroid, film, hati, tanggal), lalu 3-2-1 — dan album foto
+- Buku harian Mita: satu halaman tiap hari dengan kata-katanya
+- Tanaman yang dirawat bersama: siram sekali sehari dan ia akan berbunga
+- Suasana hati Mita dan halaman catatan kebersamaan kalian
+- Gerakan buatan untuk mod: mengangguk, menggeleng, memiringkan kepala, malu, melambai, bersorak
+- Menu baru dengan submenu, pengaturan di dalam game, dan dukungan gamepad
+- Penanda yang menunjukkan di mana Mita saat ia tak terlihat
+- Obrolan AI yang mengingat apa yang kamu ceritakan (opsional)
+- Kostum vampir dan Natal untuk Mita, serta warna pakaian untuk Mita lainnya
+- 17 target untuk dicapai bersama, dan surat Mita saat semuanya selesai
+- Gemini dan ChatGPT untuk obrolan AI (API key sendiri)
+- Bereaksi dengan gerakan pada elusan, pujian, dan hadiah; pelukan, gandeng tangan, dan tidur berjalan mulus
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Mengobrol, bertanya, mengelus, memeluk, berpegangan tangan, memuji, kacamata, pakaian
 - Batu-gunting-kertas, sambung kata, tebak-tebakan, cham-cham-cham, petak umpet, foto, permainan kartu

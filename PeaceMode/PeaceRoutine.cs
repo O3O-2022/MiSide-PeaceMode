@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -93,7 +94,7 @@ namespace MiSidePeaceMode
             switch (activity)
             {
                 case MitaActivity.Free:
-                    if (!calm) return;
+                    if (!calm || (posed && !showcasing) || cooking || hugging) return;
                     if (MealTime() && S.LastMeal != MealKey() && mealStartedFor != MealKey() && stovePos != Vector3.zero)
                     {
                         mealStartedFor = MealKey();
@@ -163,7 +164,7 @@ namespace MiSidePeaceMode
                     {
                         // her own morning (you stayed up): she gets up
                         EndRoutine();
-                        if (PlayerNearMita(6f, 360f)) Play(MorningLines());
+                        if (PlayerNearMita(6f, 360f)) Play(MorningLines().Concat(DreamLines()).ToList());
                     }
                     break;
             }
@@ -209,7 +210,7 @@ namespace MiSidePeaceMode
             if (activity != MitaActivity.ToBed) return;
             walkId++;
             // lying down is a jump: hide it behind a short fade if you could see it
-            bool seen = PlayerNearMita(7f, 70f) && fadeTarget <= 0f;
+            bool seen = PlayerNearMita(7f, 70f) && fadeTarget <= 0f && afterFade == null && !busy && !MenuOpen;   // (never over another scene's fade)
             Action lie = () =>
             {
                 activity = MitaActivity.Sleeping;
@@ -228,7 +229,9 @@ namespace MiSidePeaceMode
         // back to her free day (the routine was interrupted, finished, or you took her somewhere)
         void EndRoutine()
         {
+            lineAnchor = null;   // (a scene of its own left behind)
             StopFollow(false);
+            if (cooking) StopCooking();
             var was = activity;
             walkId++;
             walking = false;

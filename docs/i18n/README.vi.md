@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Chế Độ Bình Yên
 
@@ -14,9 +14,38 @@
 
 **⬇ Tải về và cài đặt (miễn phí, có trình cài đặt)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Tiếng Việt)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Tiếng Việt)
 
 Giới thiệu "Chế Độ Bình Yên", bản mod do người hâm mộ làm cho MiSide (AIHASTO): một ngày bên một trong bảy Mita, không kinh dị.
+
+## Mới trong v1.1
+
+- Chế độ chụp ảnh: chọn tư thế, biểu cảm và khung (polaroid, phim, trái tim, ngày), rồi 3-2-1 — kèm album ảnh
+- Nhật ký của Mita: mỗi ngày một trang, bằng lời của cô ấy
+- Chậu cây cùng chăm: tưới mỗi ngày một lần là cây sẽ nở hoa
+- Tâm trạng của Mita và trang ghi lại những điều hai người đã làm
+- Cử chỉ làm riêng cho mod: gật đầu, lắc đầu, nghiêng đầu, ngại ngùng, vẫy tay, reo vui
+- Menu mới có menu con, cài đặt trong game và hỗ trợ tay cầm
+- Dấu chỉ vị trí Mita khi bạn không thấy cô ấy
+- Trò chuyện AI nhớ những gì bạn đã kể (tùy chọn)
+- Trang phục ma cà rồng và Giáng Sinh cho Mita, đổi màu trang phục cho các Mita khác
+- 17 mục tiêu cùng hoàn thành và thư của Mita khi xong hết
+- Gemini và ChatGPT cho chat AI (API key của bạn)
+- Phản ứng bằng cử chỉ với xoa đầu, lời khen và quà; ôm, nắm tay và đi ngủ mượt mà
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Trò chuyện, hỏi đáp, xoa đầu, ôm, nắm tay, khen ngợi, đeo kính, thay đồ
 - Oẳn tù tì, nối từ, câu đố mẹo, cham-cham-cham, trốn tìm, chụp ảnh, trò chơi bài

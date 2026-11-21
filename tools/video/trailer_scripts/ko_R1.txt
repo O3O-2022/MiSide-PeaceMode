@@ -1,0 +1,148 @@
+name
+screen 960 540
+avframe 0.15
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+wait 34
+peace crazy
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act pat
+recordav ko_r12_pat 6 60 3840 2160
+waitidle 30
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1.3
+pick 교감하기
+wait 1.3
+pick 칭찬하기
+recordav ko_r12_compliment 6 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act hug
+recordav ko_r12_hug 10 60 3840 2160
+waitidle 40
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 1.3
+pick 교감하기
+wait 1.3
+pick 선물하기
+wait 1.3
+pick 꽃
+recordav ko_r12_gift 9 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+wait 1.3
+pick 손 잡기
+recordav ko_r12_hands 14 60 3840 2160
+waitidle 60
+wait 1
+wait 10
+waitidle 60
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+wait 1.3
+pick 특별한 시간
+wait 1.3
+pick 같이 창밖 보기
+recordav ko_r12_window 12 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+lookat mita
+wait 1
+peacemenu
+wait 1.3
+pick 특별한 시간
+wait 1.3
+pick 무릎베개
+recordav ko_r12_lap 18 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+mitago 2.2 -1.1
+wait 12
+look face
+wait 1
+after 0.3 mitago 8.7 1.6
+recordav ko_r12_walk 9 60 3840 2160
+look off
+waitidle 60
+wait 2
+cloth HellVamp 0
+wait 1.5
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act hug
+recordav ko_r12_vamp_hug 10 60 3840 2160
+waitidle 40
+wait 2
+cloth Chirfns 0
+wait 1.5
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+act hug
+recordav ko_r12_xmas_hug 10 60 3840 2160
+waitidle 40
+wait 2
+cloth original 0
+wait 1
+wait 2
+screen native
+wait 2
+quit

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Mirni mod
 
@@ -14,9 +14,38 @@
 
 **⬇ Preuzimanje i instalacija (besplatno, sa instalerom)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Srpski)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Srpski)
 
 Predstavljamo „Mirni mod“, fanovski mod za MiSide (AIHASTO): dan sa jednom od sedam Mita, bez horora.
+
+## Novo u v1.1
+
+- Foto režim: poza, izraz lica i okvir (polaroid, film, srca, datum), pa 3-2-1 — i foto album
+- Mitin dnevnik: stranica za svaki dan, njenim rečima
+- Biljka koju gajite zajedno: zalivajte je jednom dnevno i procvetaće
+- Mitino raspoloženje i stranica vaših zajedničkih zapisa
+- Pokreti napravljeni za mod: klimanje, odmahivanje, naginjanje glave, stidljivost, mahanje, „ura“
+- Novi meni sa podmenijima, podešavanja u igri i podrška za gamepad
+- Oznaka koja pokazuje gde je Mita kada je izgubite iz vida
+- AI ćaskanje koje pamti šta ste joj rekli (po želji)
+- Vampirske i božićne odeće za Mitu i boje odeće za ostale Mite
+- 17 ciljeva za zajedničko ostvarenje i Mitino pismo kad ih sve ispuniš
+- Gemini i ChatGPT za AI četovanje (sopstveni API ključ)
+- Gestovima reaguje na maženje, komplimente i poklone; zagrljaji, držanje za ruke i spavanje teku glatko
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Razgovor, pitanja, maženje, zagrljaji, držanje za ruke, pohvale, naočare, odeća
 - Kamen-papir-makaze, igra reči, zagonetke, čam-čam-čam, žmurke, fotografije, igra kartama

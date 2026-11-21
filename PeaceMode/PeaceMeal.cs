@@ -164,10 +164,15 @@ namespace MiSidePeaceMode
         AnimationClip heldClip;
         float nextHeldCheck;
 
+        int heldMisses;
+
         void HoldClip(AnimationClip c)
         {
             heldClip = c;
-            nextHeldCheck = Time.time + 0.2f;
+            heldMisses = 0;
+            // (a second and a half to come in: checked sooner, the blend into it read as "not playing" and the restart
+            // went through her idle - the hug's half second of her standing apart)
+            nextHeldCheck = Time.time + 1.5f;
             if (c != null) SetIdle(c);
         }
 
@@ -186,7 +191,9 @@ namespace MiSidePeaceMode
             if (heldClip == null || !posed || mitaBody == null || Time.time < nextHeldCheck) return;
             nextHeldCheck = Time.time + 0.5f;
             var an = mitaBody.GetComponent<Animator>();
-            if (an == null || Playing(an, heldClip.name)) return;
+            if (an == null || Playing(an, heldClip.name)) { heldMisses = 0; return; }
+            if (an.IsInTransition(0) || ++heldMisses < 2) return;   // (two misses in a row, a blend doesn't count)
+            heldMisses = 0;
             try { mitaAnim.ResetOrder(); mitaAnim.AnimationClipSimpleNext(heldClip); } catch (Exception e) { Plugin.Log.LogWarning("[peace] held clip: " + e.Message); }
             if (DevRunner.Active) Plugin.Log.LogInfo("[peace] Mita (re)starts " + heldClip.name);
         }

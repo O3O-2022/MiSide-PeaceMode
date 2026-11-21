@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Bebe Taym
 
@@ -14,9 +14,38 @@
 
 **⬇ I-download at i-install (libre, may kasamang installer)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Filipino)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Filipino)
 
 Ipinakikilala ang "Bebe Taym", isang fan-made na mod para sa MiSide (AIHASTO): isang araw kasama ang isa sa pitong Mita, walang katatakutan.
+
+## Bago sa v1.1
+
+- Photo mode: piliin ang pose, mukha at frame (polaroid, film, puso, petsa), tapos 3-2-1 — at may photo album
+- Diary ni Mita: isang pahina bawat araw, sa sarili niyang salita
+- Halamang aalagaan ninyo: diligan isang beses sa isang araw at mamumulaklak ito
+- Ang mood ni Mita at pahina ng inyong mga tala
+- Mga galaw na ginawa para sa mod: tango, iling, ikiling ang ulo, hiya, kaway, saya
+- Bagong menu na may submenu, settings sa loob ng laro at suporta sa gamepad
+- Marker na nagpapakita kung nasaan si Mita kapag nawala siya sa paningin
+- AI chat na naaalala ang mga sinabi mo (opsyonal)
+- Mga vampire at Pamaskong outfit para kay Mita, at kulay ng outfit para sa iba pang Mita
+- 17 layuning aabutin nang magkasama, at sulat ni Mita kapag natapos mo lahat
+- Gemini at ChatGPT para sa AI chat (sarili mong API key)
+- Tumutugon siya sa haplos, papuri at regalo gamit ang kilos; maayos ang yakap, hawak-kamay at pagtulog
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Kuwentuhan, tanong, haplos, yakap, hawak-kamay, papuri, salamin, damit
 - Bato-bato-pik, dugtungan ng salita, bugtong, cham-cham-cham, taguan, litrato, card game

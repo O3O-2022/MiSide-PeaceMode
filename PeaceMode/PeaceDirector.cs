@@ -130,6 +130,7 @@ namespace MiSidePeaceMode
             // also when leaving through the pause menu's own "main menu" button, not just our goodbye
             if (!appQuitting) OverlayGuard.ReturningFromPeace = true;
             S?.Write();
+            if (S != null) SaveDiary();
             ui?.Destroy();
             if (controlsHeld) HoldControls(false);
             RestoreVoice();
@@ -181,6 +182,7 @@ namespace MiSidePeaceMode
             var cardsT = Util.FindDeepAll("Interactive Cards >>");
             var frame = cardsT != null ? cardsT.Find("Canvas/FrameInfo") : null;
             ui = new PeaceUI(frame != null ? frame.gameObject : null);
+            ui.SetScale(PeaceMode.UiScale.Value);
             SetupMitaInteractive();
             ApplySkin(Pn.Skin);
             try { if (mita != null && mita.nma != null) mita.nma.speed *= Pn.Speed; } catch { }
@@ -277,6 +279,8 @@ namespace MiSidePeaceMode
         {
             skin?.Remove();
             skin = null;
+            clothOriginal.Clear();
+            colorNow = "";
             if (!string.IsNullOrEmpty(path) && mitaBody != null)
             {
                 try { skin = MitaSkin.Apply(mitaBody, path, t => mitaInteractive != null && t == mitaInteractive.transform, Pn.SkinScale); }
@@ -285,9 +289,30 @@ namespace MiSidePeaceMode
             if (Pn.Id == "cap" && cappieIdle != null && skin != null && !skin.OwnAnimator) skin.IdleClip = cappieIdle;
             SetIdle(skin != null && !skin.OwnAnimator ? skin.IdleClip : null);
             RefreshOutline();
+            ColorAsSaved();
         }
 
         // each Mita stands the way she does in the character gallery: swap the idle clip of the original Mita's animator
+        // her walk: of the many "Mita Walk" clips loaded (one per story scene) some move nothing on this body - the first
+        // one found among them (0.93 s: she slid along stiff). The 0.95-0.98 s ones are the story's house walk and all
+        // move her legs and arms (dev cliptest Mita Walk); any other one only if none of those is there.
+        bool walkGood;   // (one of the house walks: else asked again at the next idle change, once more scenes are in)
+        AnimationClip WalkClip()
+        {
+            AnimationClip best = null, other = null;
+            foreach (var o in Resources.FindObjectsOfTypeAll(Il2CppInterop.Runtime.Il2CppType.Of<AnimationClip>()))
+            {
+                if (o == null || o.name != "Mita Walk") continue;
+                var c = o.Cast<AnimationClip>();
+                if (c.length >= 0.95f && c.length <= 0.98f) { if (best == null) best = c; }
+                else if (c.length > 0.94f && other == null) other = c;
+            }
+            walkGood = best != null;
+            var pick = best ?? other ?? Clip("Mita Walk");
+            if (pick != null) pick.hideFlags |= HideFlags.DontUnloadUnusedAsset;
+            return pick;
+        }
+        UnityEngine.Object walkSetFor;   // (the animator her walk was put in: a new one after a scene load)
         void SetIdle(AnimationClip clip)
         {
             if (mitaAnim == null || mitaAnim.animOver == null) return;
@@ -304,7 +329,16 @@ namespace MiSidePeaceMode
                 // "MitaIdle 1" is the story's leaning-forward pose
                 var use = clip ?? Clip("Mita Idle") ?? originalIdle;
                 if (use == null) return;
+                RememberIdleState();
                 mitaAnim.ReAnimationClip(IdleSlot, use);
+                idleClipName = use.name;
+                // her walk: the controller's "Walk" state holds an empty placeholder the story fills scene by scene -
+                // left empty here, she slid along frozen in whatever pose she had (Sleepy Mita: her idle's arms-out start)
+                if (walkSetFor != mitaAnim && WalkClip() is AnimationClip walk)
+                {
+                    try { mitaAnim.AnimationClipWalk(walk); if (walkGood) walkSetFor = mitaAnim; Plugin.Log.LogInfo($"[peace] walk -> {walk.name} ({walk.length:0.00}s)"); }
+                    catch (Exception e) { Plugin.Log.LogWarning("[peace] walk swap failed: " + e.Message); walkSetFor = mitaAnim; }
+                }
                 Plugin.Log.LogInfo($"[peace] idle -> {use.name}");
             }
             catch (Exception e) { Plugin.Log.LogWarning("[peace] idle swap failed: " + e.Message); }
@@ -330,7 +364,7 @@ namespace MiSidePeaceMode
 
         void OnMitaClicked()
         {
-            if (!freeMode || busy || MenuOpen || fadeTarget > 0 || cardGame) return;
+            if (!freeMode || busy || MenuOpen || fadeTarget > 0 || fadeVal > 0.001f || afterFade != null || cardGame || hugging || lounging || mealWaiting || standingUp) return;
             OpenMainMenu();
         }
 
@@ -397,6 +431,31 @@ namespace MiSidePeaceMode
                 Destroy(s.gameObject); glyphs++;
             }
             if (n > 0 || glyphs > 0) Plugin.Log.LogInfo($"[peace] cleared {n} leftover lines, {glyphs} letters");
+        }
+
+        // the leftovers of finished lines near a new one's place (see Spawn)
+        void ClearLeftoverNear(Vector3 at, float radius)
+        {
+            float r2 = radius * radius;
+            var all = FindObjectsOfType<Dialogue_Symbol>();
+            var owners = new HashSet<IntPtr>();
+            var ownerObjs = new List<GameObject>();
+            foreach (var s in all)
+            {
+                if (s == null) continue;
+                var owner = s.scrd3;
+                if (owner == null || owner.gameObject.name != "PeaceLine") continue;   // (only ours: the story's own lines are the story's)
+                if (current != null && owner.gameObject == current) continue;
+                if ((s.transform.position - at).sqrMagnitude > r2) continue;
+                if (owners.Add(owner.Pointer)) ownerObjs.Add(owner.gameObject);
+            }
+            if (owners.Count == 0) return;
+            // (the whole old line with all of its letters, so nothing is left reaching for a letter or a line that's gone)
+            int n = 0;
+            foreach (var s in all)
+                if (s != null && s.scrd3 != null && owners.Contains(s.scrd3.Pointer)) { Destroy(s.gameObject); n++; }
+            foreach (var g in ownerObjs) if (g != null) Destroy(g);
+            if (DevRunner.Active) Plugin.Log.LogInfo($"[peace] the line before ({n} letters) cleared from the new line's place");
         }
 
         // a line of yours in the story (the Player theme, no speaker): under the parent, or anywhere in the scene
@@ -620,7 +679,8 @@ namespace MiSidePeaceMode
         }
         public void DevSleep() => DoSleep();
         // nothing playing: no lines, no fade, no staged scene (dev scripts wait for this)
-        public bool DevIdle => ready && freeMode && !busy && queue.Count == 0 && fadeTarget <= 0f && fadeVal <= 0.001f && afterFade == null && (!posed || showcasing) && photoStage == 0 && pendingWall.Count == 0;
+        public bool DevMenuUp => MenuOpen && !busy && queue.Count == 0;
+        public bool DevIdle => ready && freeMode && !busy && !cardGame && !GameRunning && !MenuOpen && !pendingMenu && queue.Count == 0 && fadeTarget <= 0f && fadeVal <= 0.001f && afterFade == null && (!posed || showcasing) && photoStage == 0 && pendingWall.Count == 0;
         // recording: Mita stands at (mx, mz) facing you, you stand at (px, pz) looking at her
         bool showcasing;
         public void DevPitch(float pitch)
@@ -659,6 +719,16 @@ namespace MiSidePeaceMode
                 foreach (var ci in an.GetCurrentAnimatorClipInfo(layer)) sb.Append($"{(ci.clip != null ? ci.clip.name : "-")}({ci.weight:0.0}) ");
                 sb.Append(" | ");
             }
+            // (dev: is the body itself posed, and the skin with it)
+            Transform Find(Transform r, string n) { if (r == null) return null; foreach (var t in r.GetComponentsInChildren<Transform>(true)) if (t.name == n) return t; return null; }
+            foreach (var n in new[] { "Left arm", "Left leg" })
+            {
+                Transform src = null, dst = null;
+                foreach (var t in mitaBody.GetComponentsInChildren<Transform>(true))
+                    if (t.name == n) { if (skin?.Root != null && t.IsChildOf(skin.Root.transform)) dst = t; else if (src == null) src = t; }
+                sb.Append($"{n}: body {(src != null ? src.localEulerAngles.ToString("0") : "-")} skin {(dst != null ? dst.localEulerAngles.ToString("0") : "-")}  ");
+            }
+            sb.Append($"animEnabled={an.enabled} speed={an.speed:0.0} cull={an.cullingMode}");
             return sb.ToString();
         }
         public void DevReIdle()
@@ -703,6 +773,31 @@ namespace MiSidePeaceMode
             var v = f.GetValue(w);
             if (v is Line[][] sets && sets.Length > 0) Play(Pick(sets));
             else if (v is Line[] one) Play(one);
+        }
+        // dev: every loaded clip of a name, played in turn - how far her leg and arm move over 0.3 s in each
+        public void DevClipTest(string name)
+        {
+            var list = new List<AnimationClip>();
+            foreach (var o in Resources.FindObjectsOfTypeAll(Il2CppInterop.Runtime.Il2CppType.Of<AnimationClip>()))
+                if (o != null && o.name == name) list.Add(o.Cast<AnimationClip>());
+            var leg = Util.FindDeep(mitaBody, "Left leg"); var arm = Util.FindDeep(mitaBody, "Left arm");
+            int i = 0;
+            void Next()
+            {
+                if (i >= list.Count) { Plugin.Log.LogInfo("[dev] cliptest done"); return; }
+                var c = list[i++];
+                try { mitaAnim.AnimationClipSimple(c); } catch { }
+                After(0.4f, () =>
+                {
+                    var l0 = leg.localRotation; var a0 = arm.localRotation;
+                    After(0.3f, () =>
+                    {
+                        Plugin.Log.LogInfo($"[dev] cliptest {c.name} id={c.GetInstanceID()} len={c.length:0.00} leg moved {Quaternion.Angle(l0, leg.localRotation):0.0}° arm {Quaternion.Angle(a0, arm.localRotation):0.0}° avgSpeed={c.averageSpeed} apparent={c.apparentSpeed:0.00} human={c.humanMotion} motionCurves={c.hasMotionCurves} rootCurves={c.hasRootCurves} genericRoot={c.hasGenericRootTransform} rate={c.frameRate} events={c.events.Length}");
+                        Next();
+                    });
+                });
+            }
+            Next();
         }
         public void DevClip(string mode, string name)
         {
@@ -750,6 +845,7 @@ namespace MiSidePeaceMode
             }
             Plugin.Log.LogInfo("[dev] persona -> " + Pn.Id);
         }
+        public void DevUi(bool on) => ui?.SetVisible(on);
         public void DevEmotion(string e) { try { mita?.FaceEmotion(e); } catch (Exception ex) { Plugin.Log.LogWarning("[dev] emotion " + e + ": " + ex.Message); } }
         public Transform MitaBody => mitaBody;
         // what a camera should look at to see her face (the skin's own head for models with their own rig)
@@ -777,6 +873,7 @@ namespace MiSidePeaceMode
             if (greeted) return;
             greeted = true;
             // she turns round from the stove to greet you (BeginInteraction), then the free day starts
+            NextGesture("@wave");   // (hello)
             Play(SessionGreeting(), StartFreeMode);
         }
 
@@ -809,7 +906,7 @@ namespace MiSidePeaceMode
             else lines.AddRange(Cold ? MorningLines() : (IList<Line>)ReturnGreeting() ?? MorningLines());   // (cold: no warm welcome back)
             // real calendar days, once per date
             var today = Now.ToString("yyyy-MM-dd");
-            if (w.Dates != null && S.LastDateEvent != today && w.Dates.TryGetValue(Now.ToString("MM-dd"), out var d))
+            if (w.Dates != null && S.LastDateEvent != today && w.Dates.TryGetValue(Personas.DateKey(Now), out var d))
             {
                 S.LastDateEvent = today;
                 lines.AddRange(d);
@@ -933,18 +1030,6 @@ namespace MiSidePeaceMode
         float photoAt;
         string photoPath;
 
-        void DoPhoto()
-        {
-            Did("photo");
-            var w = Personas.Wall(Pn.Id);
-            Play(w.PhotoReady ?? new Line[0], () =>
-            {
-                photoStage = 1; photoAt = Time.realtimeSinceStartup + 0.6f;
-                // she poses for the camera
-                try { if (!posed) mitaLook?.LookOnPlayerAndRotate(); else mitaLook?.LookOnPlayer(); mita?.FaceEmotion("smile"); } catch { }
-            });
-        }
-
         // a photo "together" should have her in it: turn the view to her face if she is around
         void AimAtMita()
         {
@@ -955,31 +1040,6 @@ namespace MiSidePeaceMode
             pm.rotX = Quaternion.LookRotation(new Vector3(to.x, 0f, to.z)).eulerAngles.y;
             // a little below her eyes, so her face sits in the upper middle of the frame
             pm.rotY = -Mathf.Atan2(to.y - 0.12f, flat) * Mathf.Rad2Deg;
-        }
-
-        void TickPhoto()
-        {
-            if (photoStage == 1 && Time.realtimeSinceStartup < photoAt) { AimAtMita(); return; }
-            if (photoStage == 0 || Time.realtimeSinceStartup < photoAt) return;
-            if (photoStage == 1)
-            {
-                // wait for the last line's letters to clear, then shoot without our HUD
-                ClearLeftoverText();
-                ui.SetVisible(false);
-                var dir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(BepInEx.Paths.GameRootPath + "/"), "PeaceModePhotos");
-                System.IO.Directory.CreateDirectory(dir);
-                photoPath = System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}_{Pn.Id}.png");
-                ScreenCapture.CaptureScreenshot(photoPath);
-                photoStage = 2;
-                photoAt = Time.realtimeSinceStartup + 0.25f;
-                return;
-            }
-            ui.SetVisible(true);
-            photoStage = 0;
-            Plugin.Log.LogInfo("[peace] photo saved: " + photoPath);
-            AddAff(1);
-            var wall = Personas.Wall(Pn.Id);
-            Play((wall.PhotoDone ?? new Line[0]).Concat(PhotoCountLines(System.IO.Path.GetDirectoryName(photoPath), wall)).ToList());
         }
 
         float lastTongue = -999f, weatherErrorAt;
@@ -1191,6 +1251,7 @@ namespace MiSidePeaceMode
             S.Running = false;
             Plugin.Log.LogInfo("[peace] game closing: " + S.ExitKind);
             S.Write();
+            SaveDiary();
         }
 
         void DoQuitGame()
@@ -1355,6 +1416,20 @@ namespace MiSidePeaceMode
             Plugin.Log.LogInfo("[peace] card game starts");
             cardGame = true;
             ui.CloseMenu();
+            // (whatever she was in the middle of - cooking alone, the sofa, asleep - ends: she's at the table now)
+            // (a walk of hers just stops: the click has already stopped her roaming, which EndRoutine would restart)
+            try
+            {
+                if (cooking) StopCooking();
+                if (activity == MitaActivity.Cooking || activity == MitaActivity.MealReady || activity == MitaActivity.Sleeping || activity == MitaActivity.OnSofa)
+                {
+                    EndRoutine();
+                    try { mita?.AiShraplyStop(); addon?.StopAddon(); } catch { }   // (releasing her pose restarted her roaming)
+                }
+                else if (activity != MitaActivity.Free) { walkId++; walking = false; activity = MitaActivity.Free; ShowQuestIcon(false); }
+                StopFollow(false);
+            }
+            catch (Exception e) { Plugin.Log.LogWarning("[peace] cards: routine end: " + e.Message); }
             // the click already stopped the roaming addon: keep our talks from starting it again until you stand up
             addonHeld = true;
         }
@@ -1404,7 +1479,10 @@ namespace MiSidePeaceMode
             if (mita != null && !mita.gameObject.activeSelf) mita.gameObject.SetActive(true);
             if (mitaBody != null)
             {
-                var spot = UnityEngine.AI.NavMesh.SamplePosition(standNear, out var hit, 2f, -1) ? hit.position : standNear;
+                // (nothing of a pose from before the game may pull her back to it: KeepPose would snap her there)
+                posed = false; lying = false; seatHips = Vector3.zero; planting = false; uprightFront = Vector3.zero;
+                ReleaseClip();
+                var spot = ClearSpot(standNear, 2f);
                 var face = (pm != null ? pm.transform.position : spot + Vector3.forward) - spot; face.y = 0;
                 // her face is on the agent's -Z side (see ReleasePose)
                 mitaBody.SetPositionAndRotation(spot, Quaternion.LookRotation(face.sqrMagnitude > 0.001f ? -face : Vector3.back));
@@ -1449,6 +1527,7 @@ namespace MiSidePeaceMode
             // listening to her (lines, a staged scene) is not being away: no handheld console coming out meanwhile
             if (gc != null && (busy || queue.Count > 0 || fadeTarget > 0f || hugging)) gc.timeAFK = 0f;
             float dt = Time.deltaTime;
+            TickCollar(dt);
             S.Minute += dt * PeaceMode.TimeScale.Value;
             if (S.Minute >= 1440f) { S.Minute -= 1440f; S.Day++; lastEventHour = -1; }
 
@@ -1464,26 +1543,30 @@ namespace MiSidePeaceMode
 
             ChatClient.Drain();
             if (chatOpen) TickChat();   // typing: none of the menu keys
+            else if (TickMenus()) { }   // our panel, the album / records card, a settings input
             else if (MenuOpen)
             {
                 HoldControls(true);
                 for (int i = 0; i < 9; i++)
                     if (Input.GetKeyDown(KeyCode.Alpha1 + i) || Input.GetKeyDown(KeyCode.Keypad1 + i)) { Choose(i); break; }
-                // a tenth option (at meal times) is on 0
                 if (MenuOpen && (Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0))) Choose(9);
                 if (MenuOpen && (Input.GetKeyDown(PeaceMode.InteractKey.Value) || Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1)))
                     CloseMenus();
                 if (!MenuOpen && !pendingMenu) HoldControls(false);
             }
             else if (controlsHeld && !pendingMenu) HoldControls(false);
+            try { TickMarker(); } catch (Exception e) { if (Time.time > uiErrorAt) { uiErrorAt = Time.time + 60f; Plugin.Log.LogError("[marker] " + e); } }
+            try { ui.Tick(dt); } catch (Exception e) { if (Time.time > uiErrorAt) { uiErrorAt = Time.time + 60f; Plugin.Log.LogError("[ui] " + e); } }
             pendingMenu = false;
 
-            bool canInteract = freeMode && !busy && !MenuOpen && fadeTarget <= 0 && !cardGame && !GameRunning;
+            bool canInteract = freeMode && !busy && !MenuOpen && fadeTarget <= 0 && fadeVal <= 0.001f && afterFade == null && !cardGame && !GameRunning
+                               && !hugging && !lounging && !mealWaiting && !standingUp && !(pm != null && pm.animationRun);
             SetMitaInteractive(canInteract);
             SetSpots(canInteract);
             bool near = canInteract && PlayerNearMita(2.2f, 35f);
-            ui.ShowPrompt(gamePrompt ?? (near && mitaInteractive == null ? "[" + PeaceMode.InteractKey.Value + "] " + Loc.F("{0}와 교감하기", ShortName) : null));
+            ui.ShowPrompt(gamePrompt ?? (near && mitaInteractive == null ? (PeacePad.InUse ? "Ⓐ " : "[" + PeaceMode.InteractKey.Value + "] ") + Loc.F("{0}와 교감하기", ShortName) : null));
             if (near && Input.GetKeyDown(PeaceMode.InteractKey.Value)) OpenMainMenu();
+            try { TickPad(dt, near); } catch (Exception e) { if (Time.time > uiErrorAt) { uiErrorAt = Time.time + 60f; Plugin.Log.LogError("[pad] " + e); } }
 
             TrackWall();
             try { TrackMore(Time.realtimeSinceStartup, Personas.Wall(Pn.Id)); } catch (Exception e) { Plugin.Log.LogError("[peace] fourth wall: " + e); }
@@ -1504,6 +1587,7 @@ namespace MiSidePeaceMode
             TickGames();
             TickDance();
             TickHammer();
+            try { TickMitaSafety(); } catch (Exception e) { if (Time.time > safetyErrorAt) { safetyErrorAt = Time.time + 60f; Plugin.Log.LogError("[safety] " + e); } }
             // the player inside one of the story's own animations: at the TV, at the card table, cutting the carrot...
             bool playerInScene = pm != null && pm.animationRun;
             if (freeMode && !cardGame && !playerInScene) CheckHeadGesture();
@@ -1526,8 +1610,13 @@ namespace MiSidePeaceMode
                 if (!busy) CheckTierChange();
                 if (!busy && Time.time > idleNext)
                 {
-                    idleNext = Time.time + Random.Range(Pn.IdleMin, Pn.IdleMax);
-                    if (PlayerNearMita(7f, 360f) && !TryRequest() && !TryPropose() && !TryWeatherTalk())
+                    idleNext = Time.time + Random.Range(Pn.IdleMin, Pn.IdleMax) * Mathf.Clamp(PeaceMode.Chattiness.Value, 0.3f, 4f) * MoodIdleFactor;
+                    // (her plant drooping, or her being bored: that comes first now and then)
+                    bool said = false;
+                    if (PlayerNearMita(7f, 360f) && PlantWilted && !PlantWateredToday && Random.value < 0.35f)
+                    { Play(new[] { new Line(Who.Mita, "화분이 시들어 가요… 같이 물 줄래요?", "sad") }, null, true); said = true; }
+                    else if (PlayerNearMita(7f, 360f) && Bored && Random.value < 0.5f && TryPropose(true)) said = true;
+                    if (!said && PlayerNearMita(7f, 360f) && !TryRequest() && !TryPropose() && !TryWeatherTalk())
                     {
                         bool drowsy = Pn.SpecialKind == SpecialKind.Coffee && L.Drowsy != null && Time.time > awakeUntil && Random.value < 0.6f;
                         bool cold = !drowsy && Cold && A.ColdIdle != null;
@@ -1537,10 +1626,10 @@ namespace MiSidePeaceMode
                 }
             }
 
-            if (PeaceMode.ShowHud.Value)
-                ui.SetHud(Loc.F("평화 모드  ·  {0}  ·  {1}일차  ·  {2} {3:00}:{4:00}  ·  호감도 {5}", ShortName, S.Day, Loc.T(TodName()), (int)(S.Minute / 60), (int)(S.Minute % 60), TierText(S.Affection)), true);
-            else ui.SetHud("", false);
+            ui.SetStatus(ShortName, Loc.F("{0}일차", S.Day), $"{Loc.T(TodName())}  {(int)(S.Minute / 60):00}:{(int)(S.Minute % 60):00}   {MoodText()}", TierText(S.Affection), PeaceMode.ShowHud.Value);
 
+            TickDiary();
+            try { TickMood(); TickPlant(); } catch (Exception e) { if (Time.time > uiErrorAt) { uiErrorAt = Time.time + 60f; Plugin.Log.LogError("[care] " + e); } }
             saveTimer -= dt;
             if (saveTimer <= 0) { saveTimer = 20f; S.Write(); }   // often, so a crash still leaves a close "last seen" 
         }
@@ -1550,12 +1639,14 @@ namespace MiSidePeaceMode
             if (!ready) return;
             KeepPose();
             KeepPlant();
+            try { TickMotion(); } catch (Exception e) { EndMotion(); Plugin.Log.LogError("[anim] motion: " + e); }
             TickHoldHandsView();
             TickLounge();
             // (after the game's own Update has placed the text from your idle eyes)
             if (current != null && !currentIsMita) { try { if (current.activeSelf) PlacePlayerLine(current); } catch { } }
             if (current != null) { try { FixLineLayout(); } catch (Exception e) { if (!layoutWarned) { layoutWarned = true; Plugin.Log.LogWarning("[peace] line layout: " + e.Message); } } }
             TickGestureProbe();
+            TickWatch();
             ApplyFaceOverlay();
             SyncSkin();
             PlaceQuestIcon();
@@ -1671,76 +1762,6 @@ namespace MiSidePeaceMode
 
         // ---------------------------------------------------------------- menus
 
-        void OpenMainMenu()
-        {
-            if (activity == MitaActivity.Sleeping) { OpenSleepingMenu(); return; }
-            if (RequestBack()) return;   // back from her favour: that comes first
-            var opts = new List<string> { "대화하기", "교감하기", "같이 놀자", following ? "여기서 기다려" : "같이 다니자" };
-            var acts = new List<Action> { OpenTalkMenu, OpenTouchMenu, OpenPlayMenu, () => { if (following) StopFollow(true); else StartFollow(); } };
-            if (S.Affection >= 15) { opts.Add("특별한 시간"); acts.Add(OpenMomentsMenu); }
-            if (!string.IsNullOrEmpty(Pn.SpecialName)) { opts.Add(Pn.SpecialName); acts.Add(DoSpecial); }
-            if (cooking) { opts.Add("요리 그만하기"); acts.Add(StopCooking); }
-            else if (MealTime() && S.LastMeal != MealKey())
-            {
-                // once she has finished cooking on her own, it's only eating left
-                if (activity != MitaActivity.MealReady) { opts.Add("같이 요리하기"); acts.Add(DoCook); }
-                opts.Add("같이 밥 먹기"); acts.Add(DoMeal);
-            }
-            if (OnSofaAlone) { opts.Insert(0, "옆에 앉기"); acts.Insert(0, JoinHerOnSofa); }
-            if (IsNight()) { opts.Add("이제 자자"); acts.Add(DoSleep); }
-            else if (Pn.NapAnytime) { opts.Add("같이 낮잠 자기"); acts.Add(DoSleep); }
-            opts.Add("오늘은 여기까지…"); acts.Add(OpenLeaveMenu);
-            opts.Add("닫기"); acts.Add(() => { });
-            ShowMenu(Pn.Short, opts, acts);
-        }
-
-        List<string> lastMenuOpts;
-
-        [HideFromIl2Cpp] void ShowMenu(string title, List<string> opts, List<Action> acts)
-        {
-            lastMenuOpts = opts;
-            pendingMenu = true;
-            HoldControls(true);
-            mitaLook?.LookOnPlayer();
-            // the story's own choice list once Scene 3 has lent it (a few seconds into the day), our menu before that
-            Action<int> choose = i => { pendingMenu = false; acts[i](); };
-            // (shown translated; the options themselves stay as written, for the checks on them)
-            if (!OpenChoices(opts, choose)) ui.OpenMenu(Loc.T(title), opts.Select(Loc.T).ToList(), choose);
-        }
-
-        void OpenTouchMenu()
-        {
-            var opts = new List<string> { "쓰다듬기", "안아주기", "칭찬하기" };
-            var acts = new List<Action> { DoPat, DoHug, DoCompliment };
-            if (glassesTemplate != null && Pn.Id != "mila" && Pn.Id != "chibi") { opts.Add(GlassesWorn ? "안경 벗기" : "안경 써 줘"); acts.Add(DoGlasses); }
-            if (Pn.Id == "crazy" && skin == null) { opts.Add("옷 갈아입기"); acts.Add(OpenClothesMenu); }   // (the others are their own models)
-            opts.Add("선물하기"); acts.Add(OpenGiftMenu);
-            opts.Add("그만두기"); acts.Add(() => { });
-            ShowMenu("교감하기", opts, acts);
-        }
-
-        void OpenPlayMenu()
-        {
-            var opts = new List<string> { "가위바위보", "끝말잇기", "넌센스 퀴즈", "참참참", "숨바꼭질", "카드 게임", "TV 게임", "같이 사진 찍기", "그만두기" };
-            var acts = new List<Action>
-                {
-                    () => Play(L.RpsStart, () => ShowMenu("가위바위보", new List<string> { "가위", "바위", "보" },
-                        new List<Action> { () => Rps(0), () => Rps(1), () => Rps(2) })),
-                    StartWordChain,
-                    StartRiddles,
-                    StartCham,
-                    StartHide,
-                    () => Play(L.CardsInvite),
-                    () => Play(L.TvInvite),
-                    DoPhoto,
-                    () => { },
-                };
-            // Cappie's dance pad (her game in the story)
-            if (HammerReady) { opts.Insert(0, "망치 게임"); acts.Insert(0, StartHammer); }
-            if (DanceReady) { opts.Insert(0, "댄스 배틀"); acts.Insert(0, StartDance); }
-            ShowMenu("같이 놀자", opts, acts);
-        }
-
         void DoTalk()
         {
             Did("talk");
@@ -1764,6 +1785,8 @@ namespace MiSidePeaceMode
             if (Time.time - lastPat > 45f) AddAff(2);
             lastPat = Time.time;
             var set = S.Affection < 15 ? L.PatLow : S.Affection < 50 ? L.PatMid : L.PatHigh;
+            // (her body answers the hand on her head: she ducks into it, or looks away when you are not close yet)
+            NextGesture(S.Affection < 15 ? "@lookaway" : "@shy");
             Play(Pick(set), CheckMilestones);
         }
 
@@ -1787,6 +1810,7 @@ namespace MiSidePeaceMode
             S.Compliments++;
             if (Time.time - lastCompliment > 45f) AddAff(2);
             lastCompliment = Time.time;
+            NextGesture(Random.value < 0.6f ? "@shy" : "@cheer");   // (not just standing there)
             Play(Pick(L.Compliments), CheckMilestones);
         }
 
@@ -1795,15 +1819,22 @@ namespace MiSidePeaceMode
             Did("rps");
             int m = Random.Range(0, 3);
             string[] names = { "가위", "바위", "보" };
-            var intro = new List<Line> { new Line(Who.Player, Loc.T(names[player]) + "!"), new Line(Who.Mita, Loc.T(names[m]) + "!", "smileteeth", "Mita IdleHand") };
+            // (the game has no hand signs for her - no clip of hers throws rock, paper or scissors - so her body stays
+            // out of it: the two hands are spelled out at the bottom of the view instead, and her face does the rest)
+            var intro = new List<Line> { new Line(Who.Player, Loc.T(names[player]) + "!"), new Line(Who.Mita, Loc.T(names[m]) + "!", "smileteeth") };
             int res = (player - m + 3) % 3; // 1 = player wins, 2 = mita wins, 0 = draw
             S.RpsGames++;
             Line[] outcome;
             if (res == 0) outcome = Pick(L.RpsDraw);
             else if (res == 1) { S.RpsWins++; outcome = Pick(L.RpsWin); }
             else outcome = Pick(L.RpsLose);
-            // (Sleepy Mita's reactions to the switch game: you won / you lost)
-            if (res == 1) NextGesture("Mita Player Win"); else if (res == 2) NextGesture("Mita Player Lose");
+            // (no gesture: the clips that were used here - Sleepy Mita's reactions to a console game - had her
+            // holding and looking at a game pad that isn't there)
+            forcedGesture = null;
+            nextTalkGesture = Time.time + 12f;   // (nor a random talk gesture on these lines)
+            var hands = Loc.F("나: {0}  ·  {1}: {2}", Loc.T(names[player]), ShortName, Loc.T(names[m]));
+            gamePrompt = hands;
+            After(6f, () => { if (gamePrompt == hands) gamePrompt = null; });
             AddAff(1);
             Play(intro.Concat(outcome).ToList(), () => ShowMenu("한 판 더?", new List<string> { "한 판 더!", "그만할래" },
                 new List<Action> { () => ShowMenu("가위바위보", new List<string> { "가위", "바위", "보" }, new List<Action> { () => Rps(0), () => Rps(1), () => Rps(2) }), () => { } }));
@@ -1892,7 +1923,7 @@ namespace MiSidePeaceMode
             // her face is on the agent's -Z side (same as ReleasePose); the hips bone axis depends on the clip playing
             var f = front; f.y = 0;
             var rot = Quaternion.LookRotation(f.sqrMagnitude > 0.0001f ? -f.normalized : Vector3.back);
-            posePos = floorPos; poseRot = rot; posed = true; uprightFront = f.normalized;
+            posePos = floorPos; poseRot = rot; posed = true; uprightFront = f.normalized; seatHips = Vector3.zero; planting = false;
             lying = false; poseHips = hips;
             mitaBody.SetPositionAndRotation(posePos, poseRot);
             Plugin.Log.LogInfo($"[peace] upright pose at {floorPos} yaw {rot.eulerAngles.y:F0} hipsFwd {(hips != null ? hips.forward.ToString() : "-")}");
@@ -1956,6 +1987,9 @@ namespace MiSidePeaceMode
         void HoldAddon(bool hold)
         {
             if (addon == null || hold == addonHeld) return;
+            // (not in the middle of a walk of her day - to the stove, the sofa, the bed: the roaming would take her the
+            // other way and switch her agent off; the walk's end lets it go again)
+            if (!hold && walking) return;
             addonHeld = hold;
             try
             {
@@ -1983,10 +2017,15 @@ namespace MiSidePeaceMode
         void ReleasePose(Vector3 standAt, Vector3 faceTowards)
         {
             if (!posed) return;
-            posed = false; lying = false;
+            posed = false; lying = false; seatHips = Vector3.zero; planting = false;
+            // (wherever the scene left her: on the floor she can walk on, not in the furniture next to it)
+            var was = standAt;
+            standAt = ClearSpot(standAt);
+            if ((standAt - was).sqrMagnitude > 0.01f) Plugin.Log.LogInfo($"[peace] release: {was} -> {standAt} (onto the floor)");
             var f = faceTowards - standAt; f.y = 0;
-            // her face is on the agent's -Z side (see stage notes)
-            mitaBody.SetPositionAndRotation(standAt, Quaternion.LookRotation(f.sqrMagnitude > 0.001f ? -f : Vector3.back));
+            // standing in her idle her face is on the root's +Z (see DoWindow; the seated clips were the other way round):
+            // turned -Z she stood with her back to you after a hug or the lap and then spun round on the spot
+            mitaBody.SetPositionAndRotation(standAt, Quaternion.LookRotation(f.sqrMagnitude > 0.001f ? f : Vector3.forward));
             if (mita.nma != null) { mita.nma.enabled = true; try { mita.nma.Warp(standAt); mita.nma.isStopped = false; } catch { } }
             HoldAddon(false);
             try { mitaLook?.Activation(true); } catch { }
@@ -2047,6 +2086,9 @@ namespace MiSidePeaceMode
                     MovePlayer(BedsidePlayer, BedCenter);
                     PlayerLieDown();
                     inBedTalk = true;
+                    // (the black stays until her sleeping clip is on - LieInBed's PlayClipSure lifts it then: the bed view
+                    // follows her eyes, and before it she stood there, the camera inside her)
+                    fadeHoldUntil = Time.time + (heldClip != null ? 2f : 0.3f);
                     fadeTarget = 0f;
                     afterFade = () => Play(nap ? L.SleepNotYet : Diary().Concat(L.Goodnight).ToList(), () =>
                     {
@@ -2071,8 +2113,13 @@ namespace MiSidePeaceMode
                             UpFromBed();
                             ReleasePose(new Vector3(9.8f, 0f, -3.65f), BedsidePlayer);
                             SetIdle(skin != null && !skin.OwnAnimator ? skin.IdleClip : null);
+                            // (you faced the middle of the bed and she stood at its foot: her morning lines came from
+                            // somewhere out of the picture - the view goes to her)
+                            After(0.1f, AimAtMita);
+                            // (the black stays a moment: the view turns to her and the morning light comes in first)
+                            fadeHoldUntil = Time.time + 0.4f;
                             fadeTarget = 0f;
-                            afterFade = () => Play(nap ? (IList<Line>)(L.NapWake ?? new Line[0]) : MorningLines());
+                            afterFade = () => Play(nap ? (IList<Line>)(L.NapWake ?? new Line[0]) : MorningLines().Concat(DreamLines()).ToList());
                         };
                     });
                 }
@@ -2136,6 +2183,7 @@ namespace MiSidePeaceMode
         {
             if (!mealWaiting || eatingNow || (!ateThisMeal && Time.time < mealWaitUntil)) return;
             mealWaiting = false;
+            if (MenuOpen) CloseMenus();
             ShowEatKey(false);
             eating = false;
             AddAff(ateThisMeal ? 4 : 3);
@@ -2221,7 +2269,10 @@ namespace MiSidePeaceMode
             S.AffCarry += n * Pn.AffMul;
             int whole = Mathf.FloorToInt(S.AffCarry);
             S.AffCarry -= whole;
+            int before = S.Affection;
             S.Affection = Mathf.Clamp(S.Affection + whole, AffFloor, 999);
+            int got = S.Affection - before;
+            if (got != 0 && freeMode) ui.Toast(got > 0 ? $"♥ +{got}" : $"♡ {got}", got > 0);
         }
 
         void CheckMilestones()
@@ -2238,15 +2289,29 @@ namespace MiSidePeaceMode
 
         static T Pick<T>(IList<T> arr) => arr[Random.Range(0, arr.Count)];
 
+        // 0.8 = a scene change (1.25 s each way); a blink (Blink) runs at 5 until it is open again
+        float fadeRate = 0.8f;
+
+        // a quick close-and-open of the screen over a cut the game's own animation makes (the hug's release)
+        [HideFromIl2Cpp] void Blink(Action whileShut)
+        {
+            fadeRate = 5f;
+            fadeTarget = 1f;
+            afterFade = () => { try { whileShut(); } finally { fadeTarget = 0f; } };
+        }
+
         void UpdateFade(float dt)
         {
             if (Mathf.Approximately(fadeVal, fadeTarget)) return;
             if (Time.time < fadeHoldUntil) return;
-            fadeVal = Mathf.MoveTowards(fadeVal, fadeTarget, dt * 0.8f);
+            fadeVal = Mathf.MoveTowards(fadeVal, fadeTarget, dt * fadeRate);
+            if (fadeTarget <= 0f && fadeVal <= 0f) fadeRate = 0.8f;
             ui.SetFade(fadeVal);
             if (Mathf.Approximately(fadeVal, fadeTarget) && afterFade != null)
             {
-                var a = afterFade; afterFade = null; a();
+                var a = afterFade; afterFade = null;
+                try { a(); }
+                catch (Exception e) { Plugin.Log.LogError("[peace] after fade: " + e); if (afterFade == null) fadeTarget = 0f; }
             }
         }
 
@@ -2279,7 +2344,10 @@ namespace MiSidePeaceMode
                 else addon.InteractiveActive(true);
             }
             // turn to you, not just the head (the greeting used to come over her shoulder from the stove)
-            if (!posed) { try { mitaLook?.LookOnPlayerAndRotate(); } catch { mitaLook?.LookOnPlayer(); } }
+            // (a staged view - her lap, the window - looks through its own camera: she looks at that, not at where
+            // your body was parked; on her lap she tipped her head back to the ceiling while she talked)
+            if (holdCam != null) { try { mitaLook?.Activation(true); mitaLook?.LookOnObject(holdCam.transform); } catch { } }
+            else if (!posed) { try { mitaLook?.LookOnPlayerAndRotate(); } catch { mitaLook?.LookOnPlayer(); } }
             else mitaLook?.LookOnPlayer();
         }
 
@@ -2296,7 +2364,7 @@ namespace MiSidePeaceMode
             {
                 bool alive;
                 try { alive = current != null && current.activeSelf; } catch { alive = false; }
-                if (alive && currentIsMita) PlaceMitaLine(current);
+                if (alive && currentIsMita) PlaceMitaLine(current, currentText);
                 else if (alive) PlacePlayerLine(current);
                 if (alive && !currentChecked && Time.time > currentSpawnAt + (DevLineLayout ? 1.6f : 0.6f)) CheckShownText();
                 if (alive && Time.time < currentDeadline) return;
@@ -2315,7 +2383,8 @@ namespace MiSidePeaceMode
                 var d = queueDone;
                 queueDone = null;
                 if (d != null) Plugin.Log.LogInfo($"[peace] lines done t={Time.time:F1}");
-                d?.Invoke();
+                // (a scene's next step failing must not leave the screen dark or her held: logged, the day goes on)
+                try { d?.Invoke(); } catch (Exception e) { Plugin.Log.LogError("[peace] after lines: " + e); if (afterFade == null && fadeTarget > 0f) fadeTarget = 0f; }
             }
         }
 
@@ -2358,6 +2427,9 @@ namespace MiSidePeaceMode
         {
             if (!DevLayoutFix) return;
             if (current == null || !current.activeSelf) return;
+            // (a finished line is handed to the World and its letters fall away one by one: that is the game's, left alone)
+            var par = current.transform.parent;
+            if (par != currentParent && par != null && par.name == "World") return;
             var d = current.GetComponent<Dialogue_3DText>();
             if (d == null) return;
             var text = d.textPrint;
@@ -2369,15 +2441,26 @@ namespace MiSidePeaceMode
             if (size <= 0f) return;
             font.RequestCharactersInTexture(text);
             layoutAdv.Clear();
-            int total = 0, glyphs = 0;
+            int total = 0, glyphs = 0, known = 0, knownSum = 0, missing = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                if (!font.GetCharacterInfo(text[i], out var ci)) return;   // (a glyph the font can't give: leave the line as it is)
-                layoutAdv.Add(ci.advance);
-                total += ci.advance;
-                if (text[i] != ' ') glyphs++;
+                char ch = text[i];
+                if (ch == '\n' || ch == '\r') return;   // (a line break: not a one-row line, left as the game lays it)
+                if (font.GetCharacterInfo(ch, out var ci) && (ci.advance > 0 || ch == ' ')) { layoutAdv.Add(ci.advance); if (ch != ' ') { known++; knownSum += ci.advance; } }
+                else { layoutAdv.Add(-1); missing++; }
+                if (ch != ' ') glyphs++;
             }
             if (syms.Count > glyphs) return;   // (not one letter per character: some other kind of line)
+            // A glyph the font can't measure yet (just asked for: it comes in a frame or two) gets the width of its kind
+            // for now - most of what we write is Hangul, all of one width - instead of leaving the whole line uncorrected
+            // (which is how the "squeezed together" lines got through before).
+            if (missing > 0)
+            {
+                if (known == 0) return;
+                int fill = Mathf.RoundToInt((float)knownSum / known);
+                for (int i = 0; i < layoutAdv.Count; i++) if (layoutAdv[i] < 0) layoutAdv[i] = fill;
+            }
+            for (int i = 0; i < layoutAdv.Count; i++) total += layoutAdv[i];
             float x = -total * size * 0.5f;
             int k = 0;
             for (int i = 0; i < text.Length && k < syms.Count; i++)
@@ -2389,14 +2472,12 @@ namespace MiSidePeaceMode
                     {
                         var t = g.transform;
                         var lp = t.localPosition;
-                        // (only a letter that is really out of place - more than a third of its own width: the game's
-                        // own little sway is left alone - and only while it is still in the line, not falling away)
-                        // (and only in a letter's first moments: once put right it stays, and at the line's end the
-                        // letters fall away one by one - that is theirs)
                         while (layoutSeen.Count < k) layoutSeen.Add(Time.time);
+                        // (only a letter that is really out of place - more than a quarter of its own width: the game's
+                        // own little sway is left alone - and only while it is in the line, not jumping or falling)
                         float off = Mathf.Abs(lp.x - x);
-                        if (Time.time - layoutSeen[k - 1] < 0.7f && off > layoutWorst) layoutWorst = off;
-                        if (Time.time - layoutSeen[k - 1] < 0.7f && off > layoutAdv[i] * size * 0.34f && Mathf.Abs(lp.y) < 0.15f && Mathf.Abs(lp.z) < 0.15f)
+                        if (off > layoutWorst) layoutWorst = off;
+                        if (off > layoutAdv[i] * size * 0.25f && Mathf.Abs(lp.y) < 0.15f && Mathf.Abs(lp.z) < 0.15f)
                         {
                             t.localPosition = new Vector3(x, lp.y, lp.z);
                             layoutFixed++;
@@ -2477,7 +2558,8 @@ namespace MiSidePeaceMode
         }
 
         // Like the game's own Mita lines: a little in front of her at chest height, facing the player (readable side).
-        void PlaceMitaLine(GameObject go)
+        Func<Vector3?> lineAnchor;   // (a scene that puts her lines somewhere of its own)
+        void PlaceMitaLine(GameObject go, string text = null)
         {
             var body = SpeakerBody;
             if (go == null || body == null) return;
@@ -2490,7 +2572,9 @@ namespace MiSidePeaceMode
             if (toCam.sqrMagnitude < 0.0001f) toCam = body.forward;
             toCam.Normalize();
             var pos = basePos + toCam * 0.35f;
-            if (cam != null)
+            var anchored = lineAnchor?.Invoke();
+            if (anchored.HasValue) pos = anchored.Value;
+            else if (cam != null)
             {
                 // right next to you (or beside you): keep the line far enough out to read instead of in your face
                 var flat = pos - cam.position; flat.y = 0;
@@ -2509,6 +2593,63 @@ namespace MiSidePeaceMode
                 look.y = Mathf.Clamp(look.y, -0.47f * h, 0.47f * h);
                 if (look.sqrMagnitude > 0.0001f) go.transform.rotation = Quaternion.LookRotation(look.normalized, Vector3.up);
             }
+            try { KeepLineInView(go, text); } catch (Exception e) { Plugin.Log.LogWarning("[peace] line in view: " + e.Message); }
+        }
+
+        // Her line, the whole of it, inside the picture and off the status card: placed by her head it ran off the
+        // screen's edge or over the card at the top right when she stood at the side of a staged view (the window, the
+        // lap). Moved sideways / down in the camera's plane as far as needed, nothing else.
+        readonly Dictionary<int, Vector3> lineScale = new Dictionary<int, Vector3>();
+        void KeepLineInView(GameObject go, string text)
+        {
+            var cam = holdCam != null ? holdCam : Camera.main;
+            var d = go.GetComponent<Dialogue_3DText>();
+            if (cam == null || d == null) return;
+            if (string.IsNullOrEmpty(text)) return;
+            // its width as the game will lay it out: about one em a Hangul letter, half for the rest, and never wider than
+            // the game's own limit (it shrinks the letters past 2 x sizeWidth)
+            float em = 66f * d.sizeSymbol, w = 0f;
+            foreach (var ch in text) w += ch >= 0x1100 ? em : ch == ' ' ? em * 0.35f : em * 0.55f;
+            if (d.sizeWidth > 0f) w = Mathf.Min(w, d.sizeWidth * 2f);
+            float half = w * 0.5f * Mathf.Abs(go.transform.lossyScale.x);
+            var right = go.transform.right; var up = Vector3.up;
+            var p = go.transform.position;
+            float depth = Vector3.Dot(p - cam.transform.position, cam.transform.forward);
+            if (depth < 0.2f) return;
+            var vl = cam.WorldToViewportPoint(p - right * half);
+            var vr = cam.WorldToViewportPoint(p + right * half);
+            var vt = cam.WorldToViewportPoint(p + up * em * 1.2f);
+            float lo = Mathf.Min(vl.x, vr.x), hi = Mathf.Max(vl.x, vr.x);
+            // (a staged close view: under her face - at the 0.80 of the open room the line sat across her mouth)
+            const float margin = 0.04f;
+            float top = holdCam != null ? 0.5f : 0.80f;
+            float dx = lo < margin ? margin - lo : hi > 1f - margin ? (1f - margin) - hi : 0f;
+            if (hi - lo > 1f - 2f * margin) dx = 0.5f - (lo + hi) * 0.5f;   // (wider than the view: centred)
+            float dy = vt.y > top ? top - vt.y : 0f;
+            if (dx == 0f && dy == 0f) { if (lineScale.TryGetValue(go.GetInstanceID(), out var s0)) go.transform.localScale = s0; return; }
+            // viewport units -> metres at that depth
+            float vh = 2f * depth * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad), vw = vh * cam.aspect;
+            var np = p + cam.transform.right * (dx * vw) + cam.transform.up * (dy * vh);
+            // (placed again every frame: the scale is set from the line's own, never multiplied up)
+            int lid = go.GetInstanceID();
+            if (!lineScale.TryGetValue(lid, out var baseScale)) { baseScale = go.transform.localScale; if (lineScale.Count > 64) lineScale.Clear(); lineScale[lid] = baseScale; }
+            // a staged view close to her: brought down into the view, the line sank into her chest and her body hid it -
+            // it comes forward along the same ray (same place on the screen, scaled down to the same size there)
+            if (holdCam != null && mitaBody != null)
+            {
+                float herDepth = Vector3.Dot(mitaBody.position - cam.transform.position, cam.transform.forward);
+                float want = Mathf.Max(0.3f, herDepth - 0.3f);
+                float nd = Vector3.Dot(np - cam.transform.position, cam.transform.forward);
+                if (nd > want && nd > 0.01f)
+                {
+                    float k = want / nd;
+                    np = cam.transform.position + (np - cam.transform.position) * k;
+                    go.transform.localScale = baseScale * k;
+                }
+                else go.transform.localScale = baseScale;
+            }
+            go.transform.position = np;
+            if (DevRunner.Active) Plugin.Log.LogInfo($"[peace] line kept in view: moved {dx * vw:0.00} m sideways, {dy * vh:0.00} m up/down");
         }
 
         [HideFromIl2Cpp] void Spawn(Line l)
@@ -2536,7 +2677,8 @@ namespace MiSidePeaceMode
             d.audioPrint = l.who != Who.Mita;   // native Mita lines leave this off; her voice comes from the speaker's sounds
             if (l.who == Who.Mita)
             {
-                d.lookOnPlayer = true;
+                d.lookOnPlayer = holdCam == null;
+                if (holdCam != null) { try { mitaLook?.LookOnObject(holdCam.transform); } catch { } }
                 if (d.speaker == null && mitaSpeaker != null) d.speaker = mitaSpeaker;
                 // (never in your colour, whatever object the template came from)
                 try { if (d.themeDialogue.ToString() == "Player") d.themeDialogue = Dialogue_3DText.Dialogue3DTheme.Mita; } catch { }
@@ -2570,13 +2712,18 @@ namespace MiSidePeaceMode
                     try { SpeakerPerson.FaceEmotion(emoName); } catch { }
                 }
                 if (l.clip == "!glitch") glitchUntil = Time.realtimeSinceStartup + 1.6f;
-                else if (mitaAnim != null && !TableMitaUp && heldClip == null)
+                // (not while a clip of the two of you plays - the hug, her hand in yours: a gesture on her first line cut
+                // "Mita HoldHand" off a fifth of a second in, and she stood there with her hands folded)
+                else if (mitaAnim != null && !TableMitaUp && heldClip == null && !hugging)
                 {
                     // her line's own clip, or now and then one of her gestures (see TakeGesture)
-                    var cn = !string.IsNullOrEmpty(l.clip) ? l.clip : TakeGesture(l);
-                    if (cn != null && clips.TryGetValue(cn, out var clip)) PlayGestureClip(clip);
+                    // (not over a pose she holds for the camera, nor while she walks: a gesture clip stops her where she is)
+                    bool onTheMove = walking || (mita != null && mita.nma != null && mita.nma.enabled && mita.nma.velocity.sqrMagnitude > 0.04f);
+                    var cn = (motion != null && motion.Hold) || onTheMove ? null : MotionFor(!string.IsNullOrEmpty(l.clip) ? l.clip : TakeGesture(l));
+                    if (cn != null && cn[0] == '@') PlayMotion(cn);
+                    else if (cn != null && clips.TryGetValue(cn, out var clip)) PlayGestureClip(clip);
                 }
-                PlaceMitaLine(go);
+                PlaceMitaLine(go, text);
             }
             // (the line's glyphs into the font's texture before the game asks for them: it measures each letter as it prints
             // it, and a glyph the texture doesn't hold yet - most Hangul syllables, the first time - measures as nothing)
@@ -2585,6 +2732,14 @@ namespace MiSidePeaceMode
                 try { var shown = Loc.Display(text); d.font?.RequestCharactersInTexture(shown); GlobalGame.fontUse?.RequestCharactersInTexture(shown); } catch { }
             }
             if (DevRunner.Active) { string th = "?"; try { th = d.themeDialogue.ToString(); } catch { } Plugin.Log.LogInfo($"[peace] line set: {l.who} theme={th} speaker={(d.speaker != null ? d.speaker.name : "-")} template={tmpl.name}"); }
+            // (the line before is still falling apart where this one goes: two lines' letters on top of each other read
+            // as one jumbled line - what's left of the old one goes now; elsewhere in the view it still falls away)
+            try
+            {
+                if (l.who != Who.Mita) PlacePlayerLine(go);
+                ClearLeftoverNear(go.transform.position, 0.8f);
+            }
+            catch { }
             go.SetActive(true);
             current = go;
             currentParent = go.transform.parent;

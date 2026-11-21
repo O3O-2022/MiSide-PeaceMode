@@ -467,6 +467,89 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     print(f"{out} ({os.path.getsize(out) // 1024} KB)")
 
 
+# ---------------------------------------------------------------- a thumbnail per language
+# (YouTube shows a translated thumbnail to viewers in that language: the mode's name and the badge in their own words)
+THUMB_FONT = {"ko": ("Malgun Gothic", "malgunbd.ttf"), "ja": ("Yu Gothic", "YuGothB.ttc"), "zh": ("Microsoft YaHei", "msyhbd.ttc"),
+              "zht": ("Microsoft JhengHei", "msjhbd.ttc"), "th": ("Leelawadee UI", "LeelaUIb.ttf")}
+
+
+def thumb_one(lang, out):
+    from PIL import ImageFont
+    w, h = 1280, 720
+    face, file = THUMB_FONT.get(lang, ("Segoe UI", "segoeuib.ttf"))
+    lat = FN["lat"]
+
+    def width(text, size, f=file):
+        try: return ImageFont.truetype(os.path.join("C:/Windows/Fonts", f), size).getlength(text)
+        except Exception: return len(text) * size * 0.6
+
+    def fit(lines, size, limit, floor):
+        while size > floor and max(width(l, size) for l in lines) > limit: size -= 2
+        return size
+
+    name = G[lang]["peace_mode"]
+    lines, size = [name], fit([name], 150, 600, 40)
+    if size < 92 and (" " in name or "・" in name):   # (a long name: on two lines, broken nearest its middle)
+        cut = min((i for i, c in enumerate(name) if c in " ・"), key=lambda i: abs(i - len(name) / 2))
+        lines = [name[:cut], name[cut + 1:]]
+        size = fit(lines, 112, 600, 40)
+    two = len(lines) > 1
+    badge = TR[lang]["unofficial"]
+    bsize = fit([badge], 54, 600, 32)
+    y0 = h // 2 - (250 if two else 220)
+    y1 = h // 2 - (88 if two else 105)
+    y2 = h // 2 + (70 if two else 20)
+    y3 = h // 2 + (165 if two else 135)
+    head = f"""[Script Info]
+ScriptType: v4.00+
+PlayResX: {w}
+PlayResY: {h}
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment
+Style: T,{face},{size},&H00FFFFFF,&H00FFFFFF,&H00A0409A,&H96000000,1,0,0,0,100,100,0,0,1,{max(5, size // 17)},5,4,50,0,0,1
+Style: M,{lat},64,&H00FFFFFF,&H00FFFFFF,&H00301828,&H96000000,1,0,0,0,100,100,0,0,1,5,3,4,50,0,0,1
+Style: B,{face},{bsize},&H00281430,&H00FFFFFF,&H0046D6FF,&H0046D6FF,1,0,0,0,100,100,0,0,3,14,0,4,50,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+"""
+    ev = [
+        f"Dialogue: 1,0:00:00.00,0:00:10.00,M,,0,0,0,,{{\\pos(54,{y0})}}MiSide",
+        f"Dialogue: 1,0:00:00.00,0:00:10.00,T,,0,0,0,,{{\\pos(50,{y1})}}" + "\\N".join(lines),
+    ]
+    if lang == "en":
+        ev.append(f"Dialogue: 1,0:00:00.00,0:00:10.00,B,,0,0,0,,{{\\pos(64,{y2 + 40})\\frz3}} UNOFFICIAL FAN MOD ")
+    else:
+        ev += [
+            f"Dialogue: 1,0:00:00.00,0:00:10.00,M,,0,0,0,,{{\\pos(54,{y2})}}{G['en']['peace_mode']}",
+            f"Dialogue: 1,0:00:00.00,0:00:10.00,B,,0,0,0,,{{\\pos(64,{y3})\\frz3}} {badge} ",
+            f"Dialogue: 1,0:00:00.00,0:00:10.00,B,,0,0,0,,{{\\pos(64,{y3 + 92})\\frz3\\fn{lat}\\fs42}} UNOFFICIAL FAN MOD ",
+        ]
+    ap = os.path.join(BUILD, f"thumb_{lang}.ass")
+    os.makedirs(BUILD, exist_ok=True)
+    open(ap, "w", encoding="utf-8-sig").write(head + "\n".join(ev) + "\n")
+    clip, sec = THUMB
+    t = "clip((X-330)/380,0,1)"
+    fc = (f"[0:v]scale={w}:{h}:flags=lanczos,eq=saturation=1.2:contrast=1.05,format=rgb24[bg];"
+          f"color=c=black:s={w}x{h}:d=1,format=rgba,geq=r=34:g=8:b=44:a='240*(1-{t}*{t}*(3-2*{t}))'[p];"
+          f"[bg][p]overlay=format=auto,ass='{A.filter_path(ap)}':fontsdir='{A.filter_path(A.FONTS)}'")
+    subprocess.run([FF, "-hide_banner", "-loglevel", "error", "-y", "-ss", str(sec), "-i", clip_file(clip, ".mp4"),
+                    "-filter_complex", fc, "-frames:v", "1", "-q:v", "2", out], check=True)
+
+
+def thumbs():
+    A.ensure_fonts()
+    d = os.path.join(FINAL, "thumbs")
+    os.makedirs(d, exist_ok=True)
+    for lang in LANGS:
+        if lang == "ko": continue   # (the video's own thumbnail: thumb())
+        thumb_one(lang, os.path.join(d, f"thumbnail.{YT[lang]}.jpg"))
+    print(f"{len(LANGS) - 1} thumbnails in {d}")
+
+
 def meta():
     d = os.path.join(FINAL, "meta")
     os.makedirs(d, exist_ok=True)
@@ -499,6 +582,7 @@ if __name__ == "__main__":
     elif what == "subs": subs()
     elif what == "video": render()
     elif what == "thumb": thumb()
+    elif what == "thumbs": thumbs()
     elif what == "sheet": sheet()
     elif what == "meta": meta()
     elif what == "all":

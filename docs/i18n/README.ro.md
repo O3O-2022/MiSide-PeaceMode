@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Modul pacifist
 
@@ -14,9 +14,38 @@
 
 **⬇ Descarcă și instalează (gratuit, cu program de instalare)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Română)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Română)
 
 Prezentarea „Modul pacifist”, un mod făcut de fani pentru MiSide (AIHASTO): o zi cu una dintre cele șapte Mite, fără groază.
+
+## Nou în v1.1
+
+- Mod foto: alegi poza, expresia și rama (polaroid, film, inimioare, dată), apoi 3-2-1 — și un album foto
+- Jurnalul Mitei: câte o pagină pentru fiecare zi, cu vorbele ei
+- O plantă crescută împreună: ud-o o dată pe zi și va înflori
+- Starea Mitei și o pagină cu însemnările voastre
+- Mișcări făcute pentru mod: dat din cap, negare, înclinarea capului, timiditate, salut cu mâna, „ura”
+- Meniu nou cu submeniuri, setări în joc și suport pentru gamepad
+- Un marcaj care arată unde e Mita când o pierzi din vedere
+- Chat AI care ține minte ce i-ai spus (opțional)
+- Costume de vampir și de Crăciun pentru Mita și culori de ținută pentru celelalte Mita
+- 17 obiective de atins împreună și scrisoarea Mitei când le termini pe toate
+- Gemini și ChatGPT pentru chatul AI (propria cheie API)
+- Reacționează prin gesturi la mângâieri, complimente și cadouri; îmbrățișările, ținutul de mână și culcarea merg fluid
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Discuții, întrebări, mângâieri, îmbrățișări, mână în mână, complimente, ochelari, haine
 - Piatră-foarfecă-hârtie, fazan, ghicitori, cham-cham-cham, de-a v-ați ascunselea, poze, jocul de cărți

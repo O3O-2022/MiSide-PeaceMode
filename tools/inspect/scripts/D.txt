@@ -1,0 +1,30 @@
+wait 22
+peace cap
+waitready 240
+waitimports 300
+wait 5
+calm
+aff 90
+peacetime 13:00
+wait 1
+unshowcase
+walkto 0.9 -0.4 ~90
+wait 2
+dance auto on 0.87 0
+dance start
+after 6 dance pick
+after 10 dance pick
+recidle k_dance 180
+waitidle 200
+wait 3
+freeplayer
+peacetime 14:00
+walkto 8.3 1.2 ~90
+wait 2
+hammer auto on
+hammer start
+recidle k_hammer 200
+waitidle 300
+wait 3
+wait 2
+quit

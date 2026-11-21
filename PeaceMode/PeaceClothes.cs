@@ -12,7 +12,7 @@ namespace MiSidePeaceMode
     // small extras are put on her renderers here.
     public partial class PeaceDirector
     {
-        class Outfit { public Mesh mesh; public Material[] mats; }
+        class Outfit { public Mesh mesh; public Material[] mats; public Transform[] bones; public Transform root; }
         readonly Dictionary<string, Outfit> originalOutfit = new Dictionary<string, Outfit>();
         readonly List<GameObject> costumeParts = new List<GameObject>();
         readonly Dictionary<int, (Renderer r, Mesh mesh, Material[] mats)> addonOriginal = new Dictionary<int, (Renderer, Mesh, Material[])>();
@@ -48,8 +48,17 @@ namespace MiSidePeaceMode
                 foreach (var n in OutfitParts)
                 {
                     var r = Part(n);
-                    if (r != null) originalOutfit[n] = new Outfit { mesh = r.sharedMesh, mats = r.sharedMaterials.ToArray() };
+                    if (r != null) originalOutfit[n] = new Outfit { mesh = r.sharedMesh, mats = r.sharedMaterials.ToArray(), bones = r.bones.ToArray(), root = r.rootBone };
                 }
+            // her own skeleton back on every part (a full costume rebinds them to bones of its own) before anything else
+            foreach (var kv in originalOutfit)
+            {
+                var r = Part(kv.Key);
+                if (r == null) continue;
+                if (kv.Value.bones != null) r.bones = kv.Value.bones;
+                r.rootBone = kv.Value.root;
+                r.enabled = true;
+            }
             foreach (var g in costumeParts) if (g != null) Destroy(g);
             costumeParts.Clear();
             if (key == "original")
@@ -102,6 +111,15 @@ namespace MiSidePeaceMode
             Put("Shoes", c.shoesMesh, v?.shoesMaterials, v?.shoesTextures);
             Put("Skirt", c.skirtMesh, v?.skirtMaterials, v?.skirtTextures);
             Put("Sweater", c.sweaterMesh, v?.sweaterMaterials, v?.sweaterTextures);
+            // the vampire and Christmas costumes: skinned to a skeleton of their own (Mita's bones + the dress hem, sleeves,
+            // choker, the Santa hat...). Their extra bones go onto hers, and each part's bone list is rebuilt from the
+            // costume's own (with her original list - 148 bones - the meshes' 175 / 72 bone indices pointed at the wrong
+            // bones: the vampire lost her body, the Santa hat was black shards)
+            if (c.prefabFull != null && !devCostumeParts)
+            {
+                try { BindFullCostume(c); }
+                catch (Exception e) { Plugin.Log.LogError("[clothes] " + key + ": " + e); }
+            }
             // her small extras (MitaClothesAddon: shoes' bows and the like) take the variant's meshes too
             if (v?.addon != null)
                 foreach (var ad in mitaBody.GetComponentsInChildren<MitaClothesAddon>(true))
@@ -154,6 +172,72 @@ namespace MiSidePeaceMode
             return true;
         }
 
+        void BindFullCostume(DataClothMita c)
+        {
+            // the costume's rig, inactive (its scripts - cloth physics, MitaClothesMagic - stay asleep)
+            var holder = new GameObject("PeaceCostumeHolder");
+            holder.SetActive(false);
+            var inst = Instantiate(c.prefabFull, holder.transform, false);
+            foreach (var b in inst.GetComponentsInChildren<Behaviour>(true)) b.enabled = false;
+            var mine = new Dictionary<string, Transform>();
+            foreach (var t in mitaBody.GetComponentsInChildren<Transform>(true))
+                if (t != null && !mine.ContainsKey(t.name) && !t.name.StartsWith("PeaceSkin")) mine[t.name] = t;
+            // every bone of the costume that she doesn't have, whose parent she has: moved onto that bone of hers
+            // (local pose kept - the same rig), with all of its own children
+            var moved = new Dictionary<string, Transform>();
+            var all = inst.GetComponentsInChildren<Transform>(true).ToList();
+            foreach (var t in all)
+            {
+                if (t == null || mine.ContainsKey(t.name) || t.GetComponent<Renderer>() != null || t.parent == null) continue;
+                if (!mine.TryGetValue(t.parent.name, out var parent)) continue;
+                if (t.GetComponentsInChildren<SkinnedMeshRenderer>(true).Length > 0) continue;   // (not the model's own nodes)
+                var lp = t.localPosition; var lr = t.localRotation; var ls = t.localScale;
+                t.SetParent(parent, false);
+                t.localPosition = lp; t.localRotation = lr; t.localScale = ls;
+                t.gameObject.name = t.name;   // (kept: the skinned parts find it by name)
+                costumeParts.Add(t.gameObject);
+                foreach (var d in t.GetComponentsInChildren<Transform>(true)) if (!moved.ContainsKey(d.name)) moved[d.name] = d;
+            }
+            Transform Find(string n) => mine.TryGetValue(n, out var a) ? a : moved.TryGetValue(n, out var b) ? b : null;
+            int parts = 0, unbound = 0;
+            foreach (var n in OutfitParts)
+            {
+                var r = Part(n);
+                if (r == null) continue;
+                SkinnedMeshRenderer src = null;
+                foreach (var smr in inst.GetComponentsInChildren<SkinnedMeshRenderer>(true)) if (smr.name == n) { src = smr; break; }
+                if (src == null || src.sharedMesh == null) { r.enabled = false; continue; }   // (the Christmas dress has no skirt)
+                var bones = src.bones;
+                var mapped = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<Transform>(bones.Length);
+                for (int i = 0; i < bones.Length; i++)
+                {
+                    var b = bones[i] != null ? Find(bones[i].name) : null;
+                    if (b == null) { unbound++; b = Find("Hips"); }
+                    mapped[i] = b;
+                }
+                r.sharedMesh = src.sharedMesh;
+                r.bones = mapped;
+                r.rootBone = Find(src.rootBone != null ? src.rootBone.name : "Hips") ?? r.rootBone;
+                r.updateWhenOffscreen = true;
+                parts++;
+            }
+            Destroy(holder);
+            Plugin.Log.LogInfo($"[clothes] full costume {c.fileSave}: {parts} parts rebound, {moved.Count} bones added, {unbound} bones unbound");
+        }
+
+        // a costume's big standing collar (the vampire one) folds down while she is right against you - in a hug the view
+        // is at her shoulder and the collar's wing filled the whole screen - and stands up again as she lets go
+        float collarFold = 1f, collarFoldTarget = 1f;
+        void FoldCollar(bool fold) => collarFoldTarget = fold ? 0.3f : 1f;
+
+        void TickCollar(float dt)
+        {
+            if (Mathf.Approximately(collarFold, collarFoldTarget)) return;
+            collarFold = Mathf.MoveTowards(collarFold, collarFoldTarget, dt / (collarFoldTarget < collarFold ? 0.4f : 0.6f) * 0.7f);
+            foreach (var g in costumeParts)
+                if (g != null && g.name.StartsWith("Collar")) g.transform.localScale = Vector3.one * collarFold;
+        }
+
         // the costume menu: every costume (and its colours)
         void OpenClothesMenu()
         {
@@ -166,8 +250,8 @@ namespace MiSidePeaceMode
                 int n = Costume("FIIdClSchool").variants?.Count ?? 1;
                 for (int i = 0; i < n; i++) if (wearing != "FIIdClSchool" || wearingVariant != i) Add(n > 1 ? Loc.F("교복 ({0})", i + 1) : "교복", "FIIdClSchool", i);
             }
-            // (the vampire and Christmas costumes are made of prefab parts with bones of their own that don't bind to
-            // this Mita: the vampire lost her body, the Christmas one left black shards. Only the school uniform.)
+            if (Costume("HellVamp") != null && wearing != "HellVamp") Add("뱀파이어 옷", "HellVamp", 0);
+            if (Costume("Chirfns") != null && wearing != "Chirfns") Add("크리스마스 옷", "Chirfns", 0);
             opts.Add("그만두기"); acts.Add(() => { });
             ShowMenu("옷 갈아입기", opts, acts);
         }
@@ -192,6 +276,67 @@ namespace MiSidePeaceMode
             var p = S.Outfit.Split(':');
             int v = p.Length > 1 && int.TryParse(p[1], out var n) ? n : 0;
             try { Dress(p[0], v); } catch (Exception e) { Plugin.Log.LogWarning("[clothes] saved outfit: " + e.Message); }
+        }
+
+        // skinmats <Resources path>: a gallery model's renderers, materials, textures and colour properties
+        public static string DevSkinMats(string path)
+        {
+            var sb = new System.Text.StringBuilder();
+            var o = Resources.Load(path, Il2CppType.Of<GameObject>());
+            if (o == null) return "no " + path;
+            var go = o.Cast<GameObject>();
+            foreach (var r in go.GetComponentsInChildren<Renderer>(true))
+            {
+                sb.AppendLine($"{r.name} ({r.GetIl2CppType().Name})");
+                foreach (var m in r.sharedMaterials)
+                {
+                    if (m == null) { sb.AppendLine("  -"); continue; }
+                    var t = m.mainTexture;
+                    sb.Append($"  {m.name} shader={m.shader?.name} tex={(t != null ? t.name + " " + t.width + "x" + t.height : "-")}");
+                    foreach (var prop in new[] { "_Color", "_BaseColor", "_MainColor", "_ShadeColor", "_1st_ShadeColor", "_2nd_ShadeColor", "_RimColor" })
+                        if (m.HasProperty(prop)) sb.Append($" {prop}={m.GetColor(prop)}");
+                    sb.AppendLine();
+                }
+            }
+            return sb.ToString();
+        }
+
+        // costumedump <key>: what a costume is made of (its meshes, its prefab's tree and skinned parts) -> costume_<key>.txt
+        public string DevCostumeDump(string key)
+        {
+            var sb = new System.Text.StringBuilder();
+            var c = Costume(key);
+            if (c == null) return "no costume " + key;
+            string M(Mesh m) => m == null ? "-" : $"{m.name} v{m.vertexCount} bp{m.bindposes.Length}";
+            sb.AppendLine($"body {M(c.bodyMesh)} sweater {M(c.sweaterMesh)} skirt {M(c.skirtMesh)} attr {M(c.attributeMesh)} pantyhose {M(c.pantyhoseMesh)} shoes {M(c.shoesMesh)}");
+            sb.AppendLine($"variants {(c.variants != null ? c.variants.Count : 0)} prefabFull {(c.prefabFull != null ? c.prefabFull.name : "-")}");
+            if (c.variants != null)
+                for (int i = 0; i < c.variants.Count; i++)
+                {
+                    var v = c.variants[i];
+                    string A<T>(Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<T> a) where T : UnityEngine.Object => a == null ? "null" : $"[{string.Join(",", a.Select(x => x != null ? x.name : "-"))}]";
+                    sb.AppendLine($" v{i}: bodyM {A(v.bodyMaterials)} sweaterM {A(v.sweaterMaterials)} skirtM {A(v.skirtMaterials)} attrM {A(v.attributeMaterials)} addon {(v.addon != null ? v.addon.Length : 0)}");
+                }
+            if (c.prefabFull != null)
+            {
+                void Tree(Transform t, int d)
+                {
+                    if (d > 7) return;
+                    var comps = string.Join(",", t.GetComponents<Component>().Select(x => x.GetIl2CppType().Name).Where(n => n != "Transform"));
+                    sb.AppendLine(new string(' ', d * 2) + t.name + (comps.Length > 0 ? "  {" + comps + "}" : "") + $" pos{t.localPosition}");
+                    for (int i = 0; i < t.childCount; i++) Tree(t.GetChild(i), d + 1);
+                }
+                Tree(c.prefabFull.transform, 0);
+                var mine = mitaBody != null ? new HashSet<string>(mitaBody.GetComponentsInChildren<Transform>(true).Select(t => t.name)) : new HashSet<string>();
+                foreach (var smr in c.prefabFull.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+                {
+                    var bones = smr.bones;
+                    int have = bones.Count(b => b != null && mine.Contains(b.name));
+                    sb.AppendLine($"SMR {smr.name}: mesh {M(smr.sharedMesh)} root {(smr.rootBone != null ? smr.rootBone.name : "-")} bones {bones.Length} (in Mita {have}) mats [{string.Join(",", smr.sharedMaterials.Select(m => m != null ? m.name + "/" + m.shader.name : "-"))}]");
+                    sb.AppendLine("   missing: " + string.Join(",", bones.Where(b => b != null && !mine.Contains(b.name)).Select(b => b.name).Take(40)));
+                }
+            }
+            return sb.ToString();
         }
 
         bool devCostumeParts;

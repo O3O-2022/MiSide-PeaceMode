@@ -1,0 +1,147 @@
+peaceset crazy day=34
+peaceset crazy talks=64
+peaceset crazy pats=41
+peaceset crazy hugs=23
+peaceset crazy gifts=7
+peaceset crazy rpsWins=12
+peaceset crazy streak=5
+peaceset crazy ever=meal,cook,music,rps,words,cards,dance,clothes
+name
+screen 960 540
+avframe 0.15
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+wait 34
+peace crazy
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 0.8
+after 1.4 pick 같이 놀자
+after 3.0 menuback
+after 4.2 pick 추억
+recordav ko_v11_menu 6 60 3840 2160
+wait 1
+menuback
+wait 0.6
+menuback
+wait 1.5
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 0.6
+pick 같이 놀자
+wait 0.8
+pick 같이 사진 찍기
+wait 1.5
+after 0.8 pick 포즈
+after 2.0 pick 프레임
+after 3.2 pick 찰칵!
+recordav ko_v11_photo 9 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 0.6
+pick 추억
+wait 1
+pick 사진 앨범
+wait 1.2
+after 1.2 album 1
+after 2.4 album 1
+recordav ko_v11_album 4 60 3840 2160
+closecard
+wait 1
+diary fill
+pick 일기장
+wait 1.2
+recordav ko_v11_diary 3 60 3840 2160
+closecard
+wait 1
+pick 함께한 목표
+wait 1.2
+recordav ko_v11_goals 3.5 60 3840 2160
+closecard
+wait 1
+menuback
+wait 1.5
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+plant 7
+wait 1
+peacemenu
+wait 0.6
+pick 함께 지내기
+wait 0.8
+pick 화분에 물 주기
+recordav ko_v11_plant 7 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+ui off
+devcam face 1.6 0 0.0 42 -0.18
+motion @wave
+after 2.6 motion @cheer
+after 4.8 motion @tilt
+recordav ko_v11_gesture 6.5 60 3840 2160
+motion off
+devcam off
+ui on
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+goalsall
+wait 0.5
+peacemenu
+wait 0.6
+pick 추억
+wait 1
+pick 미타의 편지
+recordav ko_v11_letter 18 60 3840 2160
+waitidle 60
+wait 1
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacemenu
+wait 0.6
+pick 설정
+wait 1.2
+pick AI 대화
+wait 1.2
+recordav ko_v11_ai 3 60 3840 2160
+menuback
+wait 0.6
+menuback
+wait 0.6
+menuback
+wait 1
+wait 2
+screen native
+wait 2
+quit

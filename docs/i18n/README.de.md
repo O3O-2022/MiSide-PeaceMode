@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Friedlicher Modus
 
@@ -14,9 +14,38 @@
 
 **⬇ Herunterladen und installieren (kostenlos, mit Installationsprogramm)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Deutsch)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Deutsch)
 
 Vorstellung von „Friedlicher Modus“, einem Fan-Mod für MiSide (AIHASTO): ein Tag mit einer von sieben Mitas, ohne Horror.
+
+## Neu in v1.1
+
+- Fotomodus: Pose, Gesichtsausdruck und Rahmen (Polaroid, Film, Herzen, Datum), dann 3-2-1 — dazu ein Fotoalbum
+- Mitas Tagebuch: jeden Tag eine Seite, in ihren Worten
+- Eine Pflanze, die ihr gemeinsam großzieht: einmal am Tag gießen, bis sie blüht
+- Mitas Stimmung und eine Seite eurer gemeinsamen Statistik
+- Eigene Bewegungen für die Mod: Nicken, Kopfschütteln, Kopf neigen, schüchtern, Winken, Jubeln
+- Neues Menü mit Untermenüs, Einstellungen im Spiel und Gamepad-Unterstützung
+- Eine Markierung, die zeigt, wo Mita ist, wenn du sie aus den Augen verlierst
+- KI-Chat, der sich merkt, was du erzählt hast (optional)
+- Vampir- und Weihnachtskostüme für Mita und Outfit-Farben für die anderen Mitas
+- 17 gemeinsame Ziele und Mitas Brief, wenn du alle erreichst
+- Gemini und ChatGPT für den KI-Chat (eigener API-Schlüssel)
+- Sie reagiert mit Gesten auf Streicheln, Komplimente und Geschenke; Umarmungen, Händchenhalten und Schlafen laufen flüssig
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Gespräche, Fragen, Streicheln, Umarmungen, Händchenhalten, Komplimente, Brille, Outfits
 - Schere-Stein-Papier, Wortkette, Rätsel, Cham-cham-cham, Verstecken, Fotos, das Kartenspiel

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Pokojný mód
 
@@ -14,9 +14,38 @@
 
 **⬇ Stiahnutie a inštalácia (zadarmo, s inštalátorom)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Slovenčina)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Slovenčina)
 
 Predstavenie „Pokojný mód“, fanúšikovského módu pre MiSide (AIHASTO): deň s jednou zo siedmich Mít, bez hororu.
+
+## Novinky vo v1.1
+
+- Fotorežim: póza, výraz a rámik (polaroid, film, srdiečka, dátum), potom 3-2-1 — a fotoalbum
+- Mitin denník: stránka za každý deň jej slovami
+- Rastlinka, ktorú pestujete spolu: polievajte ju raz denne a rozkvitne
+- Mitina nálada a stránka vašich spoločných záznamov
+- Pohyby vytvorené pre mód: prikývnutie, pokrútenie hlavou, naklonenie hlavy, hanblivosť, mávanie, „hurá“
+- Nové menu s podponukami, nastavenia v hre a podpora gamepadu
+- Značka, ktorá ukazuje, kde Mita je, keď ju stratíte z očí
+- AI chat, ktorý si pamätá, čo ste jej povedali (voliteľné)
+- Upírske a vianočné outfity pre Mitu a farby oblečenia pre ostatné Mity
+- 17 cieľov na dosiahnutie spoločne a Mitin list, keď splníte všetky
+- Gemini a ChatGPT pre AI chat (vlastný API kľúč)
+- Gestami reaguje na hladkanie, komplimenty a darčeky; objatia, držanie za ruky a spanie bežia plynulo
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Rozhovory, otázky, hladkanie, objatia, držanie za ruky, pochvaly, okuliare, oblečenie
 - Kameň-papier-nožnice, slovný reťaz, hádanky, čam-čam-čam, skrývačka, fotky, kartová hra

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide الوضع السلمي
 
@@ -16,9 +16,38 @@
 
 **⬇ التحميل والتثبيت (ببلاش، ومعاه برنامج تثبيت)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: العربية (مصر))
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: العربية (مصر))
 
 بنقدملكم «الوضع السلمي»، مود من عمل المعجبين للعبة MiSide (من AIHASTO): يوم مع واحدة من السبع ميتا، من غير رعب.
+
+## الجديد في v1.1
+
+- وضع التصوير: اختار الوضعية والتعبير والإطار (بولارويد، فيلم، قلوب، تاريخ) وبعدين 3-2-1 — ومعاه ألبوم صور
+- يوميات ميتا: صفحة لكل يوم بكلامها
+- زرعة بتربّوها سوا: اسقيها مرة في اليوم وهتطلع وردة
+- مود ميتا وصفحة لذكرياتكم سوا
+- حركات معمولة للمود: تهزّ راسها، تقول لأ، تميّل راسها، تتكسف، تشاور، تفرح
+- قايمة جديدة بقوايم فرعية وإعدادات جوه اللعبة ودعم دراع التحكم
+- علامة بتوريك ميتا فين لما تغيب عن عينك
+- شات ذكاء اصطناعي بيفتكر اللي قلته (اختياري)
+- هدوم مصاص دماء وكريسماس لميتا، وألوان الهدوم لباقي الميتات
+- 17 هدف تحققوهم سوا، وجواب ميتا لما تخلّصهم كلهم
+- Gemini وChatGPT للشات بالذكاء الاصطناعي (بمفتاح API بتاعك)
+- بترد بالحركات على التربيت والمجاملات والهدايا؛ الحضن ومسك الإيدين والنوم بسلاسة
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - كلام، أسئلة، طبطبة، حضن، مسك إيد، مدح، نضارة، هدوم
 - حجرة-ورقة-مقص، سلسلة الكلمات، فوازير، تشام-تشام-تشام، استغماية، صور، كوتشينة

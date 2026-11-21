@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Mírumilovný režim
 
@@ -14,9 +14,38 @@
 
 **⬇ Stažení a instalace (zdarma, s instalátorem)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Čeština)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Čeština)
 
 Představení „Mírumilovný režim“, fanouškovského modu pro MiSide (AIHASTO): den s jednou ze sedmi Mit, bez hororu.
+
+## Novinky ve v1.1
+
+- Fotorežim: póza, výraz a rámeček (polaroid, film, srdíčka, datum), pak 3-2-1 — a fotoalbum
+- Mitin deník: stránka za každý den jejími slovy
+- Rostlinka, kterou pěstujete spolu: zalévejte ji jednou denně a vykvete
+- Mitina nálada a stránka vašich společných záznamů
+- Pohyby vytvořené pro mód: přikývnutí, zavrtění hlavou, naklonění hlavy, stud, mávání, „hurá“
+- Nové menu s podnabídkami, nastavení ve hře a podpora gamepadu
+- Značka, která ukazuje, kde Mita je, když ji ztratíte z očí
+- AI chat, který si pamatuje, co jste jí řekli (volitelné)
+- Upíří a vánoční outfity pro Mitu a barvy oblečení pro ostatní Mity
+- 17 cílů k dosažení společně a Mitin dopis, když splníte všechny
+- Gemini a ChatGPT pro AI chat (vlastní API klíč)
+- Gesty reaguje na hlazení, komplimenty a dárky; objetí, držení za ruce a spaní běží plynule
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Rozhovory, otázky, hlazení, objetí, držení za ruce, pochvaly, brýle, oblečení
 - Kámen-nůžky-papír, slovní řetěz, hádanky, čam-čam-čam, schovávaná, fotky, karetní hra

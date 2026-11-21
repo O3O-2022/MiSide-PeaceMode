@@ -1,0 +1,35 @@
+name: 버그 제보 · Bug report
+description: 평화 모드에서 생긴 문제를 알려 주세요 · Something went wrong in Peace Mode
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        비공식 팬 모드입니다. 원작 게임 자체의 문제는 AIHASTO에 문의해 주세요.
+        Unofficial fan mod: for problems with the game itself, please contact AIHASTO.
+  - type: textarea
+    id: what
+    attributes:
+      label: 무슨 일이 있었나요? · What happened?
+      description: 어떤 미타를 골랐는지, 무엇을 하다가 생겼는지 · Which Mita, and what you were doing
+    validations:
+      required: true
+  - type: input
+    id: modver
+    attributes:
+      label: 모드 버전 · Mod version
+      placeholder: v1.1.0
+  - type: input
+    id: gamever
+    attributes:
+      label: 게임 버전 · Game version
+      placeholder: "0.93L (Steam)"
+  - type: textarea
+    id: log
+    attributes:
+      label: 로그 · Log
+      description: 게임 폴더의 `BepInEx/LogOutput.log` 파일을 끌어다 놓아 주세요 · Drag in `BepInEx/LogOutput.log` from the game folder
+  - type: textarea
+    id: shots
+    attributes:
+      label: 스크린샷 · Screenshots

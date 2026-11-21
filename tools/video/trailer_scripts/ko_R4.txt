@@ -1,0 +1,77 @@
+name
+screen 960 540
+avframe 0.15
+peaceset crazy affection=80
+peaceset crazy lastTier=9
+wait 34
+peace crazy
+waitready 240
+wait 3
+calm
+musicoff
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.8
+peacemenu
+wait 1.3
+pick 교감하기
+wait 1.3
+pick 안아주기
+recordav ko_r12_hug 10 60 3840 2160
+waitidle 60
+wait 2
+cloth HellVamp 0
+wait 1.5
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.8
+peacemenu
+wait 1.3
+pick 교감하기
+wait 1.3
+pick 안아주기
+recordav ko_r12_vamp_hug 10 60 3840 2160
+waitidle 60
+wait 2
+cloth Chirfns 0
+wait 1.5
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.8
+peacemenu
+wait 1.3
+pick 교감하기
+wait 1.3
+pick 안아주기
+recordav ko_r12_xmas_hug 10 60 3840 2160
+waitidle 60
+wait 2
+cloth original 0
+wait 1
+wait 2
+screen native
+wait 2
+quit

@@ -182,6 +182,9 @@ namespace MiSidePeaceMode
                 {
                     StartCookingSession();
                     if (!cooking) return;   // no corner: the meal scene has taken over
+                    // (she is at the stove now: the screen opened on whatever you faced before - the wall - with her
+                    // cut off at its edge for the whole of the cooking)
+                    AimAtMita();
                     fadeTarget = 0f;
                     afterFade = () => Play((IList<Line>)L.CookAsk ?? new Line[0]);
                 });

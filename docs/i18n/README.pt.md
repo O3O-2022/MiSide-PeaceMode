@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Modo Pacífico
 
@@ -14,9 +14,38 @@
 
 **⬇ Descarregar e instalar (grátis, com instalador)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Português (Portugal))
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Português (Portugal))
 
 Apresentação de «Modo Pacífico», um mod feito por fãs para MiSide (AIHASTO): um dia com uma das sete Mitas, sem terror.
+
+## Novidades da v1.1
+
+- Modo fotografia: pose, expressão e moldura (polaroid, rolo, corações, data), depois 3-2-1 — e um álbum
+- O diário da Mita: uma página por dia, nas palavras dela
+- Uma planta para cuidarem juntos: rega-a uma vez por dia e ela floresce
+- O humor da Mita e uma página com os vossos registos
+- Gestos criados para o mod: acenar com a cabeça, negar, inclinar a cabeça, timidez, acenar, festejar
+- Novo menu com submenus, definições no jogo e suporte para comando
+- Um marcador que mostra onde está a Mita quando a perdes de vista
+- Chat com IA que se lembra do que lhe contaste (opcional)
+- Fatos de vampiro e de Natal para a Mita, e cores de roupa para as outras Mitas
+- 17 objetivos para cumprirem juntos e a carta da Mita ao concluí-los
+- Gemini e ChatGPT para o chat com IA (a tua própria chave API)
+- Reage com gestos a festas, elogios e presentes; abraços, dar a mão e dormir fluem bem
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Conversas, perguntas, festinhas, abraços, dar a mão, elogios, óculos, roupas
 - Pedra-papel-tesoura, palavras encadeadas, adivinhas, cham-cham-cham, escondidas, fotografias, jogo de cartas

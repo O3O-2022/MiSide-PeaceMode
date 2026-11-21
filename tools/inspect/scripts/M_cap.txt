@@ -1,0 +1,192 @@
+wait 22
+peace cap
+waitready 240
+waitimports 300
+wait 5
+calm
+aff 90
+peacetime 12:00
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 대화하기
+wait 0.8
+pick 아무 이야기나
+recidle ca_talk 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 쓰다듬기
+recidle ca_pat 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 안아주기
+recidle ca_hug 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 칭찬하기
+recidle ca_compliment 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 가위바위보
+recidle ca_rps 40
+pickat 0
+wait 0.3
+recidle ca_rps_1 40
+pickat 1
+wait 0.3
+recidle ca_rps_2 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 같이 놀자
+wait 0.8
+pick 같이 사진 찍기
+wait 0.8
+pickat 3
+recidle ca_photo 40
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 교감하기
+wait 0.8
+pick 옷 갈아입기
+wait 0.8
+pickat 0
+recidle ca_clothes 20
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacetime 12:05
+wait 1
+peacemenu
+wait 0.8
+pick 같이 밥 먹기
+recidle ca_meal 90
+waitidle 90
+wait 1
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 함께 지내기
+wait 0.8
+pick 같이 다니자
+recidle ca_follow 30
+walkto 0.9 -0.4 ~90
+wait 0.3
+recidle ca_follow_1 30
+lookat mita
+wait 0.3
+recidle ca_follow_2 30
+game stay
+wait 0.3
+recidle ca_follow_3 30
+waitidle 90
+wait 1
+peacetime 23:00
+wait 2
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 1.5
+unshowcase
+wait 0.5
+tpdist 1.6
+lookat mita
+wait 0.6
+peacemenu
+wait 0.8
+pick 함께 지내기
+wait 0.8
+pick 이제 자자
+recidle ca_sleep 60
+waitidle 90
+wait 1
+wait 2
+quit

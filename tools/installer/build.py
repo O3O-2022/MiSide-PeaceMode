@@ -1,5 +1,5 @@
 """Builds the installer for players: dev_output/release/MiSidePeaceMode-Setup-v<version>.exe
-(Installer.cs, with PeaceMode/bin/MiSidePeaceMode.dll and the launcher .bat embedded).
+(Installer.cs, with PeaceMode/bin_release/MiSidePeaceMode.dll (make_release.py builds it) and the launcher .bat embedded).
 Compiled by the C# compiler that ships with Windows (.NET Framework 4: no SDK, nothing downloaded), so the program
 runs on any Windows 10/11 as it is.
 usage: python tools/installer/build.py [shots]     (shots: also save a picture of the window per language)"""
@@ -39,7 +39,7 @@ open(info, "w", encoding="utf-8").write(f'''using System.Reflection;
 exe = os.path.join(out_dir, f"MiSidePeaceMode-Setup-v{version}.exe")
 cmd = [CSC, "/nologo", "/target:winexe", "/optimize+", "/platform:anycpu", "/codepage:65001", "/out:" + exe,
        "/win32icon:" + icon, "/win32manifest:" + os.path.join(HERE, "app.manifest"),
-       "/resource:" + os.path.join(REPO, "PeaceMode", "bin", "MiSidePeaceMode.dll") + ",MiSidePeaceMode.dll",
+       "/resource:" + os.path.join(REPO, "PeaceMode", "bin_release", "MiSidePeaceMode.dll") + ",MiSidePeaceMode.dll",
        "/resource:" + os.path.join(REPO, "tools", "launch", "MiSide Peace Mode.bat") + ",launcher.bat",
        "/r:System.Windows.Forms.dll", "/r:System.Drawing.dll", "/r:System.IO.Compression.dll", "/r:System.IO.Compression.FileSystem.dll",
        os.path.join(HERE, "Installer.cs"), info]

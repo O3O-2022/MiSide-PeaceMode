@@ -47,7 +47,7 @@ namespace MiSidePeaceMode
                 MovePlayer(pp, WindowLook);
                 var look = WindowLook - pp; look.y = 0; look.Normalize();
                 var right = Vector3.Cross(Vector3.up, look);
-                var mp = OnFloor(pp + right * 0.7f + look * 1.1f);
+                var mp = ClearSpot(pp + right * 0.7f + look * 1.1f, 1.2f);   // (not into the desk by the window)
                 // standing still in her idle, her face is on the agent's +Z side (the hips of that clip point back):
                 // turned by the root, without the hips correction
                 var toWindow = WindowLook - mp; toWindow.y = 0; toWindow.Normalize();
@@ -56,6 +56,15 @@ namespace MiSidePeaceMode
                 poseRot = Quaternion.LookRotation(toWindow);
                 mitaBody.rotation = poseRot;
                 try { mitaLook?.Activation(false); } catch { }
+                // her lines: up by the window in front of you - beside her head, right next to your eyes, they were huge,
+                // tipped over and pushed to the edge of the view
+                lineAnchor = () =>
+                {
+                    var c = pm != null && pm.mainCamera != null ? pm.mainCamera : null;
+                    if (c == null) return null;
+                    var f = c.forward; f.y = 0; f = f.sqrMagnitude > 0.001f ? f.normalized : look;
+                    return c.position + f * 1.8f + Vector3.Cross(Vector3.up, f) * 0.2f + Vector3.up * 0.12f;
+                };
                 fadeTarget = 0f;
                 // rain or snow outside has its own words (by day; the night sky keeps its own)
                 var windowLines = !night && weather == Weather.Rain && m.WindowRain != null ? m.WindowRain
@@ -65,9 +74,24 @@ namespace MiSidePeaceMode
                 {
                     AddAff(2);
                     S.Minute = Mathf.Min(S.Minute + 20f, 1439f);
-                    if (posed && mitaBody != null && pm != null) ReleasePose(mitaBody.position, pm.transform.position);
-                    try { mitaLook?.Activation(true); mitaLook?.LookOnPlayer(); } catch { }
-                    CheckMilestones();
+                    // (back to the day through the dark, as it began: let go in plain view she spun round on the spot and
+                    // was left half on the desk by the window)
+                    fadeTarget = 1f;
+                    afterFade = () =>
+                    {
+                        lineAnchor = null;
+                        ClearLeftoverText();
+                        if (posed && mitaBody != null && pm != null)
+                        {
+                            var stand = ClearSpot(pp + right * 0.55f + look * 0.9f, 1.2f);
+                            ReleasePose(stand, pm.transform.position);
+                        }
+                        try { mitaLook?.Activation(true); mitaLook?.LookOnPlayer(); } catch { }
+                        After(0.1f, AimAtMita);
+                        fadeHoldUntil = Time.time + 0.3f;
+                        fadeTarget = 0f;
+                        afterFade = CheckMilestones;
+                    };
                 });
             };
         }
@@ -88,8 +112,13 @@ namespace MiSidePeaceMode
                     // a moment of that, then your eyes close for a while
                     lapStaged = LoungeReady && StageLap();
                     if (!lapStaged) { CloseEyesOnLap(); return; }
-                    fadeTarget = 0f;
-                    After(4f, () => { fadeTarget = 1f; afterFade = CloseEyesOnLap; });
+                    // (the black lifts once she has sat down and turned to look at you - SeatHer's look comes back at
+                    // 2 s - and her hair has settled: lifted at once, her head snapped round and her hair flew out)
+                    After(3.2f, () =>
+                    {
+                        fadeTarget = 0f;
+                        After(4f, () => { fadeTarget = 1f; afterFade = CloseEyesOnLap; });
+                    });
                 };
             });
         }
@@ -135,6 +164,8 @@ namespace MiSidePeaceMode
             if (pm != null) { pm.dontMove = false; pm.stopMouseMove = false; }
             MovePlayer(you, center + right * LoungeMitaSide + Vector3.up * 1.4f);
             try { mitaLook?.Activation(true); mitaLook?.LookOnPlayer(); } catch { }
+            // (your eyes up to her face: they were left level, on her skirt, right in front of you)
+            After(0.15f, AimAtMita);
         }
 
         void TickLap()
@@ -152,7 +183,7 @@ namespace MiSidePeaceMode
                 if (!lapStaged) { CheckMilestones(); return; }
                 // up again: a short fade back to the room
                 fadeTarget = 1f;
-                afterFade = () => { ClearLeftoverText(); UnstageLap(); fadeTarget = 0f; afterFade = CheckMilestones; };
+                afterFade = () => { ClearLeftoverText(); UnstageLap(); fadeHoldUntil = Time.time + 0.4f; fadeTarget = 0f; afterFade = CheckMilestones; };
             });
         }
 

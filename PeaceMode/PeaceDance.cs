@@ -32,6 +32,7 @@ namespace MiSidePeaceMode
         Transform danceMitaPad, danceMitaSide, dancePadStand, dancePadCenter;
         UnityEvent danceMenuEvent;       // the story's "pick a song" (camera to the screen, the menu keys)
         int danceRound;
+        bool danceAsking;
         bool danceIntroDone;
         Action danceArrive;              // where her walk (to the pad, beside it) ends
         float danceOnPadAt = -1f;        // when she took her stance (her song starts once she's in it)
@@ -328,6 +329,7 @@ namespace MiSidePeaceMode
         void TickDance()
         {
             if (danceStage == 0 || danceNow == null) return;
+            if (danceAsking && !MenuOpen && !busy) { danceAsking = false; EndDance(false); }
             if (danceArrive != null && mitaBody != null)
             {
                 var d = mitaBody.position - walkTo; d.y = 0;
@@ -389,15 +391,17 @@ namespace MiSidePeaceMode
             Play(lines, () =>
             {
                 if (DevDanceAuto) After(2f, () => { if (DevDanceMore > 0) { DevDanceMore--; DevPick("한 판 더!"); } else DevPick("이제 그만할래"); });
+                danceAsking = true;
                 ShowMenu(Pn.Short, new List<string> { "한 판 더!", "이제 그만할래" }, new List<Action>
                 {
                     () =>
                     {
+                        danceAsking = false;
                         try { dg.MitaGoNext(); } catch (Exception e) { Plugin.Log.LogWarning("[dance] next: " + e.Message); }
                         try { mitaLook?.LookOnObject(tvT); } catch { }
                         MitaToPad();
                     },
-                    () => EndDance(false),
+                    () => { danceAsking = false; EndDance(false); },
                 });
             });
         }

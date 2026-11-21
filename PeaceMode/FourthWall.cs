@@ -43,6 +43,7 @@ namespace MiSidePeaceMode
             };
             MoreWall(id, w);
             MoreWall2(id, w);
+            HolidayWall(id, w);
             wallCache[id] = w;
             return w;
         }

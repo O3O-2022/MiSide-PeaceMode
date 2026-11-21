@@ -12,7 +12,7 @@ namespace MiSidePeaceMode
     public partial class PeaceDirector
     {
         float nextAttention, nextTurn, farSince = -1f, nextVisit = -1f, shyUntil, nextShy, attentiveUntil;
-        bool attentionOn, shyNow, visiting, attentiveHold;
+        bool attentionOn, shyNow, visiting, attentiveHold, resumeRoamLater;
         GameObject lookAwayTarget;
 
         // (everything that stages her itself - scenes, games, walks, cooking, bed - steers her look itself)
@@ -21,7 +21,18 @@ namespace MiSidePeaceMode
 
         void TickAttention()
         {
-            if (!AttentionFree) { attentionOn = false; shyNow = false; farSince = -1f; attentiveHold = false; return; }
+            if (!AttentionFree)
+            {
+                // (she was standing still for you when something else took over - a game, a walk: once that's over her
+                // roaming has to start again, or she stays rooted to that spot for good)
+                if (attentiveHold) resumeRoamLater = true;
+                attentionOn = false; shyNow = false; farSince = -1f; attentiveHold = false; return;
+            }
+            if (resumeRoamLater && !busy && !MenuOpen)
+            {
+                resumeRoamLater = false;
+                if (addonHeld) HoldAddon(false);
+            }
             if (shyNow && Time.time > shyUntil) EndShy();
             if (Time.time < nextAttention) return;
             nextAttention = Time.time + 0.3f;
@@ -67,7 +78,7 @@ namespace MiSidePeaceMode
                     try { mita.AiShraplyStop(); mitaLook.LookOnPlayerAndRotate(); } catch { }
                 }
             }
-            else if (attentiveHold && Time.time > attentiveUntil && !following && !busy)
+            else if (attentiveHold && Time.time > attentiveUntil && !following && !busy && !MenuOpen)
             {
                 attentiveHold = false;
                 HoldAddon(false);

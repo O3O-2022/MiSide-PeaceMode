@@ -1,7 +1,8 @@
 """The downloads for players, in dev_output/release:
   MiSidePeaceMode-Setup-v<version>.exe   the installer (tools/installer)
   MiSidePeaceMode-v<version>.zip         for installing by hand: extracted into the game folder
-In both: PeaceMode/bin/MiSidePeaceMode.dll (as built by deploy.ps1 or `dotnet build -c Release`) and the launcher .bat.
+In both: a release build of the plugin (PeaceMode/bin_release: built here with -p:PeaceDev=false, no dev tools - an
+antivirus took dev builds, which carry screen/audio recorders, for a trojan) and the launcher .bat.
 usage: python tools/make_release.py"""
 import os, re, subprocess, sys, zipfile
 
@@ -35,11 +36,19 @@ Uninstall: delete BepInEx\plugins\MiSidePeaceMode.dll. The story's saves are nev
 For MiSide 0.93L (Steam), Windows 10/11 64-bit. Languages: Korean, English, Japanese, Simplified Chinese.
 MiSide (c) AIHASTO. This mod is made by a fan and is not the official Peaceful Mode.
 """
+def find_game():
+    for g in (os.path.dirname(REPO), r"D:\SteamLibrary\steamapps\common\MiSide", r"C:\Program Files (x86)\Steam\steamapps\common\MiSide"):
+        if os.path.exists(os.path.join(g, "MiSideFull.exe")): return g
+    sys.exit("MiSide not found (for the build references)")
+
+RELEASE_DLL = os.path.join(REPO, "PeaceMode", "bin_release", "MiSidePeaceMode.dll")
+subprocess.run(["dotnet", "build", os.path.join(REPO, "PeaceMode", "MiSidePeaceMode.csproj"), "-c", "Release",
+                "-o", os.path.dirname(RELEASE_DLL), "-p:PeaceDev=false", f"-p:GameDir={find_game()}"], check=True)
 out_dir = os.path.join(REPO, "dev_output", "release")
 os.makedirs(out_dir, exist_ok=True)
 out = os.path.join(out_dir, f"MiSidePeaceMode-v{version}.zip")
 with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-    z.write(os.path.join(REPO, "PeaceMode", "bin", "MiSidePeaceMode.dll"), "BepInEx/plugins/MiSidePeaceMode.dll")
+    z.write(RELEASE_DLL, "BepInEx/plugins/MiSidePeaceMode.dll")
     z.write(os.path.join(REPO, "tools", "launch", "MiSide Peace Mode.bat"), "MiSide Peace Mode.bat")
     z.writestr("MiSide Peace Mode - README.txt", README.replace("\n", "\r\n").encode("utf-8-sig"))
 print(out, os.path.getsize(out) // 1024, "KB")

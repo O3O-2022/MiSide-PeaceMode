@@ -213,7 +213,7 @@ namespace MiSidePeaceMode
             new[] { P("그 옷 잘 어울린다."), M("정말요? 당신이 좋아하면 매일 입을래요~", "smile") },
             new[] { P("같이 있으니까 편하다."), M("…그 말 반칙이에요.", "shy"), M("저도요.", "smile") },
         },
-            RpsStart = new Line[] { M("가위바위보요? 좋아요! 저 이거 엄청 잘해요!", "smile", "Mita IdleHand"), M("자, 골라요! 가위, 바위…", "smiletonque") },
+            RpsStart = new Line[] { M("가위바위보요? 좋아요! 저 이거 엄청 잘해요!", "smile"), M("자, 골라요! 가위, 바위…", "smiletonque") },
             RpsWin = new Line[][] {
             new[] { M("으아악! 졌다!", "surprise"), M("한 판 더요! 한 판만 더!", "discontent") },
             new[] { M("말도 안 돼… 제 패턴을 읽은 거예요?", "suspicion"), M("다음엔 안 봐줄 거예요.", "smilestrange") },

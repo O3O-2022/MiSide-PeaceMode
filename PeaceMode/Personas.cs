@@ -170,7 +170,7 @@ namespace MiSidePeaceMode
                 new[] { P("고마워, 미타."), M("천만에요. 당연한 일을 한 거예요.", "smile") },
                 new[] { P("넌 농담도 잘하네."), M("아이러니는 제 두 번째 모국어예요.", "smiletonque") },
             },
-            RpsStart = new[] { M("가위바위보요? 확률 게임이죠.", "suspicion", "Mita IdleHand"), M("…그래도 지진 않을 거예요. 자, 내요!", "smile") },
+            RpsStart = new[] { M("가위바위보요? 확률 게임이죠.", "suspicion"), M("…그래도 지진 않을 거예요. 자, 내요!", "smile") },
             RpsWin = new[]
             {
                 new[] { M("…제가 졌군요.", "surprise"), M("분석 완료. 다음 판은 제가 이겨요.", "suspicion") },
@@ -318,7 +318,7 @@ namespace MiSidePeaceMode
                 new[] { P("춤 멋있었어."), M("그쵸?! 다음엔 같이 춰요! 거절은 거절이에요!", "smile") },
                 new[] { P("너랑 있으면 재밌어."), M("저도요! 완전 한 몸 같아요~!", "smile") },
             },
-            RpsStart = new[] { M("가위바위보?! 좋아요, 라이벌!", "smile", "Mita IdleHand"), M("각오해요! 가위, 바위…", "smiletonque") },
+            RpsStart = new[] { M("가위바위보?! 좋아요, 라이벌!", "smile"), M("각오해요! 가위, 바위…", "smiletonque") },
             RpsWin = new[]
             {
                 new[] { M("으아아악! 말도 안 돼!", "surprise"), M("삼세판! 아니, 오세판! 다시!", "angry") },
@@ -482,7 +482,7 @@ namespace MiSidePeaceMode
                 new[] { P("넌 다른 미타들이랑 확실히 달라."), M("…! 드디어 알아봤네요.", "surprise"), M("당신 좀 보는 눈이 있어요.", "smile") },
                 new[] { P("같이 있으면 편해."), M("…그런 말은 반칙이에요.", "shy"), M("저도… 라고는 안 할 거예요. 흥.", "smiletonque") },
             },
-            RpsStart = new[] { M("가위바위보요? 유치하긴.", "discontent", "Mita IdleHand"), M("…해 줄게요. 이기면 차 한 잔 더예요.", "smiletonque") },
+            RpsStart = new[] { M("가위바위보요? 유치하긴.", "discontent"), M("…해 줄게요. 이기면 차 한 잔 더예요.", "smiletonque") },
             RpsWin = new[]
             {
                 new[] { M("…말도 안 돼요.", "surprise"), M("한 판 더요! 지금 건 연습이었어요!", "angry") },
@@ -624,7 +624,7 @@ namespace MiSidePeaceMode
                 new[] { P("같이 있으면 편해."), M("저도요. 당신 옆이면 잠이 안 와요… 좋은 뜻으로요.", "shy") },
                 new[] { P("잠든 얼굴 귀엽더라."), M("네…?! 보, 보셨어요?!", "surprise"), M("…다음엔 깨워 주세요.", "shy") },
             },
-            RpsStart = new[] { M("가위바위보요…?", "halfsleep", "Mita IdleHand"), M("좋아요… 가위… 바위… 음…", "halfsleep") },
+            RpsStart = new[] { M("가위바위보요…?", "halfsleep"), M("좋아요… 가위… 바위… 음…", "halfsleep") },
             RpsWin = new[]
             {
                 new[] { M("졌어요…", "sad"), M("…졸면서 내서 그래요. 한 번 더 해요.", "discontent") },
@@ -765,7 +765,7 @@ namespace MiSidePeaceMode
                 new[] { P("넌 믿음직해."), M("당연하죠. 저는 버전 1.5니까요!", "smiletonque") },
                 new[] { P("같이 있으면 배우는 게 많아."), M("그럼 오늘부터 수강료는 칭찬 한 번이에요.", "smile") },
             },
-            RpsStart = new[] { M("가위바위보요? 좋아요. 확률은 3분의 1이에요.", "smile", "Mita IdleHand"), M("…그래도 이길 거예요!", "smiletonque") },
+            RpsStart = new[] { M("가위바위보요? 좋아요. 확률은 3분의 1이에요.", "smile"), M("…그래도 이길 거예요!", "smiletonque") },
             RpsWin = new[]
             {
                 new[] { M("졌네요.", "surprise"), M("괜찮아요. 실패도 배움이에요. …다시 해요!", "discontent") },
@@ -903,7 +903,7 @@ namespace MiSidePeaceMode
                 new[] { P("도와줘서 고마워."), M("흥, 플레이어님은 특별하니까요. 안 도와드릴 이유가 없죠!", "smiletonque"), M("…천만에요.", "shy") },
                 new[] { P("너랑 있으면 재밌어."), M("당연하죠! 저는 최고의 안내자니까요!", "smile") },
             },
-            RpsStart = new[] { M("가위바위보요? 좋아요! 저 이거 챔피언이에요!", "arrogance", "Mita IdleHand"), M("가위, 바위…!", "smiletonque") },
+            RpsStart = new[] { M("가위바위보요? 좋아요! 저 이거 챔피언이에요!", "arrogance"), M("가위, 바위…!", "smiletonque") },
             RpsWin = new[]
             {
                 new[] { M("칫! 이건 무효예요!", "angry"), M("손이 작아서 불리했어요! 다시 해요!", "discontent") },

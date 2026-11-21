@@ -46,6 +46,8 @@ namespace MiSidePeaceMode
             if (!again) { S.LastGiftDay = S.Day; S.LastGift = id; S.LastGiftLoved = id == g.Love && !Cold; }
             var lines = new List<Line> { new Line(Who.Player, "자, 선물이야. {gift}!") };
             lines.AddRange(react);
+            // (her body with her words: delighted, pleased, puzzled at a second one, unsure of one she doesn't like)
+            NextGesture(why == "loved" ? "@cheer" : why == "liked" ? "@nod" : why == "cold" ? "@lookaway" : "@tilt");
             Play(lines, CheckMilestones);
         }
 

@@ -19,7 +19,7 @@ L="$1"; shift
 OUT="$REPO/dev_output/trailer/$L"
 mkdir -p "$OUT"
 trap 'setlang Korean; rm -f "$CFG/peacemode_dev.txt"' EXIT
-python "$REPO/tools/video/make_trailer.py" "$L"
+python "$REPO/tools/video/make_trailer.py" "$L" > /dev/null; [ -f "$REPO/tools/video/make_trailer12.py" ] && (cd "$REPO/tools/video" && python make_trailer12.py > /dev/null)
 setlang "$NAME"
 for s in "$@"; do
   echo "=== $L $s $(date +%T)"

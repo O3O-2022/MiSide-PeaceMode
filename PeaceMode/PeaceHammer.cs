@@ -26,7 +26,14 @@ namespace MiSidePeaceMode
         [HarmonyPatch(typeof(Events_Animator), nameof(Events_Animator.EventAnim)), HarmonyPrefix]
         static bool MitaEventAnim(Events_Animator __instance, int _index)
         {
-            if (__instance == null || __instance.Pointer != PeaceDirector.mitaEventsPtr) return true;
+            if (__instance == null) return true;
+            if (__instance.Pointer != PeaceDirector.mitaEventsPtr)
+            {
+                // a borrowed setup's clip calling an event number its Events_Animator doesn't have (the dance pad, about
+                // 130 times a song): the game would throw IndexOutOfRange for each, so in peace mode such calls are dropped
+                if (!PeaceMode.Active) return true;
+                try { var ev = __instance.events; return ev != null && _index >= 0 && _index < ev.Length; } catch { return true; }
+            }
             try { PeaceDirector.Instance?.OnMitaClipEvent(_index); } catch (Exception e) { Plugin.Log.LogWarning("[hammer] clip event: " + e.Message); }
             return false;
         }
@@ -137,8 +144,21 @@ namespace MiSidePeaceMode
             switch (n)
             {
                 case 10: { var rest = HammerFind("HammerToy Table"); if (rest != null) try { magnet?.ReMagnetAndParent(rest); } catch { } break; }
-                case 11: { var hand = mitaBody != null ? Util.FindDeep(mitaBody, "RightItem") : null; if (hand != null) try { magnet?.ReMagnetAndParent(hand); } catch { } break; }
-                case 12: try { hb?.ButtonDownMita(); } catch (Exception e) { Plugin.Log.LogWarning("[hammer] her press: " + e.Message); } break;
+                case 11:
+                {
+                    // (not out of your hand: you are the one holding it after you won)
+                    if (ToyHeldByYou()) { Plugin.Log.LogInfo("[hammer] her take ignored: the hammer is yours this round"); break; }
+                    var hand = mitaBody != null ? Util.FindDeep(mitaBody, "RightItem") : null;
+                    if (hand != null) try { magnet?.ReMagnetAndParent(hand); } catch { }
+                    break;
+                }
+                case 12:
+                    // Her press counts only while a round is on and nobody has won it yet. Her clips carry this event
+                    // late too (after you already won): taken then, it bopped you for a round you won, took the hammer
+                    // out of your hand (the hammer went missing) and ran the hearts past zero (IndexOutOfRange).
+                    if (hammerStage != 2 || HammerCueOn()) { Plugin.Log.LogInfo($"[hammer] her late press ignored (stage {hammerStage})"); break; }
+                    try { hb?.ButtonDownMita(); } catch (Exception e) { Plugin.Log.LogWarning("[hammer] her press: " + e.Message); }
+                    break;
                 case 23: try { mitaLook?.Activation(true); mitaLook?.LookOnPlayer(); } catch { } break;
             }
         }
@@ -224,6 +244,8 @@ namespace MiSidePeaceMode
             EndRoutine();
             StopFollow(false);
             hammerStage = 1;
+            hammerToyShowAt = Time.time + 9f;   // (she sits down a few seconds after the fade)
+            hammerToyBadSince = -1f;
             fadeTarget = 1f;
             afterFade = () =>
             {
@@ -296,6 +318,8 @@ namespace MiSidePeaceMode
 
         void HammerRound()
         {
+            // (the hammer back on the table between rounds, wherever the last one left it)
+            if (!ToyHeldByYou()) HammerToTable();
             hammerStage = 2;
             hammerAutoPressed = false;
             try { mitaLook?.Activation(false); } catch { }
@@ -306,6 +330,7 @@ namespace MiSidePeaceMode
         void TickHammer()
         {
             if (hammerStage == 0 || hammerNow == null) return;
+            KeepHammerToy();
             // (the game switches a cue on and waits while it stays on - the story's lines playing: off once ours are said)
             if (hammerStage == 2)
                 for (int i = 0; i < 3; i++)
@@ -333,6 +358,78 @@ namespace MiSidePeaceMode
 
         float hammerAutoKickAt;
 
+        // ---- the toy hammer: always somewhere you can see it ----
+        // It goes table -> her hand -> table, or table -> your hand -> table; the moves come from the borrowed clips'
+        // events and the game's own calls, and when one of them is missed (or arrives late) it stayed in a hand that
+        // put it down long ago or hung on nothing. Checked every frame of the game: switched on once she has sat down,
+        // and put back on the table when it has been anywhere else for a moment.
+        float hammerToyBadSince = -1f, hammerToyShowAt;
+
+        bool HammerCueOn()
+        {
+            if (hammerYouWon == null || hammerSheWon == null) return false;
+            for (int i = 0; i < 3; i++) if ((hammerYouWon[i] != null && hammerYouWon[i].activeSelf) || (hammerSheWon[i] != null && hammerSheWon[i].activeSelf)) return true;
+            return false;
+        }
+
+        bool ToyHeldByYou()
+        {
+            if (hammerToy == null || pm == null) return false;
+            if ((hammerNow != null && hammerToy.IsChildOf(hammerNow.transform)) || (mitaBody != null && hammerToy.IsChildOf(mitaBody))) return false;
+            var r = hammerToy.root;
+            if (r == pm.transform.root) return true;
+            if (pm.mainCamera != null && r == pm.mainCamera.root) return true;
+            var cam = Camera.main;
+            return cam != null && r == cam.transform.root;
+        }
+
+        bool ToyHeldByHer() => hammerToy != null && mitaBody != null && hammerToy.IsChildOf(mitaBody);
+
+        void HammerToTable()
+        {
+            if (hammerToy == null) return;
+            var rest = HammerFind("HammerToy Table");
+            if (rest == null) return;
+            if (!hammerToy.gameObject.activeSelf) hammerToy.gameObject.SetActive(true);
+            var magnet = hammerToy.GetComponent<Transform_Magnet>();
+            try { magnet?.ReMagnetAndParent(rest); } catch { }
+            if (magnet == null) { hammerToy.SetParent(rest, false); hammerToy.localPosition = Vector3.zero; hammerToy.localRotation = Quaternion.identity; }
+            // (the magnet glides it over: if it didn't get there, put it there)
+            var toy = hammerToy;
+            After(1.2f, () =>
+            {
+                if (toy == null || rest == null || hammerToy != toy || ToyHeldByYou() || ToyHeldByHer()) return;
+                if ((toy.position - rest.position).magnitude > 0.35f)
+                {
+                    try { if (magnet != null) magnet.active = false; } catch { }
+                    toy.SetParent(rest, false); toy.localPosition = Vector3.zero; toy.localRotation = Quaternion.identity;
+                    Plugin.Log.LogInfo("[hammer] toy put on the table by hand");
+                }
+            });
+        }
+
+        void KeepHammerToy()
+        {
+            if (hammerToy == null) { hammerToy = HammerFind("HammerToy"); if (hammerToy == null) return; }
+            // (the game switches it on when she sits down; if that call never came, it comes out anyway)
+            if (!hammerToy.gameObject.activeSelf)
+            {
+                if (Time.time > hammerToyShowAt) { Plugin.Log.LogInfo("[hammer] toy was still off: on the table"); HammerToTable(); }
+                return;
+            }
+            var table = KitchenTable();
+            bool held = ToyHeldByYou() || ToyHeldByHer();
+            bool inGame = hammerToy.parent != null && hammerToy.IsChildOf(hammerNow.transform);
+            bool far = table != null && (hammerToy.position - table.position).magnitude > 2.6f;
+            bool bad = !hammerToy.gameObject.activeInHierarchy || (!held && !inGame) || far;
+            if (!bad) { hammerToyBadSince = -1f; return; }
+            if (hammerToyBadSince < 0f) { hammerToyBadSince = Time.time; return; }
+            if (Time.time - hammerToyBadSince < 3f) return;
+            Plugin.Log.LogWarning($"[hammer] toy lost (parent {(hammerToy.parent != null ? Util.PathOf(hammerToy.parent) : "-")}, at {hammerToy.position}): back on the table");
+            hammerToyBadSince = -1f;
+            HammerToTable();
+        }
+
         public static bool DevHammerAuto;
         public static bool DevHammerFaceHer = true;   // dev: `hammer face off` keeps the sit anchor as it came
         bool hammerAutoPressed;
@@ -358,6 +455,7 @@ namespace MiSidePeaceMode
         void EndHammer()
         {
             hammerStage = 4;
+            if (!ToyHeldByYou()) HammerToTable();
             var lines = HammerLines((false, 444, null), (true, 445, "smile"), (true, 446, "smile"));
             Play(lines, () =>
             {
@@ -376,6 +474,12 @@ namespace MiSidePeaceMode
         // (screen black) everything back
         void EndHammerNow()
         {
+            // (the toy too, wherever it is: left in her hand it went on with her through the house)
+            if (hammerToy != null && (hammerNow == null || !hammerToy.IsChildOf(hammerNow.transform))) UnityEngine.Object.Destroy(hammerToy.gameObject);
+            // (your stand-up plays from the setup about to go: destroyed mid-clip it left you in the animation for good -
+            // the view wouldn't turn and her menu never came back, as it waits for your animation to end)
+            try { if (pm != null && pm.animationRun) pm.AnimationStopFull(); } catch (Exception e) { Plugin.Log.LogWarning("[hammer] stand up: " + e.Message); }
+            if (pm != null && mitaBody != null) try { MovePlayer(pm.transform.position, mitaBody.position); } catch { }
             if (hammerNow != null) UnityEngine.Object.Destroy(hammerNow);
             hammerNow = null; hb = null; hammerToy = null;
             RestoreAmbient();
@@ -384,6 +488,9 @@ namespace MiSidePeaceMode
             if (posed && mitaBody != null && pm != null)
             {
                 var at = mitaBody.position;
+                // (she stood up from the table right into you once, 0.3 m away: a step back first)
+                var away = at - pm.transform.position; away.y = 0;
+                if (away.magnitude < 0.9f) at = pm.transform.position + (away.sqrMagnitude > 0.0001f ? away.normalized : pm.transform.forward) * 1.0f;
                 if (NavMesh.SamplePosition(at, out var hit, 1.5f, -1)) at = hit.position;
                 ReleasePose(at, pm.transform.position);
             }

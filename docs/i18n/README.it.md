@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Modalità pacifica
 
@@ -14,9 +14,38 @@
 
 **⬇ Scarica e installa (gratis, con programma di installazione)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Italiano)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Italiano)
 
 Presentazione di «Modalità pacifica», una mod creata dai fan per MiSide (AIHASTO): un giorno con una delle sette Mita, senza horror.
+
+## Novità della v1.1
+
+- Modalità foto: posa, espressione e cornice (polaroid, pellicola, cuori, data), poi 3-2-1 — e un album fotografico
+- Il diario di Mita: una pagina al giorno, con le sue parole
+- Una pianta da far crescere insieme: annaffiala una volta al giorno e fiorirà
+- L'umore di Mita e una pagina dei vostri ricordi insieme
+- Movimenti creati per la mod: annuire, scuotere la testa, inclinarla, timidezza, salutare, esultare
+- Nuovo menu con sottomenu, impostazioni in gioco e supporto al controller
+- Un indicatore che mostra dov'è Mita quando la perdi di vista
+- Chat IA che ricorda ciò che le hai detto (facoltativa)
+- Abiti da vampiro e natalizi per Mita, e colori degli abiti per le altre Mita
+- 17 obiettivi da raggiungere insieme e la lettera di Mita quando li completi
+- Gemini e ChatGPT per la chat IA (la tua chiave API)
+- Reagisce con gesti a carezze, complimenti e regali; abbracci, mano nella mano e buonanotte fluidi
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Chiacchiere, domande, carezze, abbracci, mano nella mano, complimenti, occhiali, abiti
 - Sasso-carta-forbici, catena di parole, indovinelli, cham-cham-cham, nascondino, foto, gioco di carte

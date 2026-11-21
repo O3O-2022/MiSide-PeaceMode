@@ -202,7 +202,9 @@ namespace MiSidePeaceMode
             posed = true; lying = false; uprightFront = Vector3.zero;
             mitaBody.SetPositionAndRotation(posePos, poseRot);
             HoldClip(sleep);
-            try { mitaAnim.ResetOrder(); mitaAnim.AnimationClipSimpleNext(sleep); } catch { }
+            // (a frame later: HoldAddon's own next clip in this frame left hers waiting ~2 s - standing in the bed
+            // view, the camera inside her, then dropped into bed in four frames)
+            After(0.001f, () => { if (heldClip == sleep) PlayClipSure(sleep, () => heldClip == sleep, () => { if (fadeHoldUntil > Time.time + 0.15f) fadeHoldUntil = Time.time + 0.15f; }); });
             Plugin.Log.LogInfo($"[anim] asleep like Sleepy Mita at {posePos} yaw {poseRot.eulerAngles.y:0}");
         }
 
@@ -272,6 +274,7 @@ namespace MiSidePeaceMode
             bedCam.fieldOfView = 55f;
             var main = Camera.main;
             if (main != null) { bedCam.cullingMask = main.cullingMask; bedCam.clearFlags = main.clearFlags; bedCam.backgroundColor = main.backgroundColor; }
+            bedCam.cullingMask |= LineLayers();
             TickBedCamera();
         }
 
@@ -323,8 +326,18 @@ namespace MiSidePeaceMode
             holdCam.nearClipPlane = 0.03f;
             holdCam.fieldOfView = main != null ? main.fieldOfView : 60f;
             if (main != null) { holdCam.cullingMask = main.cullingMask; holdCam.clearFlags = main.clearFlags; holdCam.backgroundColor = main.backgroundColor; }
+            holdCam.cullingMask |= LineLayers();   // (her lines: another camera of the game's draws them, under this one)
             holdCam.transform.SetPositionAndRotation(main.transform.position, main.transform.rotation);
             Plugin.Log.LogInfo($"[anim] stage view from {main.name} at {main.transform.position}");
+        }
+
+        // the layers her (and your) 3D lines are on: a camera of our own has to draw them too
+        int LineLayers()
+        {
+            int m = 0;
+            foreach (var t in new[] { tmplMita, tmplPlayer })
+                if (t != null) foreach (var c in t.GetComponentsInChildren<Transform>(true)) m |= 1 << c.gameObject.layer;
+            return m;
         }
 
         // (LateUpdate: after the animation has moved your head)
@@ -357,6 +370,152 @@ namespace MiSidePeaceMode
         // ---- a tiny scheduler for staged scenes ----
         readonly List<(float at, Action a)> timers = new List<(float, Action)>();
         [HideFromIl2Cpp] void After(float seconds, Action a) => timers.Add((Time.time + seconds, a));
+
+        // ---- whole clips through her idle slot ----
+        // The game's "next clip" (AnimationClipSimpleNext) leaves its state at the exit time set for the clip that state
+        // was made for: a longer clip is cut off part way (StartHug at 45%, HoldHand at a quarter - she sprang back to
+        // standing). Her idle state plays whatever clip is in its slot, whole and looping, so a clip of ours goes in the
+        // slot and that state is started again from its first frame.
+        int idleStateHash;
+        string idleClipName;
+
+        void RememberIdleState() { }   // (learned in PlayInSlot instead: see there)
+
+        void PlayInSlot(AnimationClip c)
+        {
+            if (c == null) return;
+            try { mitaAnim.ResetOrder(); } catch { }
+            SetIdle(c);
+            // The state that plays the slot is found by watching for the clip itself (the state where "Mita Idle"
+            // happens to play may be the next-clip one); once known, it is jumped to straight away.
+            float t0 = Time.time;
+            void Tick()
+            {
+                try
+                {
+                    var an = mitaBody != null ? mitaBody.GetComponent<Animator>() : null;
+                    if (an == null) return;
+                    bool Has(Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStructArray<AnimatorClipInfo> infos)
+                    {
+                        foreach (var ci in infos) if (ci.clip != null && ci.clip.name == c.name) return true;
+                        return false;
+                    }
+                    int hash = 0;
+                    if (Has(an.GetCurrentAnimatorClipInfo(0))) hash = an.GetCurrentAnimatorStateInfo(0).fullPathHash;
+                    else if (an.IsInTransition(0) && Has(an.GetNextAnimatorClipInfo(0))) hash = an.GetNextAnimatorStateInfo(0).fullPathHash;
+                    else if (idleStateHash != 0 && Time.time - t0 > 0.02f) hash = idleStateHash;
+                    if (hash != 0)
+                    {
+                        an.Play(hash, 0, 0f);
+                        if (hash != idleStateHash && Has(an.GetCurrentAnimatorClipInfo(0)) || idleStateHash == 0) idleStateHash = hash;
+                        return;
+                    }
+                    if (Time.time - t0 < 0.6f) { After(0.001f, Tick); return; }
+                    Plugin.Log.LogWarning("[anim] slot: " + c.name + " never came in");
+                }
+                catch (Exception e) { Plugin.Log.LogWarning("[anim] slot restart: " + e.Message); }
+            }
+            After(0.001f, Tick);
+        }
+
+        // her clip, made sure of: asked for as the next clip (it blends in), then watched. It counts as on once she has
+        // been in it or blending to it for 0.3 s straight (a blend into it was sometimes cut off again a few frames later by
+        // the idle HoldAddon asks for - and StartHug blends in long, so "not blending any more" never came). Not in it
+        // within 0.4 s, or dropped out of it: asked again; the second time forced (AnimationClipSimple cuts straight to it).
+        [HideFromIl2Cpp] void PlayClipSure(AnimationClip clip, Func<bool> still, Action started = null)
+        {
+            if (clip == null || mitaAnim == null) return;
+            int tries = 0;
+            float t0 = Time.time, onSince = -1f;
+            void Ask() { try { mitaAnim.ResetOrder(); mitaAnim.AnimationClipSimpleNext(clip); } catch { } }
+            bool On()
+            {
+                var an = mitaBody != null ? mitaBody.GetComponent<Animator>() : null;
+                if (an == null) return true;
+                try
+                {
+                    foreach (var ci in an.GetCurrentAnimatorClipInfo(0)) if (ci.clip != null && ci.clip.name == clip.name && ci.weight > 0.3f) return true;
+                    if (an.IsInTransition(0)) foreach (var ci in an.GetNextAnimatorClipInfo(0)) if (ci.clip != null && ci.clip.name == clip.name) return true;
+                }
+                catch (Exception e) { Plugin.Log.LogWarning($"[anim] {clip.name} check: {e.Message}"); return true; }
+                return false;
+            }
+            void Again(string why)
+            {
+                t0 = Time.time; onSince = -1f;
+                if (++tries == 1) { Plugin.Log.LogInfo($"[anim] {clip.name} {why}: asked again"); Ask(); }
+                else { Plugin.Log.LogInfo($"[anim] {clip.name} {why} again: forced"); try { mitaAnim.AnimationClipSimple(clip); } catch { } started?.Invoke(); tries = 99; }
+            }
+            void Tick()
+            {
+                if (tries == 99) return;
+                if (still != null && !still()) return;
+                if (On())
+                {
+                    if (onSince < 0f) onSince = Time.time;
+                    if (Time.time - onSince >= 0.3f) { if (tries > 0) Plugin.Log.LogInfo($"[anim] {clip.name} on (try {tries})"); started?.Invoke(); return; }
+                }
+                else if (onSince >= 0f) Again("dropped out");
+                else if (Time.time - t0 > 0.4f) Again("didn't come in");
+                if (tries != 99) After(0.001f, Tick);
+            }
+            // first let the idle HoldAddon has just asked for settle in (asked while that blend runs, ours was cut off by
+            // it a few frames later): up to 0.3 s, until she is in one state, not blending
+            float w0 = Time.time;
+            void Wait()
+            {
+                if (still != null && !still()) return;
+                bool blending = false;
+                try { var an = mitaBody != null ? mitaBody.GetComponent<Animator>() : null; blending = an != null && an.IsInTransition(0); } catch { }
+                if (blending && Time.time - w0 < 0.3f) { After(0.001f, Wait); return; }
+                t0 = Time.time;
+                Ask();
+                After(0.001f, Tick);
+            }
+            After(0.001f, Wait);
+        }
+
+        // `then` the frame her clip `clip` is about to end (or has ended), checked every frame; `fallback` s at most
+        [HideFromIl2Cpp] void AtClipEnd(string clip, float fallback, Action then)
+        {
+            float t0 = Time.time;
+            bool seen = false;
+            void Tick()
+            {
+                var an = mitaBody != null ? mitaBody.GetComponent<Animator>() : null;
+                bool fire = Time.time - t0 > fallback;
+                try
+                {
+                    if (an != null && !fire)
+                    {
+                        // which clip is the state she is in, which one she is blending to (the heaviest of each)
+                        string Top(Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStructArray<AnimatorClipInfo> infos)
+                        {
+                            string n = null; float w = -1f;
+                            foreach (var ci in infos) if (ci.clip != null && ci.weight > w) { w = ci.weight; n = ci.clip.name; }
+                            return n;
+                        }
+                        bool inTr = an.IsInTransition(0);
+                        var cur = Top(an.GetCurrentAnimatorClipInfo(0));
+                        var nxt = inTr ? Top(an.GetNextAnimatorClipInfo(0)) : null;
+                        if (cur == clip)
+                        {
+                            seen = true;
+                            var st = an.GetCurrentAnimatorStateInfo(0);
+                            // leaving it (blending to something else), or its last 1.5 frames
+                            if (inTr && nxt != clip) fire = true;
+                            else if (!inTr && st.normalizedTime >= 1f - 0.05f / Mathf.Max(0.1f, st.length)) fire = true;
+                        }
+                        else if (nxt == clip) seen = true;   // (blending into it)
+                        else if (seen) fire = true;          // gone already
+                    }
+                }
+                catch { }
+                if (fire) { then(); return; }
+                After(0.001f, Tick);
+            }
+            After(0.001f, Tick);
+        }
 
         void TickTimers()
         {
@@ -397,6 +556,61 @@ namespace MiSidePeaceMode
             Plugin.Log.LogInfo($"[anim] hug players kept: {hugPlayer != null} {hugRelease != null}");
         }
 
+        // ---- a shared animation hands your view back without a jump ----
+        // Your eyes sit a little off your feet; the animation moves your eyes, and when it stops they go back to your
+        // body, wherever that stands. So: your eyes' offset from your feet is noted while you stand normally, and when
+        // the animation lets go, your body is put where those eyes are, looking the way they looked.
+        Vector3 headOffsetLocal = new Vector3(0.07f, 0f, 0.07f);
+
+        void RememberHeadOffset()
+        {
+            try
+            {
+                if (pm == null || pm.animationRun || pm.mainCamera == null) return;
+                var d = pm.mainCamera.position - pm.transform.position; d.y = 0;
+                if (d.magnitude < 0.5f) headOffsetLocal = Quaternion.Inverse(pm.transform.rotation) * d;
+            }
+            catch { }
+        }
+
+        [HideFromIl2Cpp] void KeepViewWhereItIs(Action stop)
+        {
+            var cam = pm.mainCamera;
+            if (cam == null) { stop(); return; }
+            var eye = cam.position;
+            var fwd = cam.forward;
+            stop();
+            var flat = new Vector3(fwd.x, 0f, fwd.z);
+            float yaw = flat.sqrMagnitude > 0.0001f ? Quaternion.LookRotation(flat).eulerAngles.y : pm.transform.eulerAngles.y;
+            var feet = new Vector3(eye.x, pm.transform.position.y, eye.z) - Quaternion.Euler(0f, yaw, 0f) * headOffsetLocal;
+            feet = OnFloor(feet);
+            try { pm.TeleportPlayer(feet, yaw); } catch (Exception e) { Plugin.Log.LogWarning("[anim] view keep: " + e.Message); }
+            pm.rotX = yaw;
+            pm.rotY = -Mathf.Asin(Mathf.Clamp(fwd.y, -1f, 1f)) * Mathf.Rad2Deg;
+        }
+
+        // `offset` (in her frame) from `at`, turned as little as possible from `facing` so that it lands on open floor;
+        // `turned` = her rotation for it
+        static Vector3 ClearFacing(Vector3 at, Quaternion facing, Vector3 offset, out Quaternion turned)
+        {
+            foreach (var a in new[] { 0f, 25f, -25f, 50f, -50f, 75f, -75f, 105f, -105f, 135f, -135f, 180f })
+            {
+                var r = Quaternion.Euler(0f, a, 0f) * facing;
+                var want = at + r * offset;
+                if (UnityEngine.AI.NavMesh.SamplePosition(want, out var hit, 0.12f, -1) && Mathf.Abs(hit.position.y - want.y) < 0.25f
+                    && !UnityEngine.AI.NavMesh.Raycast(at, hit.position, out _, -1))
+                {
+                    turned = r;
+                    return hit.position;
+                }
+            }
+            turned = facing;
+            return OnFloor(at + facing * offset);
+        }
+
+        // where you stand for the hug, on top of where the ending puts you (her local x right / z towards you)
+        public static Vector3 HugShift = Vector3.zero;
+
         bool CanHugLikeTheEnding => hugPlayer != null && hugRelease != null && pm != null && mitaBody != null && mitaAnim != null && !posed
             && (skin == null || !skin.OwnAnimator) && Clip("Mita StartHug") != null && Clip("Mita HugIdle") != null && Clip("Mita StopHug") != null;
 
@@ -404,30 +618,49 @@ namespace MiSidePeaceMode
         [HideFromIl2Cpp] bool StageHug(IList<Line> lines, Action done)
         {
             if (!CanHugLikeTheEnding || hugging) return false;
+            if (activity != MitaActivity.Free) EndRoutine();
             hugging = true;
+            FoldCollar(true);
             var mp = mitaBody.position;
             var to = pm.transform.position - mp; to.y = 0;
             if (to.sqrMagnitude < 0.01f) to = Vector3.forward;
             // she stays where she is, turned to you (standing, her face is on the root's +Z: see DoWindow)
             PoseMitaUpright(mp, to);
             uprightFront = Vector3.zero;
-            poseRot = Quaternion.LookRotation(to.normalized);
+            // you: where the ending puts you, in front of her - on open floor: facing a wall or the counter that spot
+            // was snapped to the nearest walkable point, half a metre too close, and the view went through her body
+            RememberHeadOffset();
+            var spot = ClearFacing(mp, Quaternion.LookRotation(to.normalized), hugPlayerOffset + HugShift, out poseRot);
             mitaBody.rotation = poseRot;
             try { mitaLook?.Activation(false); } catch { }
-            // you: where the ending puts you, in front of her
-            var spot = OnFloor(mp + poseRot * hugPlayerOffset);
             var rot = Quaternion.Euler(0f, poseRot.eulerAngles.y + hugPlayerYaw, 0f);
             hugPlayer.transform.SetPositionAndRotation(spot, rot);
             hugRelease.transform.SetPositionAndRotation(spot, rot);
             try { hugPlayer.AnimationPlay(); } catch (Exception e) { Plugin.Log.LogWarning("[anim] hug (player): " + e.Message); }
+            // StartHug plays as her "next" clip; the hold (HugIdle, through her idle slot) comes in the very frame StartHug
+            // reaches its end - watched, not timed: on a timer StartHug ran out first and she stood apart for half a
+            // second before springing back into your arms. (A slot swap restarts the idle state and cancels a "next"
+            // clip, so it never happens while StartHug plays; StopHug goes through the slot for the same reason.)
+            // StartHug a frame later: PoseMitaUpright (via HoldAddon) has just asked for her idle as the next clip, and two
+            // "next" clips in one frame cut the second one off part way (StartHug at 45% - she sprang back to standing).
+            // The hold then follows as the next clip too, and sits in her idle slot for whenever that state comes back.
             var start = Clip("Mita StartHug");
-            try { mitaAnim.ResetOrder(); mitaAnim.AnimationClipSimpleNext(start); } catch { }
+            EndMotion();
             SettleCloth();
-            After(start.length - 0.05f, () =>
+            After(0.001f, () =>
             {
                 if (!hugging) return;
-                HoldClip(Clip("Mita HugIdle"));
-                Play(lines, () => EndHug(done));
+                // (watched: StartHug sometimes came in late - behind her idle - and a timer from asking for it cut it
+                // off in the middle, flashing her into your face and back, then StartHug played again; its end is
+                // watched only once it is surely on)
+                PlayClipSure(start, () => hugging, () => AtClipEnd(start.name, start.length + 1.5f, () =>
+                {
+                    if (!hugging) return;
+                    var hold = Clip("Mita HugIdle");
+                    HoldClip(hold);
+                    try { mitaAnim.AnimationClipSimpleNext(hold); } catch { }
+                    Play(lines, () => EndHug(done));
+                }));
             });
             Plugin.Log.LogInfo($"[anim] hug at {spot}");
             return true;
@@ -438,18 +671,27 @@ namespace MiSidePeaceMode
             if (!hugging) { done?.Invoke(); return; }
             var stop = Clip("Mita StopHug");
             heldClip = null;
-            SetIdle(skin != null && !skin.OwnAnimator ? skin.IdleClip : null);   // (StopHug ends in her idle, not the hug's)
-            try { mitaAnim.ResetOrder(); mitaAnim.AnimationClipSimpleNext(stop); } catch { }
+            FoldCollar(false);
+            // letting go as the next clip (the slot keeps the hold for now: swapped first, the swap cut StopHug off in
+            // the frame it began); her own idle goes back in the slot under StopHug's last frame, which ends in that pose
+            try { mitaAnim.AnimationClipSimpleNext(stop); } catch { }
             try { hugRelease.AnimationPlay(); } catch (Exception e) { Plugin.Log.LogWarning("[anim] hug release: " + e.Message); }
-            After(stop.length + 0.1f, () =>
+            After(stop.length - 0.05f, () => { if (hugging) SetIdle(skin != null && !skin.OwnAnimator ? skin.IdleClip : null); });
+            After(stop.length + 0.1f, () => FinishHug(done));
+        }
+
+        [HideFromIl2Cpp] void FinishHug(Action done)
+        {
             {
                 hugging = false;
+                // your view, which the release animation carried, stays where it is: you are put there before the
+                // animation lets go of it (stopped first, the view jumped back to where you had stood - 70 cm in a frame)
+                try { if (pm != null && pm.animationRun) KeepViewWhereItIs(() => pm.AnimationStopFull()); } catch { }
                 if (posed && mitaBody != null && pm != null) ReleasePose(mitaBody.position, pm.transform.position);
-                try { if (pm.animationRun) pm.AnimationStopFull(); } catch { }
-                FaceHer();
+                // (no FaceHer: the release animation ends looking at her, and turning you again was a jump of its own)
                 try { mitaLook?.Activation(true); mitaLook?.LookOnPlayer(); } catch { }
                 done?.Invoke();
-            });
+            }
         }
 
         // ---- her body language: clips from the Mitas' own scenes on her lines ----
@@ -458,12 +700,14 @@ namespace MiSidePeaceMode
         {
             // (only clips that stay on her spot: Laugh, Jump, ShowHands, Yawns, Look Lamp, IdleTalk, Start Dance and
             // Mila Show Place carry where their Mita stood in her own scene, or lean her into the camera - gestureprobe)
-            ["crazy"] = new[] { "Mita Start Thinks", "Mita Talk 1", "Mita Talk 2", "Mita Talk 3" },
-            ["kind"] = new[] { "MitaKind Pointer", "Mita Start Thinks", "Mita Talk 1", "Mita Talk 3" },   // (Scene 6's console pointing leaves her in a T-pose)
-            ["cap"] = new[] { "Mita Talk 2", "Mita Talk 4", "Mita Talk 5", "Mita Pointer" },
-            ["mila"] = new[] { "Mila CheckBack", "Mita Talk 4" },
-            ["sleepy"] = new[] { "Mita Talk 2", "Mita Start Thinks" },
-            ["short"] = new[] { "Mita Talk 1", "Mita Talk 2", "Mita Talk 3", "Mita Talk 4", "Mita Talk 5", "Mita Pointer" },
+            // (2026-10: Talk 1-3 hold an arm out at nothing or hunch over pointing up: our own motions instead, see PeaceMotion;
+            // 2026-11: Talk 5 too - its arm stayed out at nothing for seconds, still out when her lines had ended)
+            ["crazy"] = new[] { "Mita Start Thinks", "@explain", "@tilt", "@nod" },
+            ["kind"] = new[] { "MitaKind Pointer", "Mita Start Thinks", "@explain", "@nod" },   // (Scene 6's console pointing leaves her in a T-pose)
+            ["cap"] = new[] { "Mita Talk 4", "Mita Pointer", "@cheer", "@explain" },
+            ["mila"] = new[] { "Mila CheckBack", "Mita Talk 4", "@tilt" },
+            ["sleepy"] = new[] { "Mita Start Thinks", "@nod", "@tilt" },
+            ["short"] = new[] { "Mita Talk 4", "Mita Pointer", "@explain", "@nod" },
         };
 
         string forcedGesture;
@@ -472,22 +716,37 @@ namespace MiSidePeaceMode
         int gestureToken;
 
         // the next line of hers (one without a clip of its own) plays this
-        void NextGesture(string clip) { if (clip != null && Clip(clip) != null) forcedGesture = clip; }
+        void NextGesture(string clip) { if (clip != null && (clip[0] == '@' ? Motions.All.ContainsKey(clip) : Clip(clip) != null)) forcedGesture = clip; }
+
+        // what the line says: a question tilts her head, yes nods, no shakes it, shy looks away
+        [HideFromIl2Cpp] static string GestureForLine(Line l)
+        {
+            var t = (l.text ?? "").Trim();
+            if (l.emo == "shy") return Random.value < 0.5f ? "@shy" : "@lookaway";
+            if (t.StartsWith("아니") || t.StartsWith("싫어") || t.StartsWith("안 돼")) return "@shake";
+            if (t.StartsWith("네") || t.StartsWith("응") || t.StartsWith("좋아요") || t.StartsWith("맞아요") || t.StartsWith("그래요") || t.StartsWith("물론")) return "@nod";
+            if (t.EndsWith("?")) return "@tilt";
+            return null;
+        }
 
         [HideFromIl2Cpp] string TakeGesture(Line l)
         {
             if (forcedGesture != null) { var f = forcedGesture; forcedGesture = null; return f; }
             if ((posed && !showcasing) || Time.time < nextTalkGesture || !TalkGestures.TryGetValue(Pn.Id, out var set)) return null;
-            if (Pn.Id == "mila" && (l.emo == "angry" || l.emo == "discontent") && Clip("Mila Menace") != null && Random.value < 0.5f) { nextTalkGesture = Time.time + 6f; return "Mila Menace"; }
+            // (Mila Menace is gone: its first frame stands her elsewhere - a one-frame lurch sideways as it began)
             if (!DevAllGestures && Random.value > 0.4f) return null;
             nextTalkGesture = Time.time + (DevAllGestures ? 2.5f : Random.Range(5f, 9f));
+            var fit = GestureForLine(l);
+            if (fit == null && Mood > 85f && Random.value < 0.3f) fit = "@cheer";   // (in high spirits)
+            if (fit != null && Random.value < 0.7f) return fit;
             var pick = set[Random.Range(0, set.Length)];
-            return Clip(pick) != null ? pick : null;
+            return pick[0] == '@' || Clip(pick) != null ? pick : null;
         }
 
         // a gesture on her lines; one that loops is ended after one round (back to her idle)
         void PlayGestureClip(AnimationClip c)
         {
+            EndMotion();   // (one of ours would fight it)
             try { mitaAnim.AnimationClipSimpleNext(c); } catch { return; }
             Plugin.Log.LogInfo($"[anim] gesture {c.name}");
             gestureUntil = Time.time + Mathf.Min(c.length, 8f);
@@ -650,12 +909,13 @@ namespace MiSidePeaceMode
             var yaw = Quaternion.LookRotation(to.normalized).eulerAngles.y - Mathf.Atan2(handPlayerOffset.x, handPlayerOffset.z) * Mathf.Rad2Deg;
             PoseMitaUpright(mp, to);
             uprightFront = Vector3.zero;
-            poseRot = Quaternion.Euler(0f, yaw, 0f);
+            var handSpot = ClearFacing(mp, Quaternion.Euler(0f, yaw, 0f), handPlayerOffset, out poseRot);   // (open floor: see StageHug)
+            yaw = poseRot.eulerAngles.y;
             mitaBody.rotation = poseRot;
             try { mitaLook?.Activation(false); } catch { }
-            handPlayer.transform.SetPositionAndRotation(OnFloor(mp + poseRot * handPlayerOffset), Quaternion.Euler(0f, yaw + handPlayerYaw, 0f));
+            handPlayer.transform.SetPositionAndRotation(handSpot, Quaternion.Euler(0f, yaw + handPlayerYaw, 0f));
             try { handPlayer.AnimationPlay(); } catch (Exception e) { Plugin.Log.LogWarning("[anim] hand (player): " + e.Message); }
-            try { mitaAnim.ResetOrder(); mitaAnim.AnimationClipSimpleNext(mc); } catch { }
+            // (a frame later: see StageHug - PoseMitaUpright's own next clip in the same frame cut this one off at a quarter)
             SettleCloth();
             HoldHandsView(true);
             bool linesDone = false, animDone = false;
@@ -666,14 +926,38 @@ namespace MiSidePeaceMode
                 hugging = false;
                 if (posed && mitaBody != null && pm != null) ReleasePose(mitaBody.position, pm.transform.position);
                 try { if (pm.animationRun) pm.AnimationStopFull(); } catch { }
-                FaceHer();
-                try { mitaLook?.Activation(true); mitaLook?.LookOnPlayer(); } catch { }
+                StayFacingYou(0.9f);
                 done?.Invoke();
             };
-            After(mc.length + 0.1f, () => { animDone = true; finish(); });
+            // (its end watched only once it is surely on: see StageHug)
+            After(0.001f, () => { if (hugging) PlayClipSure(mc, () => hugging, () => AtClipEnd(mc.name, mc.length + 1f, () => { animDone = true; finish(); })); });
             Play(lines, () => { linesDone = true; finish(); });
             Plugin.Log.LogInfo("[anim] holding hands");
             return true;
+        }
+
+        // the end of something done together (holding hands): you a step back if the clip left you on top of her, both
+        // facing each other, and she stays a moment instead of wandering straight off (her roaming had her turn away)
+        void StayFacingYou(float minDist)
+        {
+            if (pm == null || mitaBody == null) return;
+            var d = pm.transform.position - mitaBody.position; d.y = 0;
+            if (d.magnitude < minDist)
+            {
+                var dir = d.sqrMagnitude > 0.0001f ? d.normalized : -mitaBody.forward;
+                var at = ClearSpot(mitaBody.position + dir * (minDist + 0.15f));
+                MovePlayer(at, mitaBody.position);
+                Plugin.Log.LogInfo($"[peace] a step back: {d.magnitude:0.00} m -> {(at - mitaBody.position).magnitude:0.00} m");
+            }
+            else FaceHer();
+            try
+            {
+                if (!attentiveHold) { attentiveHold = true; HoldAddon(true); }
+                attentiveUntil = Time.time + 8f;
+                mitaLook?.Activation(true);
+                mitaLook?.LookOnPlayerAndRotate();
+            }
+            catch { }
         }
 
         // after a shared animation your body ends up turned wherever the clip left it: back to looking at her

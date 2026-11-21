@@ -36,7 +36,10 @@ namespace MiSidePeaceMode
         {
             if (!following) return;
             following = false;
-            try { mita?.AiShraplyStop(); } catch { }
+            // (mid-walk she finishes her steps to the spot behind you - the target stays put now: stopped dead she was
+            // left standing in a doorway, inside the door, and snapped onto the floor a few seconds later)
+            if (!followWalking) try { mita?.AiShraplyStop(); } catch { }
+            followWalking = false;
             HoldAddon(false);
             if (say) Play(GL.FollowOff);
             Plugin.Log.LogInfo("[follow] off");

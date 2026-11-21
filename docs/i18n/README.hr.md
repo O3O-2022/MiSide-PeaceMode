@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Miran način igranja
 
@@ -14,9 +14,38 @@
 
 **⬇ Preuzimanje i instalacija (besplatno, s instalacijskim programom)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Hrvatski)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Hrvatski)
 
 Predstavljamo „Miran način igranja“, fanovski mod za MiSide (AIHASTO): dan s jednom od sedam Mita, bez horora.
+
+## Novo u v1.1
+
+- Foto način: poza, izraz lica i okvir (polaroid, film, srca, datum), zatim 3-2-1 — i foto album
+- Mitin dnevnik: stranica za svaki dan, njezinim riječima
+- Biljka koju uzgajate zajedno: zalijevajte je jednom dnevno i procvjetat će
+- Mitino raspoloženje i stranica vaših zajedničkih zapisa
+- Pokreti izrađeni za mod: kimanje, odmahivanje, naginjanje glave, sramežljivost, mahanje, „ura“
+- Novi izbornik s podizbornicima, postavke u igri i podrška za gamepad
+- Oznaka koja pokazuje gdje je Mita kad je izgubite iz vida
+- AI razgovor koji pamti što ste joj rekli (po želji)
+- Vampirske i božićne odjeće za Mitu te boje odjeće za ostale Mite
+- 17 ciljeva za zajedničko ostvarenje i Mitino pismo kad ih sve ispuniš
+- Gemini i ChatGPT za AI chat (vlastiti API ključ)
+- Gestama reagira na maženje, komplimente i darove; zagrljaji, držanje za ruke i spavanje teku glatko
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Razgovor, pitanja, maženje, zagrljaji, držanje za ruke, pohvale, naočale, odjeća
 - Kamen-škare-papir, igra riječi, zagonetke, čam-čam-čam, skrivača, fotografije, kartaška igra

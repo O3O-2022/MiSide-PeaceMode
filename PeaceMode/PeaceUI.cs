@@ -31,8 +31,20 @@ namespace MiSidePeaceMode
         GameObject menu;
         Action<int> onChoose;
         int optionCount;
+        // the 2026-10 redesign: the menu panel, the status card, toasts, the big card (album, records)
+        readonly PeaceUIPanel panel;
+        readonly PeaceHudCard card;
+        readonly PeaceToasts toasts;
+        readonly PeaceCard big;
+        readonly CanvasScaler scaler;
+        readonly RectTransform rootRt;
+        public PeaceMarker Marker { get; }
 
-        public bool MenuOpen => menu != null;
+        public bool MenuOpen => menu != null || panel.Open || big.Open;
+        public bool PanelOpen => panel.Open;
+        public bool CardOpen => big.Open;
+        Font UiFont => Loc.SpeechFont != null ? Loc.SpeechFont : font;
+        public Font Font => UiFont;
 
         public PeaceUI(GameObject frameTemplate)
         {
@@ -45,7 +57,8 @@ namespace MiSidePeaceMode
             var canvas = root.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = 400;
-            var scaler = root.AddComponent<CanvasScaler>();
+            scaler = root.AddComponent<CanvasScaler>();
+            rootRt = root.GetComponent<RectTransform>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
             scaler.matchWidthOrHeight = 0.5f;
@@ -63,8 +76,18 @@ namespace MiSidePeaceMode
             Place(hudPill.GetComponent<RectTransform>(), new Vector2(1, 1), new Vector2(-36, -28), new Vector2(620, 54));
 
             promptPill = MakePill(root.transform, "Prompt", 30, TextAnchor.MiddleCenter, out prompt);
-            Place(promptPill.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0, -150), new Vector2(460, 62));
+            Place(promptPill.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0, PromptY), new Vector2(460, 62));
             promptPill.SetActive(false);
+
+            hudPill.SetActive(false);   // (replaced by the status card)
+            panel = new PeaceUIPanel(root.transform, () => UiFont);
+            panel.Refused += reason => Toast(string.IsNullOrEmpty(reason) ? Loc.T("지금은 할 수 없어요") : reason, true);
+            card = new PeaceHudCard(root.transform, font);
+            card.Show(false);
+            toasts = new PeaceToasts(root.transform, () => UiFont);
+            big = new PeaceCard(root.transform, () => UiFont);
+            Marker = new PeaceMarker(root.transform, () => UiFont);
+            PeaceSfx.Init(root);
 
             var fgo = new GameObject("Fade");
             fgo.transform.SetParent(root.transform, false);
@@ -130,6 +153,53 @@ namespace MiSidePeaceMode
             rt.anchoredPosition = pos; rt.sizeDelta = size;
         }
 
+        public void SetStatus(string name, string day, string time, string hearts, bool show)
+        {
+            show &= !big.Open;   // (the album and the records take the screen)
+            if (show) card.Set(name, day, time, hearts, UiFont);
+            card.Show(show);
+        }
+
+        public void Toast(string text, bool gold = false) => toasts.Show(text, gold);
+
+        public void OpenPanel(string title, string crumb, List<MenuItem> items, Action<int> choose, Action back, int dir = 0)
+        {
+            if (menu != null) { UnityEngine.Object.Destroy(menu); menu = null; onChoose = null; }
+            big.Close();
+            panel.Show(title, crumb, items, choose, back, dir);
+        }
+        public void PanelMove(int d) => panel.Move(d);
+        public void PanelPickSelected() => panel.PickSelected();
+        public void PanelBack() => panel.Back();
+        public void PanelSelect(int i) => panel.Select(i);
+        public void PickRow(int i) { if (panel.Open) panel.PickAny(i); else Choose(i); }
+
+        public void ShowPhoto(string title, Texture2D tex, string caption, string counter, string footer, int dir = 0)
+        {
+            if (!big.Open) PeaceSfx.Play(PeaceSfx.Open, 0.24f); else if (dir != 0) PeaceSfx.Play(PeaceSfx.Page, 0.26f, dir > 0 ? 1.04f : 0.96f);
+            panel.Close();
+            big.ShowPhoto(title, tex, caption, counter, footer, dir);
+        }
+        public void ShowPage(string title, string head, string body, string counter, string footer, int dir = 0)
+        {
+            if (!big.Open) PeaceSfx.Play(PeaceSfx.Open, 0.24f); else if (dir != 0) PeaceSfx.Play(PeaceSfx.Page, 0.26f, dir > 0 ? 1.04f : 0.96f);
+            panel.Close();
+            big.ShowPage(title, head, body, counter, footer, dir);
+        }
+        public void ShowRows(string title, IList<(string, string)> rows, string footer) { PeaceSfx.Play(PeaceSfx.Open, 0.24f); panel.Close(); big.ShowRows(title, rows, footer); }
+        public void CloseCard() { if (big.Open) PeaceSfx.Play(PeaceSfx.Back, 0.22f); big.Close(); }
+
+        // bigger UI = a smaller canvas in its own units (everything is laid out for 1920x1080)
+        public void SetScale(float s)
+        {
+            s = Mathf.Clamp(s, 0.7f, 1.6f);
+            scaler.referenceResolution = new Vector2(1920f / s, 1080f / s);
+            PeaceSkin.ScreenH = 1080f / s;
+        }
+        public Vector2 CanvasSize => rootRt != null ? rootRt.rect.size : new Vector2(1920, 1080);
+
+        public void Tick(float dt) { panel.Tick(dt); toasts.Tick(); big.Tick(dt); Marker.Tick(dt); card.Tick(); TickPrompt(); PeaceFx.Tick(); }
+
         public void SetHud(string s, bool show)
         {
             s = Loc.Display(s);
@@ -171,12 +241,42 @@ namespace MiSidePeaceMode
             catch (Exception e) { Plugin.Log.LogWarning("[ui] hud width: " + e.Message); }
         }
 
+        CanvasGroup promptCg;
+        float promptA, promptTarget;
+        // (low, just above the subtitle bar: at -150 it sat on her chest, under her own line - the two ran into each other)
+        const float PromptY = -300f;
+
         public void ShowPrompt(string s)
         {
-            if (s == null) { if (promptPill.activeSelf) promptPill.SetActive(false); return; }
+            if (s == null) { promptTarget = 0f; return; }
             if (prompt != null) prompt.text = Loc.Display(s);
-            if (!promptPill.activeSelf) promptPill.SetActive(true);
+            promptTarget = 1f;
+            if (!promptPill.activeSelf) { promptPill.SetActive(true); promptA = 0f; }
         }
+
+        void TickPrompt()
+        {
+            if (promptPill != null && promptPill.activeSelf)
+            {
+                if (promptCg == null) { promptCg = promptPill.GetComponent<CanvasGroup>() ?? promptPill.AddComponent<CanvasGroup>(); promptCg.blocksRaycasts = false; }
+                promptA = Mathf.MoveTowards(promptA, promptTarget, Time.unscaledDeltaTime / 0.18f);
+                float e = PeaceFx.Out(promptA);
+                promptCg.alpha = e * (0.9f + 0.1f * Mathf.Sin(Time.unscaledTime * 2.4f));
+                promptPill.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, PromptY - 10f * (1f - e));
+                if (promptA <= 0f && promptTarget <= 0f) promptPill.SetActive(false);
+            }
+            // the typing box: fades in rising
+            if (inputPanel != null && inputPanel.activeSelf)
+            {
+                if (inputCg == null) { inputCg = inputPanel.GetComponent<CanvasGroup>() ?? inputPanel.AddComponent<CanvasGroup>(); }
+                float e = PeaceFx.Out((Time.unscaledTime - inputOpenedAt) / 0.2f);
+                inputCg.alpha = e;
+                inputPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 120f - 14f * (1f - e));
+            }
+        }
+
+        CanvasGroup inputCg;
+        float inputOpenedAt;
 
         // the hint line over the black screen (a scene that happens in the dark)
         public void PromptOnTop(bool on)
@@ -187,9 +287,17 @@ namespace MiSidePeaceMode
 
         public void SetFade(float a) => fade.color = new Color(0, 0, 0, Mathf.Clamp01(a));
         public void SetTint(Color c) => fade.color = c;
-        public void SetVisible(bool v) { if (root != null) root.SetActive(v); }
+        public void SetVisible(bool v) { if (root != null) root.SetActive(v); if (!v) { toasts.Clear(); Marker.Hide(); PeaceFx.Clear(); } }
 
         public void OpenMenu(string title, IList<string> options, Action<int> choose)
+        {
+            // (the old pill list: everything goes through the panel now)
+            var items = new List<MenuItem>();
+            foreach (var o in options) items.Add(new MenuItem(o));
+            OpenPanel(title, "", items, choose, null);
+        }
+
+        void OpenPillMenu(string title, IList<string> options, Action<int> choose)
         {
             CloseMenu();
             onChoose = choose;
@@ -229,6 +337,7 @@ namespace MiSidePeaceMode
 
         public void Choose(int i)
         {
+            if (panel.Open) { panel.PickNumber(i); return; }
             if (menu == null || i < 0 || i >= optionCount) return;
             var cb = onChoose;
             CloseMenu();
@@ -237,6 +346,7 @@ namespace MiSidePeaceMode
 
         public void CloseMenu()
         {
+            panel.Close();
             if (menu != null) UnityEngine.Object.Destroy(menu);
             menu = null;
             onChoose = null;
@@ -251,7 +361,7 @@ namespace MiSidePeaceMode
         public bool InputOpen => inputPanel != null && inputPanel.activeSelf;
         public string InputText => input != null ? input.text : "";
 
-        public void OpenInput(string hint)
+        public void OpenInput(string hint, bool secret = false)
         {
             if (inputPanel == null)
             {
@@ -280,7 +390,9 @@ namespace MiSidePeaceMode
                 input.caretColor = Color.white;
             }
             if (inputHint != null) inputHint.text = hint;
+            input.contentType = secret ? InputField.ContentType.Password : InputField.ContentType.Standard;
             input.text = "";
+            if (!inputPanel.activeSelf) inputOpenedAt = Time.unscaledTime;
             inputPanel.SetActive(true);
             Input.imeCompositionMode = IMECompositionMode.On;
             FocusInput();

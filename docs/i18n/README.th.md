@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide โหมดสงบสุข
 
@@ -14,9 +14,38 @@
 
 **⬇ ดาวน์โหลดและติดตั้ง (ฟรี มีตัวติดตั้งให้)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: ไทย)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: ไทย)
 
 ขอแนะนำ "โหมดสงบสุข" ม็อดที่แฟน ๆ ทำขึ้นสำหรับ MiSide (AIHASTO): ใช้เวลาหนึ่งวันกับมิตะหนึ่งในเจ็ดคน โดยไม่มีความสยองขวัญ
+
+## มีอะไรใหม่ใน v1.1
+
+- โหมดถ่ายรูป: เลือกท่าทาง สีหน้า และกรอบ (โพลารอยด์ ฟิล์ม หัวใจ วันที่) แล้ว 3-2-1 พร้อมอัลบั้มรูป
+- ไดอารี่ของมิตะ: วันละหน้าในแบบคำพูดของเธอ
+- ต้นไม้ที่ปลูกด้วยกัน: รดน้ำวันละครั้งแล้วจะออกดอก
+- อารมณ์ของมิตะ และหน้าบันทึกของเราสองคน
+- ท่าทางที่ทำขึ้นสำหรับม็อด: พยักหน้า ส่ายหน้า เอียงคอ เขิน โบกมือ ดีใจ
+- เมนูใหม่พร้อมเมนูย่อย การตั้งค่าในเกม และรองรับจอยเกม
+- เครื่องหมายบอกตำแหน่งมิตะเมื่อมองไม่เห็นเธอ
+- แชต AI ที่จำสิ่งที่คุณเล่าได้ (ไม่บังคับ)
+- ชุดแวมไพร์และคริสต์มาสสำหรับมิตะ และเปลี่ยนสีชุดของมิตะคนอื่น ๆ
+- เป้าหมาย 17 ข้อให้ทำด้วยกัน และจดหมายจากมิตะเมื่อทำครบ
+- Gemini และ ChatGPT สำหรับแชต AI (ใช้ API key ของคุณเอง)
+- ตอบสนองด้วยท่าทางต่อการลูบหัว คำชม และของขวัญ การกอด จับมือ และเข้านอนลื่นไหล
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - คุยกัน ถามคำถาม ลูบหัว กอด จับมือ ชม ใส่แว่น เปลี่ยนชุด
 - เป่ายิ้งฉุบ ต่อคำ คำถามกวน ๆ ชัม-ชัม-ชัม ซ่อนหา ถ่ายรูป เกมไพ่

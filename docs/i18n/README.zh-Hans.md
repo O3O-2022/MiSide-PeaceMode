@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide 和平模式
 
@@ -14,9 +14,38 @@
 
 **⬇ 下载与安装（免费，附安装程序）** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: 简体中文)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: 简体中文)
 
 介绍 MiSide（AIHASTO）的粉丝自制模组「和平模式」：没有恐怖剧情，与七位米塔之一共度一天。
+
+## v1.1 新功能
+
+- 拍照模式：选择姿势、表情和相框（拍立得、胶片、爱心、日期戳），3·2·1 咔嚓，还有相册
+- 米塔的日记：每天一页，用她的口吻写下
+- 一起养的盆栽：每天浇一次水，会长出花来
+- 米塔的心情，以及两人的记录
+- 为本模组制作的动作：点头、摇头、歪头、害羞、挥手、欢呼（配合台词）
+- 带子菜单的新菜单、游戏内设置、手柄支持
+- 看不到米塔时显示她位置的标记
+- 会记住你说过的话的 AI 聊天（可选）
+- 米塔的吸血鬼与圣诞服装，以及其他米塔的服装换色
+- 17个共同达成的目标，全部完成后收到米塔的信
+- AI聊天支持Gemini和ChatGPT（使用你自己的API密钥）
+- 对摸头、夸奖和礼物用动作回应，拥抱、牵手和睡觉更流畅
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - 聊天、提问、摸头、拥抱、牵手、夸奖、眼镜、换装
 - 石头剪刀布、词语接龙、脑筋急转弯、啪啪啪、捉迷藏、拍照、纸牌游戏

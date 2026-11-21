@@ -1,0 +1,49 @@
+name
+screen 960 540
+avframe 0.15
+peaceset sleepy affection=60
+peaceset sleepy lastTier=8
+wait 34
+peace sleepy
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+unshowcase
+wait 1
+mitago 2.2 -1.1
+wait 12
+look face
+wait 1
+after 0.3 mitago 8.7 1.6
+recordav ko_r12_sleepy_walk 9 60 3840 2160
+look off
+waitidle 60
+wait 2
+walkto 9.25 1.65 ~120
+wait 2
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+peacetime 22:30
+wait 2
+peacemenu
+pickwhen 이제 자자
+wait 4
+recordav ko_r12_bed 22 60 3840 2160
+wait 40
+wait 2
+screen native
+wait 2
+quit

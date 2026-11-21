@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Barışçıl mod
 
@@ -14,9 +14,38 @@
 
 **⬇ İndir ve kur (ücretsiz, kurulum programıyla)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Türkçe)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Türkçe)
 
 MiSide (AIHASTO) için hayran yapımı "Barışçıl mod" modunu tanıtıyoruz: yedi Mita'dan biriyle korkusuz bir gün.
+
+## v1.1 yenilikleri
+
+- Fotoğraf modu: poz, yüz ifadesi ve çerçeve (polaroid, film, kalpler, tarih) seç, sonra 3-2-1 — ve fotoğraf albümü
+- Mita'nın günlüğü: her gün için onun sözleriyle bir sayfa
+- Birlikte büyüttüğünüz bir bitki: günde bir kez sulayın, çiçek açsın
+- Mita'nın ruh hâli ve ortak kayıtlarınız
+- Mod için yapılmış hareketler: baş sallama, hayır, başını yana eğme, utanma, el sallama, sevinme
+- Alt menülü yeni menü, oyun içi ayarlar ve oyun kumandası desteği
+- Mita'yı gözden kaybettiğinizde nerede olduğunu gösteren işaret
+- Söylediklerinizi hatırlayan yapay zekâ sohbeti (isteğe bağlı)
+- Mita için vampir ve Noel kıyafetleri, diğer Mitalar için kıyafet renkleri
+- Birlikte ulaşacağınız 17 hedef ve hepsini bitirince Mita'nın mektubu
+- YZ sohbeti için Gemini ve ChatGPT (kendi API anahtarınla)
+- Okşama, iltifat ve hediyelere hareketlerle karşılık verir; sarılma, el ele tutuşma ve uyku akıcı
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Sohbet, sorular, okşama, sarılma, el ele tutuşma, iltifat, gözlük, kıyafetler
 - Taş-kâğıt-makas, kelime zinciri, bilmeceler, çam-çam-çam, saklambaç, fotoğraflar, kart oyunu

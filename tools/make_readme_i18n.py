@@ -10,9 +10,13 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "tools", "video"))
 import assemble as A                       # (the texts in 34 languages, the glossary)
 from i18n_trailer import TR, DOWNLOAD, REPO_URL
+sys.path.insert(0, os.path.join(REPO, "tools"))
+from readme_v11_i18n import NEW11, GRID
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "video"))
+from i18n_trailer12 import TR12   # (the bullets added after the v1.1 read-me: outfits, goals, Gemini/ChatGPT, gestures)
 
 REL = REPO_URL + "/releases/latest"
-VIDEO = "https://youtu.be/mswlea_Ozpg"   # (the release video: subtitles in every one of these languages)
+VIDEO = "https://youtu.be/5HQ9LPRP9j4"   # (the v1.1 video: subtitles in every one of these languages; v1.0: mswlea_Ozpg)
 # the pages' order, their file codes and the languages' own names
 ORDER = ["en", "ja", "zh", "zht", "ru", "ruold", "uk", "be", "bg", "kk", "sr", "hr", "cs", "sk", "pl", "hu", "ro", "de", "fr",
          "it", "es", "esla", "pt", "ptbr", "sv", "tr", "id", "fil", "vi", "th", "ar", "arz", "fa"]
@@ -220,7 +224,7 @@ def page(lang):
     title = f"MiSide {g['peace_mode']}"
     L = [
         '<div align="center">', "",
-        '<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">', "",
+        '<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">', "",
         f"# {title}", "",
         f"**{tr['unofficial']}**", "",
         "</div>", "",
@@ -231,6 +235,9 @@ def page(lang):
         f"**{DOWNLOAD[lang]}** — [{REPO_URL.replace('https://', '')}/releases]({REL})", "",
         f"**▶ YouTube** — [{VIDEO.replace('https://', '')}]({VIDEO}) (CC: {name})", "",
         intro, "",
+        f"## {NEW11[lang][0]}", "",
+    ] + ["- " + x for x in NEW11[lang][1] + TR12.get(lang, TR12["ru"] if lang == "ruold" else TR12["en"])["readme"]] + [
+        "", GRID, "",
         feats, "",
         f"## {h_install}", "",
         '<img src="../media/setup_en.png" width="520" alt="MiSide Peace Mode Setup">', "",

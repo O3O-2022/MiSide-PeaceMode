@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../media/hero.gif" width="720" alt="MiSide Peace Mode">
+<img src="../media/banner.png" width="720" alt="MiSide Peace Mode">
 
 # MiSide Tryb pokojowy
 
@@ -14,9 +14,38 @@
 
 **⬇ Pobierz i zainstaluj (za darmo, z instalatorem)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
 
-**▶ YouTube** — [youtu.be/mswlea_Ozpg](https://youtu.be/mswlea_Ozpg) (CC: Polski)
+**▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Polski)
 
 Prezentacja „Tryb pokojowy”, fanowskiego moda do MiSide (AIHASTO): dzień z jedną z siedmiu Mit, bez horroru.
+
+## Nowości w v1.1
+
+- Tryb zdjęć: poza, mina i ramka (polaroid, film, serduszka, data), potem 3-2-1 — i album ze zdjęciami
+- Pamiętnik Mity: strona na każdy dzień, jej słowami
+- Roślinka, którą hodujecie razem: podlewaj raz dziennie, a zakwitnie
+- Nastrój Mity i strona waszych wspólnych zapisków
+- Ruchy zrobione dla moda: kiwnięcie, kręcenie głową, przechylenie głowy, nieśmiałość, machanie, „hura”
+- Nowe menu z podmenu, ustawienia w grze i obsługa pada
+- Znacznik pokazujący, gdzie jest Mita, gdy stracisz ją z oczu
+- Czat AI, który pamięta, co mu powiedziałeś (opcjonalnie)
+- Stroje wampira i świąteczne dla Mity oraz kolory ubrań dla pozostałych Mit
+- 17 celów do osiągnięcia razem i list od Mity, gdy zaliczysz wszystkie
+- Gemini i ChatGPT do czatu AI (własny klucz API)
+- Gestami reaguje na głaskanie, komplementy i prezenty; przytulanie, trzymanie za ręce i spanie działają płynnie
+
+<table>
+<tr>
+<td align="center"><img src="../media/v11_photo.gif" width="300"></td>
+<td align="center"><img src="../media/v11_menu.gif" width="300"></td>
+</tr>
+<tr>
+<td align="center"><img src="../media/v11_album.gif" width="300"></td>
+<td align="center"><img src="../media/v11_diary.jpg" width="300"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="../media/v11_plant.jpg" width="620"></td>
+</tr>
+</table>
 
 - Rozmowy, pytania, głaskanie, przytulanie, trzymanie za ręce, pochwały, okulary, stroje
 - Kamień-papier-nożyce, łańcuch słów, zagadki, czam-czam-czam, chowany, zdjęcia, gra w karty

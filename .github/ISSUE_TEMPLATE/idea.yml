@@ -1,0 +1,10 @@
+name: 아이디어 · Idea
+description: 미타와 해 보고 싶은 것을 알려 주세요 · Something you'd like to do with Mita
+labels: [idea]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: 아이디어 · Idea
+    validations:
+      required: true

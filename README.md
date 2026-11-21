@@ -1,13 +1,22 @@
 <div align="center">
 
-<img src="docs/media/hero.gif" width="560" alt="평화 모드에서 부엌의 미타">
+<img src="docs/media/banner.png" width="820" alt="MiSide Peace Mode — 원작의 미타와 평화 모드의 미타">
 
 # MiSide Peace Mode
 
-MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
-한국어 · English · 日本語 · 中文
+**공포 0%, 미타와 보내는 하루** · *A day with Mita, no horror*<br>
+MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인 · 한국어 · English · 日本語 · 中文
 <br>
 <a href=https://discord.gg/PTPV93Zd59><img src=https://img.shields.io/badge/Discord-Join-5865F2?style=for-the-badge&logo=discord&logoColor=white alt=Discord></a> <a href=https://ko-fi.com/zip_yogurt><img src=https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white alt=Ko-fi></a>
+
+[![Release](https://img.shields.io/github/v/release/O3O-2022/MiSide-PeaceMode?label=%EB%B2%84%EC%A0%84&color=ff4fb4)](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/O3O-2022/MiSide-PeaceMode/total?label=%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C&color=9b3cf0)](https://github.com/O3O-2022/MiSide-PeaceMode/releases)
+[![MiSide](https://img.shields.io/badge/MiSide-0.93L-c8102e)](https://store.steampowered.com/app/2527500/MiSide/)
+[![BepInEx](https://img.shields.io/badge/BepInEx-6%20IL2CPP-2a0a2e)](https://github.com/BepInEx/BepInEx/releases/tag/v6.0.0-pre.2)
+[![YouTube](https://img.shields.io/badge/YouTube-%EC%98%81%EC%83%81-ff0000?logo=youtube&logoColor=white)](https://youtu.be/5HQ9LPRP9j4)
+[![Stars](https://img.shields.io/github/stars/O3O-2022/MiSide-PeaceMode?style=social)](https://github.com/O3O-2022/MiSide-PeaceMode/stargazers)
+
+<img src="docs/media/hero.gif" width="520" alt="평화 모드에서 부엌의 미타">
 
 </div>
 
@@ -18,7 +27,41 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 **한국어** · [English](docs/i18n/README.en.md) · [日本語](docs/i18n/README.ja.md) · [简体中文](docs/i18n/README.zh-Hans.md) · [繁體中文](docs/i18n/README.zh-Hant.md) · [Русский](docs/i18n/README.ru.md) · [Русскій (дореформенный)](docs/i18n/README.ru-old.md) · [Українська](docs/i18n/README.uk.md) · [Беларуская](docs/i18n/README.be.md) · [Български](docs/i18n/README.bg.md) · [Қазақша](docs/i18n/README.kk.md) · [Srpski](docs/i18n/README.sr-Latn.md) · [Hrvatski](docs/i18n/README.hr.md) · [Čeština](docs/i18n/README.cs.md) · [Slovenčina](docs/i18n/README.sk.md) · [Polski](docs/i18n/README.pl.md) · [Magyar](docs/i18n/README.hu.md) · [Română](docs/i18n/README.ro.md) · [Deutsch](docs/i18n/README.de.md) · [Français](docs/i18n/README.fr.md) · [Italiano](docs/i18n/README.it.md) · [Español](docs/i18n/README.es.md) · [Español (Latinoamérica)](docs/i18n/README.es-419.md) · [Português (Portugal)](docs/i18n/README.pt.md) · [Português (Brasil)](docs/i18n/README.pt-BR.md) · [Svenska](docs/i18n/README.sv.md) · [Türkçe](docs/i18n/README.tr.md) · [Bahasa Indonesia](docs/i18n/README.id.md) · [Filipino](docs/i18n/README.fil.md) · [Tiếng Việt](docs/i18n/README.vi.md) · [ไทย](docs/i18n/README.th.md) · [العربية](docs/i18n/README.ar.md) · [العربية (مصر)](docs/i18n/README.ar-EG.md) · [فارسی](docs/i18n/README.fa.md)
 <!-- /languages -->
 
-**⬇ [설치 프로그램 내려받기 · Download the installer](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)** · **▶ [영상 · Video](https://youtu.be/mswlea_Ozpg)** · [설치 방법](#설치) · [Install (English)](#english--日本語--中文)
+**⬇ [설치 프로그램 내려받기 · Download the installer](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)** · **▶ [영상 · Video](https://youtu.be/5HQ9LPRP9j4)** · [설치 방법](#설치) · [Install (English)](#english--日本語--中文)
+
+## v1.1 새 기능
+
+<table>
+<tr>
+<td align="center" width="50%"><img src="docs/media/v11_menu.gif" width="400"><br><b>새 메뉴</b><br>왼쪽 패널에 하위 메뉴와 "← 뒤로", 지금 할 수 있는 일이 금색으로 맨 위에. 잠긴 항목은 이유를 보여 주고, 새 사진 수 · NEW 배지가 붙습니다. ↑↓ · Enter · Esc, 마우스, 숫자 키, <b>게임패드</b>.</td>
+<td align="center" width="50%"><img src="docs/media/v11_photo.gif" width="400"><br><b>사진 모드</b><br>포즈(브이 · 손 흔들기 · 만세 · 갸웃 · 수줍게…) · 표정 · 프레임(폴라로이드 · 필름 · 하트 · 날짜 스탬프)을 고르면 미타가 미리 포즈를 잡고, 3 · 2 · 1 찰칵!</td>
+</tr>
+<tr>
+<td align="center"><img src="docs/media/v11_album.gif" width="400"><br><b>사진 앨범</b><br>같이 찍은 사진을 최신순으로 넘겨 보고, 미타가 한마디씩 합니다.</td>
+<td align="center"><img src="docs/media/v11_diary.jpg" width="400"><br><b>미타의 일기장</b><br>날마다 같이 한 일, 날씨, 그날의 기분을 미타 말투로 적어 둡니다.</td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="docs/media/v11_plant.jpg" width="820"><br><b>같이 키우는 화분</b> — 현실 날짜로 하루 한 번 같이 물을 주면 새싹에서 꽃까지 자랍니다. 사흘 잊으면 시들고 미타가 알려 줍니다.</td>
+</tr>
+<tr>
+<td align="center"><img src="docs/media/v11_motions.gif" width="260"><br><b>직접 만든 몸짓</b><br>끄덕 · 도리도리 · 갸웃 · 수줍음 · 손 흔들기 · 설명 · 만세. 대사에 맞춰(물음표면 갸웃, "네"면 끄덕) 합니다. 원작 클립 중 어색하던 것(허공을 가리키는 손 등)을 대신합니다.</td>
+<td align="center"><img src="docs/media/v11_records.jpg" width="300"><br><b>우리의 기록 · 기분</b><br>호감도, 처음 만난 날, 같이 보낸 시간, 사진 수… 미타의 <b>기분</b>(신남 · 좋음 · 보통 · 심심함)이 상태 카드에 보이고, 심심하면 먼저 놀자고 합니다.</td>
+</tr>
+<tr>
+<td align="center"><img src="docs/media/v11_settings.jpg" width="320"><br><b>게임 안 설정</b><br>상태 카드 · 미타 위치 표시 · 효과음 · 화면 크기 · 교감 키 · 시간 흐름 · 미타가 먼저 말 거는 빈도 · 언어(바로 바뀜) · 내 이름 · 생일 · AI 대화.</td>
+<td align="center"><img src="docs/media/v11_marker.jpg" width="360"><br><b>미타 위치 표시</b><br>미타가 한동안 안 보이면 화면 가장자리에 방향과 거리가 뜹니다.</td>
+</tr>
+</table>
+
+- **새 의상** — 미타의 **뱀파이어 의상 · 크리스마스 의상**(교감하기 › 옷 갈아입기). 다른 미타들도 옷 색을 바꿀 수 있습니다(하늘 · 분홍 · 민트 · 노랑 · 흑백).
+- **함께한 목표 17가지 · 미타의 편지** — 같이 지낸 날, 대화, 포옹, 선물, 놀이… 목표를 이룰 때마다 알림과 호감도, 전부 이루면 추억 › "미타의 편지".
+- **Gemini · ChatGPT** — AI 대화에 클라우드 API 프리셋 추가(내 API 키). 미타마다 원작 대사로 만든 성격 시트로 대답합니다.
+- **반응하는 몸짓 · 매끄러운 장면** — 쓰다듬기 · 칭찬 · 선물에 수줍음 · 기쁨 · 끄덕임으로 반응. 포옹 · 손 잡기 · 무릎베개 · 잠자리가 처음부터 끝까지 끊기지 않고, 미타가 미끄러지지 않고 걷습니다.
+- **AI 자유 대화 강화** — 미타가 대화에서 알게 된 것(이름, 좋아하는 것, 약속…)을 **기억**해 다음 대화에 씁니다. AI가 고른 몸짓(끄덕, 손 흔들기…)도 합니다. 서버 · 모델 · API 키를 게임 안에서 고르고 연결을 시험합니다.
+- **밤 이야기와 꿈** — 밤에만 나오는 속 깊은 대화 8가지, 자고 일어난 아침의 꿈 이야기.
+- **움직이는 UI** — 메뉴가 들어오고 나가는 방향, 고른 줄, 하트가 오를 때의 반짝임, 알림 등 작은 움직임과 조용한 효과음(설정에서 끔).
+- **고친 것** — 메뉴 · 시선 · 일과 걷기 중 미타가 T자 자세로 굳거나 엉뚱한 쪽으로 걸어가던 문제, 손 잡기 뒤 바짝 붙어 있던 위치 등.
+- 전체 변경 내역: [CHANGELOG.md](CHANGELOG.md) · 버그 제보와 아이디어는 [Issues](https://github.com/O3O-2022/MiSide-PeaceMode/issues/new/choose)로.
 
 ## 개요
 
@@ -28,7 +71,7 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 - 대사는 한국어 · 영어 · 일본어 · 중국어(간체)로 나옵니다. 한국어 대사는 게임 공식 번역의 캐릭터별 말투를 따르고, 게임 텍스트 자체는 수정하지 않습니다.
 - 아래 GIF는 모두 실제 게임에서 메뉴를 고르는 장면부터 찍은 것입니다.
 
-**목차** — [미타 선택](#미타-선택) · [대화하기](#대화하기) · [교감하기](#교감하기) · [선물하기](#선물하기) · [같이 놀자](#같이-놀자) · [캐피의 미니게임](#캐피의-미니게임) · [같이 다니자](#같이-다니자) · [특별한 시간](#특별한-시간) · [몸짓과 시선](#몸짓과-시선) · [집 안 물건 · 부탁 · 일기](#집-안-물건--부탁--일기) · [미타가 먼저](#미타가-먼저) · [호감도](#호감도) · [하루 일과](#하루-일과) · [소파](#소파) · [날씨와 계절](#날씨와-계절) · [현실 연동 이벤트](#현실-연동-이벤트) · [착한 미타의 본편 기억](#착한-미타의-본편-기억) · [언어](#언어) · [AI 자유 대화](#ai-자유-대화) · [설치](#설치) · [조작 · 설정](#조작--설정)
+**목차** — [미타 선택](#미타-선택) · [대화하기](#대화하기) · [교감하기](#교감하기) · [선물하기](#선물하기) · [같이 놀자](#같이-놀자) · [캐피의 미니게임](#캐피의-미니게임) · [같이 다니자](#같이-다니자) · [특별한 시간](#특별한-시간) · [몸짓과 시선](#몸짓과-시선) · [집 안 물건 · 부탁 · 일기](#집-안-물건--부탁--일기) · [미타가 먼저](#미타가-먼저) · [함께한 목표](#함께한-목표--미타의-편지) · [호감도](#호감도) · [하루 일과](#하루-일과) · [소파](#소파) · [날씨와 계절](#날씨와-계절) · [현실 연동 이벤트](#현실-연동-이벤트) · [착한 미타의 본편 기억](#착한-미타의-본편-기억) · [언어](#언어) · [AI 자유 대화](#ai-자유-대화) · [설치](#설치) · [조작 · 설정](#조작--설정)
 
 ---
 
@@ -67,7 +110,7 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 
 ## 교감 메뉴
 
-미타에게 가까이 가서 테두리가 표시되면 **E** 키로 메뉴를 엽니다. 메뉴는 원작 3장에서 미타와 대화할 때 나오는 선택지 목록이며, 숫자 키나 마우스로 고릅니다.
+미타에게 가까이 가서 테두리가 표시되면 **E** 키(패드는 Ⓐ)로 메뉴를 엽니다. 메뉴는 화면 왼쪽의 패널로, **↑↓ · Enter**, 마우스, 숫자 키로 고르고 **Esc**(패드 Ⓑ)로 한 단계 뒤로 갑니다. 메인 메뉴는 대화하기 · 교감하기 · 같이 놀자 · 함께 지내기 · 특별한 시간 · 추억 · 설정으로 나뉘고, 식사 시간 · 밤처럼 지금 할 수 있는 일은 금색으로 맨 위에 나옵니다.
 
 ### 대화하기
 
@@ -90,7 +133,7 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 </tr>
 <tr>
 <td align="center"><img src="docs/media/glasses.gif" width="250"><br><b>안경 써 줘</b><br>원작 3장의 미타 안경을 씌우고 벗깁니다(밀라 · 미니 미타 제외).</td>
-<td align="center"><img src="docs/media/clothes.gif" width="250"><br><b>옷 갈아입기</b><br>원조 미타만. 원작 '의상'의 교복 3색이고 다음 접속에도 유지됩니다.</td>
+<td align="center"><img src="docs/media/clothes.gif" width="250"><br><b>옷 갈아입기</b><br>원조 미타는 원작 '의상'의 교복 3색, 다른 미타들(미니 미타 빼고)은 옷 색 바꾸기(하늘색 · 분홍 · 민트 · 노랑 · 흑백). 다음 접속에도 유지됩니다.</td>
 <td align="center"><img src="docs/media/crazy_hold.gif" width="250"><br><b>손 잡기</b><br>미치광이 미타의 고유 행동. 백룸의 손 잡기 동작으로, 잡는 동안 시선이 미타에게 고정됩니다.</td>
 </tr>
 </table>
@@ -120,7 +163,7 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 <tr>
 <td align="center"><img src="docs/media/cham.gif" width="250"><br><b>참참참</b><br>"참!"에 미타가 고개를 돌린 쪽과 반대로 시점을 돌리면 피한 것. 세 판 중 두 번 피하면 승리.</td>
 <td align="center"><img src="docs/media/hide.gif" width="250"><br><b>숨바꼭질</b><br>화면이 어두워진 사이 미타가 집 어딘가에 숨습니다. 2분 30초 안에 찾아 가까이 가면 됩니다.</td>
-<td align="center"><img src="docs/media/photo.gif" width="250"><br><b>같이 사진 찍기</b><br>미타가 포즈를 잡고, 사진은 게임 폴더 <code>PeaceModePhotos/</code>에 저장됩니다.</td>
+<td align="center"><img src="docs/media/photo.gif" width="250"><br><b>같이 사진 찍기</b><br>포즈 · 표정 · 프레임을 고르면 3 · 2 · 1 뒤에 찍습니다. 사진은 게임 폴더 <code>PeaceModePhotos/</code>에 저장되고 <b>추억 › 사진 앨범</b>에서 볼 수 있습니다.</td>
 </tr>
 <tr>
 <td align="center"><img src="docs/media/cards.gif" width="250"><br><b>카드 게임</b><br>침실 테이블의 원작 4장 카드 게임 그대로. 몇 번이든 다시 할 수 있고, 테이블에는 고른 미타가 앉습니다.</td>
@@ -205,6 +248,14 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 </table>
 
 - 호감도가 높으면 더 자주 묻고, 사이가 나쁘면 묻지 않습니다. 다른 방에 있다가 미타가 찾아왔을 때도 제안을 들고 오는 일이 많습니다.
+
+---
+
+## 함께한 목표 · 미타의 편지
+
+- **추억 › 함께한 목표**에 미타마다 목표 17가지(미니 미타는 16가지)가 있습니다: 같이 지낸 지 7 · 30일, 7일 연속 접속, 이야기 50번, 쓰다듬기 30번, 안아 주기 20번, 선물 10개, 사진 20장, 화분에 꽃 피우기, 같이 밥 먹기 · 요리 · 음악, 집 안 물건 다 구경하기, 옷 갈아입히기, 놀이 5가지, 가위바위보 10승, 호감도 '사랑'.
+- 목표를 이루면 알림과 함께 호감도가 오르고, **모두 이루면 추억 메뉴에 미타의 편지**가 생깁니다. 미타마다 자기 말투로 쓴 편지를 직접 읽어 줍니다.
+- 진행은 미타마다 따로 저장됩니다.
 
 ---
 
@@ -295,7 +346,7 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 - **접속 간격** — 마지막 접속으로부터 지난 시간(몇 분 / 몇 시간 / 하루 / 며칠 / 일주일 이상)과 접속 시각(새벽 · 이른 아침)에 따라 첫인사가 달라집니다.
 - **플레이 중 행동** — Alt+Tab 후 복귀, 자리 비움(4분), 스크린샷 키(F12 · PrtSc), 창 모드 · 크기 변경, ESC 일시 정지 · 사진 모드, 소리 끄기, 미타를 오래 쳐다보기, 휴대용 게임기 꺼내기.
 - **현실 시간** — 연속 플레이 1 · 2 · 3시간, 실제 새벽 시간대, 게임 시간과 실제 시간의 낮 · 밤이 반대일 때, 연속 접속 일수, 누적 접속 횟수, 누적 플레이 시간.
-- **현실 날짜** — 1/1, 2/14, 3/14, 4/1, 10/31, 11/11, 12/11(MiSide 출시일), 12/24, 12/25, 12/31.
+- **현실 날짜** — 1/1, 2/14, 3/14, 4/1, 10/31, 11/11, 12/11(MiSide 출시일), 12/24, 12/25, 12/31, 그리고 한국어로 할 때 설날 · 추석(2026~2030년).
 - **게임 종료 메뉴** — 교감 메뉴의 "오늘은 여기까지…" → "게임 종료"를 고르면 미타가 손을 흔들며 인사한 뒤 게임이 종료됩니다.
 
 ---
@@ -327,12 +378,14 @@ MiSide (AIHASTO) 0.93L용 BepInEx 6 IL2CPP 플러그인<br>
 
 ## AI 자유 대화
 
-대화하기 → **자유롭게 말하기**를 고르면 화면 아래 입력창에 미타에게 할 말을 직접 쓸 수 있습니다(한글 입력 가능, Enter로 보내기, 빈 칸 Enter나 Esc로 끝내기). 대답은 **내 PC에서 돌아가는 AI 모델**이 미타가 되어 만듭니다. 인터넷 서비스는 쓰지 않습니다.
+대화하기 → **자유롭게 말하기**를 고르면 화면 아래 입력창에 미타에게 할 말을 직접 쓸 수 있습니다(한글 입력 가능, Enter로 보내기, 빈 칸 Enter나 Esc로 끝내기). 대답은 AI 모델이 미타가 되어 만듭니다. **AI 없이도 모드의 모든 콘텐츠는 그대로 즐길 수 있고**, 이 기능은 원할 때만 켭니다(기본 꺼짐).
 
-- 미타마다 성격 · 말투 · 원작 설정을 적은 캐릭터 시트가 있고, 지금 시각 · 호감도 · 미타가 하고 있는 일 · 오늘 같이 한 일도 함께 알려 줍니다.
-- 대답 앞의 표정 태그로 미타의 표정이 바뀝니다. 최근 대화 40개를 미타별로 기억합니다(`BepInEx/config/MiSidePeaceMode_<미타>.chat.txt`).
-- 필요한 것: OpenAI 방식 채팅 API를 제공하는 로컬 AI 서버(Ollama, llama.cpp 서버, LM Studio 등)와 대화할 언어를 잘하는 모델. 설정 파일 `BepInEx/config/kr.miside.peacemode.cfg`의 `[AiChat]`에서 `Enabled = true`, `Endpoint`, `Model`을 맞춥니다.
-- 서버가 없거나 응답이 없으면 미타가 "머리가 멍하다"고 하고 대화가 닫힙니다.
+- **설정 › AI 대화**에서 켜고, 서버(**Gemini** · **ChatGPT** · Ollama · LM Studio · llama.cpp · OpenRouter)와 모델(서버의 모델 목록에서 고름), 필요하면 API 키를 넣고 **연결 시험**으로 확인합니다. 내 PC의 로컬 서버를 쓰면 대화가 PC 밖으로 나가지 않습니다.
+- **Gemini**: [Google AI Studio](https://aistudio.google.com/apikey)에서 API 키를 만들어 붙여 넣습니다(기본 모델 `gemini-2.5-flash`). **ChatGPT**: [OpenAI 플랫폼](https://platform.openai.com/api-keys)의 API 키(기본 모델 `gpt-5-mini`, 사용량만큼 요금이 나옵니다). 키는 이 PC의 설정 파일(`BepInEx/config`)에만 저장되고, 클라우드 서버를 고르면 대화 내용이 그 회사로 보내집니다.
+- 미타마다 **원작 대사를 분석해 만든** 캐릭터 시트(정체, 성격, 말투, 좋아하는 것, 하지 않는 말, 원작 실제 대사 예시)가 있고, 지금 시각 · 호감도 · 미타가 하고 있는 일 · 오늘 같이 한 일도 함께 알려 줍니다.
+- **기억** — 대화가 끝나면 플레이어에 대해 알게 된 것을 12줄 이내로 정리해 미타별로 저장하고(`BepInEx/config/MiSidePeaceMode_<미타>.memory.txt`), 다음 대화에 씁니다. 설정 › AI 대화 › 기억 지우기로 지웁니다.
+- 대답의 표정 태그로 표정이, 몸짓 태그([nod] [wave] [shy]…)로 미타의 몸짓이 바뀝니다. 생각하는 모델(gemma4 · qwen3 등)은 생각을 끄고 바로 대답하게 합니다.
+- 게임과 같이 돌리면 그래픽카드를 나눠 쓰므로 **작은 모델(4B 안팎)** 이 빠릅니다. 서버가 없거나 응답이 없으면 미타가 "머리가 멍하다"고 하고 대화가 닫힙니다.
 
 ---
 
@@ -382,22 +435,28 @@ powershell -ExecutionPolicy Bypass -File deploy.ps1
 
 ## 조작 · 설정
 
-| 키 | 동작 |
-|---|---|
-| **E** | 미타 가까이에서 교감 메뉴 열기 |
-| **1~9**, **0** / 마우스 | 메뉴 선택 (10번째 항목은 0) |
-| **E** / **ESC** / 우클릭 | 메뉴 닫기 |
-| 메뉴 → 오늘은 여기까지… | 메인 메뉴로 / 게임 종료 |
+| 키보드 · 마우스 | 게임패드 | 동작 |
+|---|---|---|
+| **E** | Ⓐ / Start | 미타 가까이에서 교감 메뉴 열기 (교감 키는 설정에서 바꿀 수 있음) |
+| **↑↓** · 휠 · 마우스 | 십자키 · 왼쪽 스틱 | 메뉴 이동 |
+| **Enter** · **Space** · 클릭 · **1~9, 0** | Ⓐ | 고르기 |
+| **Esc** · 우클릭 · **E** | Ⓑ | 한 단계 뒤로 / 닫기 |
+| **← →** · 휠 | LB · RB | 앨범 · 일기장 넘기기 |
+| 메뉴 → 오늘은 여기까지… | | 메인 메뉴로 / 게임 종료 |
 
 미타의 대사는 분홍색으로 미타 옆에, 플레이어(나)의 대사는 **흰색으로 화면 아래쪽**에 나옵니다.
 
-설정 파일 `BepInEx/config/kr.miside.peacemode.cfg`
+대부분은 게임 안 **설정** 메뉴에서 바꿉니다. 같은 값이 설정 파일 `BepInEx/config/kr.miside.peacemode.cfg`에도 있습니다.
 
 | 항목 | 설명 |
 |---|---|
 | `InteractKey` | 교감 키 (기본 E) |
 | `TimeScale` | 게임 시간 흐름 속도 (1 = 현실 1초에 게임 1분) |
-| `ShowHud` | 화면 오른쪽 위 상태 표시 (일차 · 시간 · 호감도) |
+| `ShowHud` | 화면 오른쪽 위 상태 카드 (일차 · 시간 · 기분 · 호감도) |
+| `MitaMarker` | 미타가 안 보일 때 위치 표시 |
+| `UiSounds` | 메뉴 효과음 |
+| `UiScale` | 화면(메뉴 · 카드) 크기 배율 0.85 ~ 1.3 |
+| `IdleTalkInterval` | 미타가 먼저 말 거는 간격의 배수 (0.6 자주 · 1 보통 · 1.8 가끔) |
 | `PlayerName` | 미타가 부르는 이름. 비워 두면 1장에서 입력한 이름, 없으면 '플레이어' |
 | `Birthday` | 내 생일 `MM-dd` (예: `03-14`). 그날 미타가 축하해 줍니다. 비워 두면 없음 |
 | `Language` | `auto`(게임 언어를 따름), `ko`, `en`, `ja`, `zh` |
@@ -410,7 +469,7 @@ powershell -ExecutionPolicy Bypass -File deploy.ps1
 
 ## English · 日本語 · 中文
 
-**English** — A BepInEx 6 (IL2CPP) plugin for MiSide 0.93L. The main menu's "Peaceful Mode" button starts a day with one of seven Mitas without the horror: talking, touches, gifts, games, meals, the sofa, music and sleep, with animations borrowed from across the story, ten steps of affection that also go down, and reactions to what you do outside the game (Alt+F4, being away, the real date, your laptop's battery). Kind Mita remembers how far you got in the main story. The mod's lines and menus follow the game language (Korean, English, Japanese, Simplified Chinese), or set `Language` in `BepInEx/config/kr.miside.peacemode.cfg`. 
+**English** — A BepInEx 6 (IL2CPP) plugin for MiSide 0.93L. The main menu's "Peaceful Mode" button starts a day with one of seven Mitas without the horror: talking, touches, gifts, games, meals, the sofa, music and sleep, with animations borrowed from across the story, ten steps of affection that also go down, and reactions to what you do outside the game (Alt+F4, being away, the real date, your laptop's battery). Kind Mita remembers how far you got in the main story. **New in v1.1:** a new menu (sub-menus, back, gamepad), in-game settings, a photo mode with poses and frames and a photo album, Mita's diary, a plant to raise together, her mood, motions made for the mod (nod, wave, head tilt…), a marker that shows where she is, an AI chat that remembers you (now also with Gemini or ChatGPT), Vampire and Christmas outfits for Mita and outfit colours for the other Mitas, 17 goals to reach together with a letter from Mita at the end, and gestures when you pat, compliment or give her a gift. The mod's lines and menus follow the game language (Korean, English, Japanese, Simplified Chinese), or set `Language` in `BepInEx/config/kr.miside.peacemode.cfg`. 
 
 **Install (English)** — download **`MiSidePeaceMode-Setup-vX.Y.Z.exe`** from [Releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) and run it. It finds the game folder, downloads BepInEx (the mod loader) from BepInEx's own release page if it is missing, copies the mod in, and can start the game. The installer speaks Korean, English, Japanese, Simplified and Traditional Chinese, Russian, Spanish, Portuguese, German and French. It is not code-signed, so Windows SmartScreen may ask: "More info" → "Run anyway". The first start after BepInEx goes in takes a few minutes. Start the game with the installer's button, the desktop shortcut or `MiSide Peace Mode.bat` in the game folder (started straight from Steam, the overlay can keep the mod loader from starting).<br>
 By hand instead: 1) extract [BepInEx 6 IL2CPP pre.2](https://github.com/BepInEx/BepInEx/releases/tag/v6.0.0-pre.2) into the game folder and start the game once; 2) extract `MiSidePeaceMode-vX.Y.Z.zip` from Releases into the same folder; 3) start the game with `MiSide Peace Mode.bat`.
@@ -451,5 +510,7 @@ By hand instead: 1) extract [BepInEx 6 IL2CPP pre.2](https://github.com/BepInEx/
 - [x] 착한 미타의 본편 기억
 - [x] 스토리 미니게임 재활용: 원작 3장의 당근 썰기 · 식탁 세트, 4장의 카드 게임 · TV 게임기, 7장의 댄스 배틀 · 망치 게임
 - [x] 한국어 · 영어 · 일본어 · 중국어
+- [x] v1.1: 새 메뉴 · 게임 안 설정 · 사진 모드와 앨범 · 일기장 · 화분 · 기분 · 직접 만든 몸짓 · 미타 위치 표시 · 게임패드 · AI 기억
 - [ ] 러시아어 · 우크라이나어 · 독일어 · 프랑스어 등 나머지 언어 (각 170문장만 돼 있음)
-- [ ] 다른 미타들의 옷 갈아입기, 설정 UI, 사진 앨범
+- [x] 다른 미타들의 옷 갈아입기(옷 색), 함께한 목표와 미타의 편지, 설날 · 추석
+- [ ] 음성(TTS)

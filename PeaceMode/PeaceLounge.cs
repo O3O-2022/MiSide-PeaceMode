@@ -155,7 +155,7 @@ namespace MiSidePeaceMode
                     loungeRoot = null; loungeSit = loungeStand = null;
                     lounging = false;
                     FaceHer();
-                    afterFade = CheckMilestones;
+                    CheckMilestones();
                 });
             };
         }

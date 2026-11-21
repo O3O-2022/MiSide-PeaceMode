@@ -18,6 +18,10 @@ namespace MiSidePeaceMode
         {
             if (todayOf != S.Day) { todayOf = S.Day; doneToday.Clear(); askedToday.Clear(); }
             doneToday.Add(what);
+            DiaryNote(what);
+            MoodUp(what);
+            if (!string.IsNullOrEmpty(what)) S.Ever.Add(what);
+            try { CheckGoals(); } catch (Exception e) { Plugin.Log.LogWarning("[goals] " + e.Message); }
         }
 
         void OpenTalkMenu()
@@ -25,6 +29,7 @@ namespace MiSidePeaceMode
             var opts = new List<string> { "아무 이야기나", "질문하기" };
             var acts = new List<Action> { DoTalk, OpenQuestions };
             if (PeaceMode.AiEnabled.Value) { opts.Add("자유롭게 말하기"); acts.Add(OpenChat); }
+            if (IsNight()) { opts.Insert(0, "밤 이야기"); acts.Insert(0, DoNightTalk); }
             opts.Add("그만두기"); acts.Add(() => { });
             ShowMenu("대화하기", opts, acts);
         }
@@ -78,6 +83,7 @@ namespace MiSidePeaceMode
             ("lap", "무릎베개도 했고", "무릎베개도 했어요"),
             ("song", "노래도 불러 줬고", "노래도 불러 줬어요"),
             ("heart", "속마음도 나눴고", "속마음도 나눴어요"),
+            ("plant", "화분에 물을 줬고", "화분에 물을 줬어요"),
         };
 
         List<Line> Diary()

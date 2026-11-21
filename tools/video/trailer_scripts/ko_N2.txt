@@ -1,0 +1,76 @@
+name
+screen 960 540
+avframe 0.15
+peaceset kind affection=60
+peaceset kind lastTier=8
+wait 34
+peace kind
+waitready 240
+wait 3
+calm
+musicoff
+freeplayer
+greet
+waitidle 90
+waitimports 400
+wait 5
+peacetime 15:00
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+color off
+wait 1
+after 1.0 color blue
+after 2.2 color pink
+after 3.4 color mint
+after 4.6 color mono
+recordav ko_v11_color_kind 6 60 3840 2160
+color off
+wait 1
+persona cap
+peacetime 15:00
+wait 3
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+color off
+wait 1
+after 0.9 color pink
+after 2.0 color blue
+recordav ko_v11_color_cap 3.2 60 3840 2160
+color off
+wait 1
+persona mila
+peacetime 15:00
+wait 3
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+color off
+wait 1
+after 0.9 color pink
+after 2.0 color blue
+recordav ko_v11_color_mila 3.2 60 3840 2160
+color off
+wait 1
+persona short
+peacetime 15:00
+wait 3
+peacetime 15:00
+showcase 10.6 2.2 9.25 1.65 Kitchen
+reidle
+wait 2
+color off
+wait 1
+after 0.9 color pink
+after 2.0 color blue
+recordav ko_v11_color_short 3.2 60 3840 2160
+color off
+wait 1
+wait 2
+screen native
+wait 2
+quit

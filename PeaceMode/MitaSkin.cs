@@ -181,6 +181,20 @@ namespace MiSidePeaceMode
                     skin.hipsScale = Mathf.Abs(bs.pos.y) > 0.0001f ? bd.pos.y / bs.pos.y : 1f;
                 }
             }
+#if DEVTOOLS
+            {
+                var armInfo = new List<string>();
+                foreach (var t in inst.GetComponentsInChildren<Transform>(true))
+                {
+                    if (!boneSet.Contains(t.Pointer)) continue;
+                    var ln = t.name.ToLowerInvariant();
+                    if (!(ln.Contains("arm") || ln.Contains("shoulder") || ln.Contains("hand") || ln.Contains("elbow") || ln.Contains("spine") || ln.Contains("chest"))) continue;
+                    string st = physicsBones.Contains(t.name) ? "PHYS" : !mitaMap.ContainsKey(t.name) ? "NOSRC" : (bindSrc.ContainsKey(mitaMap[t.name].Pointer) && bindDst.ContainsKey(t.Pointer)) ? "ok" : "NOBIND";
+                    armInfo.Add(t.name + ":" + st);
+                }
+                Plugin.Log.LogInfo($"[skin] {path}: arm bones: {string.Join(", ", armInfo)}");
+            }
+#endif
             // a different rig (Chibi): keep playing the model's own animations instead of mirroring Mita
             if (nameMatches < boneSet.Count * 0.3f)
             {

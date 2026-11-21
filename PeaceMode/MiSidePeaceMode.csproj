@@ -12,6 +12,10 @@
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <NoWarn>$(NoWarn);CS1701;CS1702;MSB3277;CS0436</NoWarn>
     <GameDir Condition="'$(GameDir)' == ''">D:\Steam\steamapps\common\MiSide</GameDir>
+    <!-- the dev tools (script runner, recorders, audio tap, trace hooks): in local builds, not in releases
+         (dotnet build -p:PeaceDev=false; an antivirus took a build carrying screen/audio capture + dumps for a RAT) -->
+    <PeaceDev Condition="'$(PeaceDev)' == ''">true</PeaceDev>
+    <DefineConstants Condition="'$(PeaceDev)' == 'true'">$(DefineConstants);DEVTOOLS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="$(GameDir)\dotnet\System.Private.CoreLib.dll" Private="false" />
