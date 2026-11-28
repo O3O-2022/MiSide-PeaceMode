@@ -12,7 +12,7 @@
 
 > **AIHASTO公式の「ピースフル・モード」ではなく、ファンが作った非公式MODです.** MiSide © AIHASTO.
 
-**⬇ ダウンロードとインストール（無料・インストーラー付き）** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ ダウンロードとインストール（無料・インストーラー付き）** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: 日本語)
 

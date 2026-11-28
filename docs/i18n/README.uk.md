@@ -12,7 +12,7 @@
 
 > **Це не офіційний «Мирний режим» від AIHASTO, а неофіційний мод, зроблений фанатом.** MiSide © AIHASTO.
 
-**⬇ Завантажити та встановити (безкоштовно, є інсталятор)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ Завантажити та встановити (безкоштовно, є інсталятор)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Українська)
 

@@ -14,7 +14,7 @@
 
 > **این «حالت صلح آمیز» رسمی AIHASTO نیست؛ یک ماد غیررسمی است که یک طرفدار ساخته.** MiSide © AIHASTO.
 
-**⬇ دانلود و نصب (رایگان، همراه با نصب‌کننده)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ دانلود و نصب (رایگان، همراه با نصب‌کننده)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: فارسی)
 

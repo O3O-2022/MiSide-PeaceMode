@@ -14,7 +14,7 @@
 
 > **هذا ليس «الوضع المسالم» الرسمي من AIHASTO، بل تعديل غير رسمي صنعه أحد المعجبين.** MiSide © AIHASTO.
 
-**⬇ التنزيل والتثبيت (مجانًا، مع برنامج تثبيت)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ التنزيل والتثبيت (مجانًا، مع برنامج تثبيت)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: العربية)
 

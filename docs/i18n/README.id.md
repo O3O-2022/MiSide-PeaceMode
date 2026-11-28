@@ -12,7 +12,7 @@
 
 > **Ini bukan “Mode Damai” resmi dari AIHASTO, melainkan mod tidak resmi buatan penggemar.** MiSide © AIHASTO.
 
-**⬇ Unduh dan pasang (gratis, dengan penginstal)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ Unduh dan pasang (gratis, dengan penginstal)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Bahasa Indonesia)
 

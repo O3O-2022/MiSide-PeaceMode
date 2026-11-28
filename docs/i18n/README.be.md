@@ -12,7 +12,7 @@
 
 > **Гэта не афіцыйны «Мірны рэжым» ад AIHASTO, а неафіцыйны мод, зроблены фанатам.** MiSide © AIHASTO.
 
-**⬇ Спампаваць і ўсталяваць (бясплатна, ёсць усталёўшчык)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ Спампаваць і ўсталяваць (бясплатна, ёсць усталёўшчык)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Беларуская)
 

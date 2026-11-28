@@ -232,7 +232,7 @@ def page(lang):
     ]
     body = [
         f"> **{tr['notofficial']}.** MiSide © AIHASTO.", "",
-        f"**{DOWNLOAD[lang]}** — [{REPO_URL.replace('https://', '')}/releases]({REL})", "",
+        f"**{DOWNLOAD[lang]}** — [{REPO_URL.replace('https://', '')}/releases]({REL}) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)", "",
         f"**▶ YouTube** — [{VIDEO.replace('https://', '')}]({VIDEO}) (CC: {name})", "",
         intro, "",
         f"## {NEW11[lang][0]}", "",

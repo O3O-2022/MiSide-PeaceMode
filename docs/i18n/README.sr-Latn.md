@@ -12,7 +12,7 @@
 
 > **Ovo nije zvanični „Mirni mod“ studija AIHASTO, već nezvanični mod koji je napravio fan.** MiSide © AIHASTO.
 
-**⬇ Preuzimanje i instalacija (besplatno, sa instalerom)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ Preuzimanje i instalacija (besplatno, sa instalerom)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Srpski)
 

@@ -12,7 +12,7 @@
 
 > **Бұл AIHASTO-ның ресми «Бейбітшіл тәртібі» емес, жанкүйер жасаған бейресми мод.** MiSide © AIHASTO.
 
-**⬇ Жүктеп алу және орнату (тегін, орнатқышы бар)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ Жүктеп алу және орнату (тегін, орнатқышы бар)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Қазақша)
 

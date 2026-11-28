@@ -12,7 +12,7 @@
 
 > **Đây không phải “Chế Độ Bình Yên” chính thức của AIHASTO mà là bản mod không chính thức do người hâm mộ làm.** MiSide © AIHASTO.
 
-**⬇ Tải về và cài đặt (miễn phí, có trình cài đặt)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ Tải về và cài đặt (miễn phí, có trình cài đặt)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Tiếng Việt)
 

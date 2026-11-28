@@ -12,7 +12,7 @@
 
 > **這不是AIHASTO官方的「和平模式」，而是粉絲製作的非官方模組.** MiSide © AIHASTO.
 
-**⬇ 下載與安裝（免費，附安裝程式）** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ 下載與安裝（免費，附安裝程式）** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: 繁體中文)
 

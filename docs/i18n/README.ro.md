@@ -12,7 +12,7 @@
 
 > **Acesta nu este „Modul pacifist” oficial de la AIHASTO, ci un mod neoficial făcut de un fan.** MiSide © AIHASTO.
 
-**⬇ Descarcă și instalează (gratuit, cu program de instalare)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ Descarcă și instalează (gratuit, cu program de instalare)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Română)
 

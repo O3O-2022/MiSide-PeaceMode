@@ -12,7 +12,7 @@
 
 > **Não é o «Modo Pacífico» oficial da AIHASTO, mas sim um mod não oficial criado por um fã.** MiSide © AIHASTO.
 
-**⬇ Descarregar e instalar (grátis, com instalador)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ Descarregar e instalar (grátis, com instalador)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Português (Portugal))
 

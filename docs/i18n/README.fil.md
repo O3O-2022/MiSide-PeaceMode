@@ -12,7 +12,7 @@
 
 > **Hindi ito ang opisyal na “Bebe Taym” ng AIHASTO, kundi isang hindi opisyal na mod na gawa ng fan.** MiSide © AIHASTO.
 
-**⬇ I-download at i-install (libre, may kasamang installer)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ I-download at i-install (libre, may kasamang installer)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: Filipino)
 

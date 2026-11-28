@@ -12,7 +12,7 @@
 
 > **นี่ไม่ใช่ “โหมดสงบสุข” อย่างเป็นทางการของ AIHASTO แต่เป็นม็อดไม่เป็นทางการที่แฟนทำขึ้นเอง.** MiSide © AIHASTO.
 
-**⬇ ดาวน์โหลดและติดตั้ง (ฟรี มีตัวติดตั้งให้)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest)
+**⬇ ดาวน์โหลดและติดตั้ง (ฟรี มีตัวติดตั้งให้)** — [github.com/O3O-2022/MiSide-PeaceMode/releases](https://github.com/O3O-2022/MiSide-PeaceMode/releases/latest) · [Nexus Mods](https://www.nexusmods.com/miside/mods/809)
 
 **▶ YouTube** — [youtu.be/5HQ9LPRP9j4](https://youtu.be/5HQ9LPRP9j4) (CC: ไทย)
 
